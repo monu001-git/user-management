@@ -53,6 +53,11 @@
                         @else
                         <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+
+                        <li><a class="nav-link" href="{{ route('menu.index') }}">Manage Menu</a></li>
+                        <li><a class="nav-link" href="{{ route('banner.index') }}">Manage Banner</a></li>
+                        <li><a class="nav-link" href="{{ route('org.index') }}">Manage Org Details</a></li>
+                        <li><a class="nav-link" href="{{ route('content.index') }}">Manage content</a></li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
