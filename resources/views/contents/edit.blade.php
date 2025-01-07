@@ -4,10 +4,10 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Edit Role</h2>
+            <h2>Edit content</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('roles.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+            <a class="btn btn-primary btn-sm mb-2" href="{{ route('contents.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
         </div>
     </div>
 </div>
@@ -23,19 +23,19 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('roles.update', $role->id) }}">
+<form method="POST" action="{{ route('contents.update', $content->id) }}">
     @csrf
     @method('PUT')
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $role->name }}">
+                <strong>Title:</strong>
+                <input type="text" name="title" placeholder="Name" class="form-control" value="{{ $content->title }}">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <strong>Permission:</strong>
                 <br/>
                 @foreach($permission as $value)
@@ -43,7 +43,7 @@
                     {{ $value->name }}</label>
                 <br/>
                 @endforeach
-            </div>
+            </div> --}}
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i> Submit</button>

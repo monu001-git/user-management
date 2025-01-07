@@ -1,5 +1,5 @@
 <?php
-    
+
 namespace App\Http\Controllers;
 
 
@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 use DB;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-    
+
 class RoleController extends Controller
 {
     /**
@@ -20,12 +20,12 @@ class RoleController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:role-create', ['only' => ['create','store']]);
-         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -33,10 +33,21 @@ class RoleController extends Controller
      */
     public function index(Request $request): View
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        try {
+            $roles = Role::orderBy('id', 'DESC')->paginate(5);
+            return view('roles.index', compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,10 +55,21 @@ class RoleController extends Controller
      */
     public function create(): View
     {
-        $permission = Permission::get();
-        return view('roles.create',compact('permission'));
+        try {
+            $permission = Permission::get();
+            return view('roles.create', compact('permission'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -56,21 +78,34 @@ class RoleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required|unique:roles,name',
+                'permission' => 'required',
+            ]);
 
-        $permissionsID = array_map(
-            function($value) { return (int)$value; },
-            $request->input('permission')
-        );
-    
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($permissionsID);
-    
-        return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+            $permissionsID = array_map(
+                function ($value) {
+                    return (int)$value;
+                },
+                $request->input('permission')
+            );
+
+            $role = Role::create(['name' => $request->input('name')]);
+            $role->syncPermissions($permissionsID);
+
+            return redirect()->route('roles.index')
+                ->with('success', 'Role created successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
     /**
      * Display the specified resource.
@@ -80,14 +115,25 @@ class RoleController extends Controller
      */
     public function show($id): View
     {
-        $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
-    
-        return view('roles.show',compact('role','rolePermissions'));
+        try {
+            $role = Role::find($id);
+            $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
+                ->where("role_has_permissions.role_id", $id)
+                ->get();
+
+            return view('roles.show', compact('role', 'rolePermissions'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -96,15 +142,26 @@ class RoleController extends Controller
      */
     public function edit($id): View
     {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
-            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
-            ->all();
-    
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+        try {
+            $role = Role::find($id);
+            $permission = Permission::get();
+            $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
+                ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+                ->all();
+
+            return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -114,24 +171,37 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
-        ]);
-    
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'permission' => 'required',
+            ]);
 
-        $permissionsID = array_map(
-            function($value) { return (int)$value; },
-            $request->input('permission')
-        );
-    
-        $role->syncPermissions($permissionsID);
-    
-        return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+            $role = Role::find($id);
+            $role->name = $request->input('name');
+            $role->save();
+
+            $permissionsID = array_map(
+                function ($value) {
+                    return (int)$value;
+                },
+                $request->input('permission')
+            );
+
+            $role->syncPermissions($permissionsID);
+
+            return redirect()->route('roles.index')
+                ->with('success', 'Role updated successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
     /**
      * Remove the specified resource from storage.
@@ -141,8 +211,19 @@ class RoleController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+        try {
+            DB::table("roles")->where('id', $id)->delete();
+            return redirect()->route('roles.index')
+                ->with('success', 'Role deleted successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 }

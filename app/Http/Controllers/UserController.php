@@ -17,10 +17,10 @@ class UserController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -30,10 +30,21 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = User::orderBy('id', 'asc')->get();
+        try {
 
-        return view('users.index', compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            $data = User::orderBy('id', 'asc')->get();
+            return view('users.index', compact('data'))
+                ->with('i', ($request->input('page', 1) - 1) * 5);
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -43,9 +54,20 @@ class UserController extends Controller
      */
     public function create(): View
     {
-        $roles = Role::pluck('name', 'name')->all();
+        try {
+            $roles = Role::pluck('name', 'name')->all();
 
-        return view('users.create', compact('roles'));
+            return view('users.create', compact('roles'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -56,21 +78,32 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|same:confirm-password',
+                'roles' => 'required'
+            ]);
 
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
+            $input = $request->all();
+            $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+            $user = User::create($input);
+            $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+            return redirect()->route('users.index')
+                ->with('success', 'User created successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -81,9 +114,20 @@ class UserController extends Controller
      */
     public function show($id): View
     {
-        $user = User::find($id);
+        try {
+            $user = User::find($id);
 
-        return view('users.show', compact('user'));
+            return view('users.show', compact('user'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -94,11 +138,22 @@ class UserController extends Controller
      */
     public function edit($id): View
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        try {
+            $user = User::find($id);
+            $roles = Role::pluck('name', 'name')->all();
+            $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('users.edit', compact('user', 'roles', 'userRole'));
+            return view('users.edit', compact('user', 'roles', 'userRole'));
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -110,28 +165,39 @@ class UserController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'password' => 'same:confirm-password',
+                'roles' => 'required'
+            ]);
 
-        $input = $request->all();
-        if (!empty($input['password'])) {
-            $input['password'] = Hash::make($input['password']);
-        } else {
-            $input = Arr::except($input, array('password'));
+            $input = $request->all();
+            if (!empty($input['password'])) {
+                $input['password'] = Hash::make($input['password']);
+            } else {
+                $input = Arr::except($input, array('password'));
+            }
+
+            $user = User::find($id);
+            $user->update($input);
+            DB::table('model_has_roles')->where('model_id', $id)->delete();
+
+            $user->assignRole($request->input('roles'));
+
+            return redirect()->route('users.index')
+                ->with('success', 'User updated successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
-
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-        $user->assignRole($request->input('roles'));
-
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully');
     }
 
     /**
@@ -142,8 +208,19 @@ class UserController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+        try {
+            User::find($id)->delete();
+            return redirect()->route('users.index')
+                ->with('success', 'User deleted successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 }

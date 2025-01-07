@@ -10,6 +10,11 @@ class content extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'tilte',
+    ];
+
+
     public function imageContents()
     {
         return $this->hasMany(ImageContent::class);

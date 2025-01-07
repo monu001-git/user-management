@@ -21,4 +21,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('banners', bannerController::class);
+    Route::resource('menus', menuController::class);
+    Route::resource('orgs', orgController::class);
+    Route::resource('contents', contentController::class);
 });

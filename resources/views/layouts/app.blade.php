@@ -23,7 +23,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    User Roles and Permissions
+                    Admin Panel
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -54,10 +54,10 @@
                         <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
 
-                        <li><a class="nav-link" href="{{ route('menu.index') }}">Manage Menu</a></li>
-                        <li><a class="nav-link" href="{{ route('banner.index') }}">Manage Banner</a></li>
-                        <li><a class="nav-link" href="{{ route('org.index') }}">Manage Org Details</a></li>
-                        <li><a class="nav-link" href="{{ route('content.index') }}">Manage content</a></li>
+                        <li><a class="nav-link" href="{{ route('menus.index') }}">Manage Menu</a></li>
+                        <li><a class="nav-link" href="{{ route('banners.index') }}">Manage Banner</a></li>
+                        <li><a class="nav-link" href="{{ route('orgs.index') }}">Manage Org Details</a></li>
+                        <li><a class="nav-link" href="{{ route('contents.index') }}">Manage content</a></li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
