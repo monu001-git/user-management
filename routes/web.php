@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\categoryController;
-use App\Http\Controllers\subCategoryController;
+use App\Http\Controllers\bannerController;
+use App\Http\Controllers\contentController;
+use App\Http\Controllers\menuController;
+use App\Http\Controllers\orgController;
+
 use App\Http\Controllers\mainController;
 
 Route::get('/',[mainController::class,'home']);
