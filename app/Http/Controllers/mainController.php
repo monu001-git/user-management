@@ -11,14 +11,7 @@ class mainController extends Controller
 {
     public function home()
     {
-        $data = Category::get();
 
-        $items = [];
-        foreach ($data as $category) {
-            $subCategories = SubCategory::where('category_id', $category->id)->orderBy('id', 'asc')->get();
-            $items[$category->name] = $subCategories;
-        }
-
-        return view('welcome', compact('items'));
+        return view('front.welcome');
     }
 }
