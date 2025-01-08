@@ -76,8 +76,8 @@ class orgController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-          
 
+        try {
             // $this->validate($request, [
             //     'name' => 'required',
             //     'email' => 'required|email|unique:users,email',
