@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->text('descriptions');
+            $table->text('meta_title');
+            $table->text('meta_description');
+            $table->text('meta_keyword');
             $table->string('status')->default(0);
-            $table->string('order')->nullable();
             $table->string('image');
             $table->timestamps();
         });

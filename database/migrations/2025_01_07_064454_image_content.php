@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('imageTitle');
             $table->string('imageAlt');
-            $table->string('imageFile');
+            $table->string('image');
             $table->foreignId('content_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -23,28 +23,92 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('orgs.update', $org->id) }}">
+<form method="POST" action="{{ route('orgs.update',dEncrypt($org->id)) }}">
     @csrf
     @method('PUT')
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+               <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $org->name }}">
+                <input type="text" name="name" placeholder="Name" value="{{ $org->name }}" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>email:</strong>
+                <input type="email" name="email" placeholder="email"  value="{{ $org->email }}" class="form-control">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                {{-- <strong>Permission:</strong>
-                <br/>
-                @foreach($permission as $value)
-                    <label><input type="checkbox" name="permission[{{$value->id}}]" value="{{$value->id}}" class="name" {{ in_array($value->id, $rolePermissions) ? 'checked' : ''}}>
-                    {{ $value->name }}</label>
-                <br/>
-                @endforeach --}}
+                <strong>phone:</strong>
+                <input type="number" name="phone" placeholder="phone" value="{{ $org->phone }}" class="form-control">
             </div>
         </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>logo:</strong>
+                <input type="file" name="logo"  class="form-control">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>logo title:</strong>
+                <input type="text" name="logo_title" value="{{ $org->logo_title }}" class="form-control">
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>instagram:</strong>
+                <input type="text" name="instagram" value="{{ $org->instagram  }}" placeholder="instagram" class="form-control">
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>instagram title :</strong>
+                <input type="text" name="instagram_title"  value="{{ $org->instagram_title  }}"    placeholder="Instagram title" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Facebook:</strong>
+                <input type="text" name="facebook" value="{{ $org->facebook  }}" placeholder="Facebook" class="form-control">
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Facebook title :</strong>
+                <input type="text" name="facebook_title" value="{{ $org->facebook_title  }}" placeholder="Instagram title" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>twitter:</strong>
+                <input type="text" name="twitter" value="{{ $org->twitter  }}" placeholder="twitter" class="form-control">
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Twitter title :</strong>
+                <input type="text" name="twitter_title"  value="{{ $org->twitter_title  }}"placeholder="Twitter_title" class="form-control">
+            </div>
+        </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
         </div>

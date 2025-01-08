@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\content;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
+use App\Models\imageContent;
+use App\Models\videoContent;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -76,32 +76,78 @@ class contentController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email',
-            //     'password' => 'required|same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+        // dd($request->all());
+        // try {
+        $this->validate($request, [
+            //  'name' => 'required',
+            //  'email' => 'required|email|unique:users,email',
+            //  'password' => 'required|same:confirm-password',
+            // 'roles' => 'required'
+        ]);
 
-            $input = $request->all();
-            //    $input['password'] = Hash::make($input['password']);
-
-            $content = content::create($input);
-            // $banners->assignRole($request->input('roles'));
-
-            return redirect()->route('banners.index')
-                ->with('success', 'banner created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        $content = new Content;
+        $content->title = ucwords($request->title);
+        $content->descriptions = $request->descriptions;
+        $content->meta_title = $request->meta_title;
+        $content->meta_description = $request->meta_description;
+        $content->meta_keyword = $request->meta_keyword;
+        $content->status = $request->status;
+        $path = public_path('uploads/content');
+        if ($request->hasFile('contentImage')) {
+            $file = $request->file('contentImage');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $content->image = $newname;
         }
+
+        $content->save();
+
+        $titles = $request->imageTitle ?? [];
+        $alts = $request->imageAlt ?? [];
+        $files = $request->multipleimage ?? [];
+
+        foreach ($files as $index => $file) {
+            if ($file) {
+                $imageContent = new ImageContent();
+                $imageContent->content_id = $content->id;
+                $imageContent->imageTitle = $titles[$index] ?? null;
+                $imageContent->imageAlt = $alts[$index] ?? null;
+                $path = public_path('uploads/content/image');
+                $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newName);
+                $imageContent->image = $newName;
+                $imageContent->save();
+            }
+        }
+
+
+        $videoAlts  = $request->videoAlt ?? [];
+        $videoTitles = $request->videoTitle ?? [];
+        $videoUrls = $request->videoUrl ?? [];
+
+        foreach ($videoUrls as $index => $videoUrl) {
+            if ($videoUrl) {
+                $videoContent = new VideoContent();
+                $videoContent->content_id = $content->id;
+                $videoContent->videoTitle = $videoTitles[$index] ?? null;
+                $videoContent->videoAlt = $videoAlts[$index] ?? null;
+                $videoContent->videoUrl = $videoUrl;
+                $videoContent->save();
+            }
+        }
+
+        return redirect()->route('contents.index')
+            ->with('success', 'content created successfully');
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -113,7 +159,7 @@ class contentController extends Controller
     public function show($id): View
     {
         try {
-            $content = content::find($id);
+            $content = content::find(dDecrypt($id));
 
             return view('contents.show', compact('content'));
         } catch (\Exception $e) {
@@ -136,19 +182,20 @@ class contentController extends Controller
      */
     public function edit($id): View
     {
-        try {
-            $content = content::find($id);
-            return view('contents.edit', compact('content'));
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // try {
+        $content = content::find(dDecrypt($id));
+        $imageContent = ImageContent::wherecontent_id(dDecrypt($id))->get();
+        return view('contents.edit', compact('content', 'imageContent'));
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -160,39 +207,99 @@ class contentController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email,' . $id,
-            //     'password' => 'same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+        // try {
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users,email,' . $id,
+        //     'password' => 'same:confirm-password',
+        //     'roles' => 'required'
+        // ]);
 
-            $input = $request->all();
-            if (!empty($input['password'])) {
-                // $input['password'] = Hash::make($input['password']);
-            } else {
-                // $input = Arr::except($input, array('password'));
-            }
-
-            $content = content::find($id);
-            $content->update($input);
-            //DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-            //$banners->assignRole($request->input('roles'));
-
-            return redirect()->route('contents.index')
-                ->with('success', 'content updated successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        $content = content::find(dDecrypt($id));
+        $content->title = ucwords($request->title);
+        $content->descriptions = $request->descriptions;
+        $content->meta_title = $request->meta_title;
+        $content->meta_description = $request->meta_description;
+        $content->meta_keyword = $request->meta_keyword;
+        $content->status = $request->status;
+        $path = public_path('uploads/content');
+        if ($request->hasFile('contentImage')) {
+            $file = $request->file('contentImage');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $content->image = $newname;
         }
+
+        $content->save();
+
+        $titles = $request->imageTitle ?? [];
+        $alts = $request->imageAlt ?? [];
+        $files = $request->multipleimage ?? [];
+        $ids = $request->id ?? [];
+
+        foreach ($ids as $index => $id) {
+            $file = $files[$index] ?? null;
+            if ($id) {
+                $imageContent = ImageContent::find($id);
+                if ($imageContent) {
+                    $imageContent->imageTitle = $titles[$index] ?? null;
+                    $imageContent->imageAlt = $alts[$index] ?? null;
+
+                    if ($file && $file->isValid()) {
+                        $path = public_path('uploads/content/image');
+                        $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                        $file->move($path, $newName);
+                        $imageContent->image = $newName;
+                    }
+                    $imageContent->save();
+                }
+            } else {
+                $imageContent = new ImageContent();
+                $imageContent->content_id = $content->id;
+                $imageContent->imageTitle = $titles[$index] ?? null;
+                $imageContent->imageAlt = $alts[$index] ?? null;
+
+                if ($file && $file->isValid()) {
+                    $path = public_path('uploads/content/image');
+                    $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                    $file->move($path, $newName);
+                    $imageContent->image = $newName;
+                }
+                $imageContent->save();
+            }
+        }
+
+
+        $videoAlts  = $request->videoAlt ?? [];
+        $videoTitles = $request->videoTitle ?? [];
+        $videoUrls = $request->videoUrl ?? [];
+
+        foreach ($videoUrls as $index => $videoUrl) {
+            if ($videoUrl) {
+                $videoContent = new VideoContent();
+                $videoContent->content_id = $content->id;
+                $videoContent->videoTitle = $videoTitles[$index] ?? null;
+                $videoContent->videoAlt = $videoAlts[$index] ?? null;
+                $videoContent->videoUrl = $videoUrl;
+                $videoContent->save();
+            }
+        }
+
+
+
+
+        return redirect()->route('contents.index')
+            ->with('success', 'content updated successfully');
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -203,19 +310,19 @@ class contentController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        try {
-            content::find($id)->delete();
-            return redirect()->route('contents.index')
-                ->with('success', 'content deleted successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // try {
+        content::find(dDecrypt($id))->delete();
+        return redirect()->route('contents.index')
+            ->with('success', 'content deleted successfully');
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\menu;
-use Spatie\Permission\Models\Role;
+use App\Models\content;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -31,7 +31,6 @@ class menuController extends Controller
     {
         try {
             $menu = menu::orderBy('id', 'asc')->get();
-
             return view('menus.index', compact('menu'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
@@ -55,8 +54,9 @@ class menuController extends Controller
     {
         try {
             $menu = menu::pluck('name', 'name')->all();
-
-            return view('menus.create', compact('menu'));
+            $parentId = menu::get();
+            $contentId = content::get();
+            return view('menus.create', compact('menu','parentId','contentId'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -77,32 +77,36 @@ class menuController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email',
-            //     'password' => 'required|same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+        // try {
+            $this->validate($request, [
+               // 'name' => 'required',
+               // 'email' => 'required|email|unique:users,email',
+               // 'password' => 'required|same:confirm-password',
+               // 'roles' => 'required'
+            ]);
 
-            $input = $request->all();
-            //    $input['password'] = Hash::make($input['password']);
-
-            $menu = menu::create($input);
-            // $banners->assignRole($request->input('roles'));
+            $data = new menu;
+            $data->name = ucwords($request->name);
+            $data->url  = $request->url;
+            $data->parent_id = $request->parentId;
+            $data->order  = $request->order;
+            $data->external  = $request->urlType;
+            $data->status  = $request->status;
+            $data->content_id  = $request->contentId;
+            $data->save();
 
             return redirect()->route('menus.index')
                 ->with('success', 'menu created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -114,7 +118,7 @@ class menuController extends Controller
     public function show($id): View
     {
         try {
-            $menu = menu::find($id);
+            $menu = menu::find(dDecrypt($id));
             return view('menus.show', compact('menu'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -137,8 +141,10 @@ class menuController extends Controller
     public function edit($id): View
     {
         try {
-            $menu = menu::find($id);
-            return view('menus.edit', compact('menu'));
+            $menu = menu::find(dDecrypt($id));
+            $parentId = menu::get();
+            $contentId = content::get();
+            return view('menus.edit', compact('menu','parentId','contentId'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -161,27 +167,24 @@ class menuController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
+            $this->validate($request, [
+              //  'name' => 'required',
+              //  'email' => 'required|email|unique:users,email,' . $id,
+              //  'password' => 'same:confirm-password',
+              //  'roles' => 'required'
+            ]);
 
+           // dd($request->all());
 
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email,' . $id,
-            //     'password' => 'same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
-
-            $input = $request->all();
-            if (!empty($input['password'])) {
-                // $input['password'] = Hash::make($input['password']);
-            } else {
-                // $input = Arr::except($input, array('password'));
-            }
-
-            $menu = menu::find($id);
-            $menu->update($input);
-            // DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-            // $banners->assignRole($request->input('roles'));
+            $data = menu::find(dDecrypt($id));
+            $data->name = ucwords($request->name);
+            $data->url  = $request->url;
+            $data->parent_id = $request->parentId;
+            $data->order  = $request->order;
+            $data->external  = $request->urlType;
+            $data->status  = $request->status;
+            $data->content_id  = $request->contentId;
+            $data->save();
 
             return redirect()->route('menus.index')
                 ->with('success', 'menus updated successfully');
@@ -207,7 +210,7 @@ class menuController extends Controller
     {
         try {
 
-            menu::find($id)->delete();
+            menu::find(dDecrypt($id))->delete();
             return redirect()->route('menus.index')
                 ->with('success', 'menu deleted successfully');
         } catch (\Exception $e) {

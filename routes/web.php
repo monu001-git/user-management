@@ -9,7 +9,7 @@ use App\Http\Controllers\bannerController;
 use App\Http\Controllers\contentController;
 use App\Http\Controllers\menuController;
 use App\Http\Controllers\orgController;
-
+use App\Http\Controllers\commonController;
 use App\Http\Controllers\mainController;
 
 Route::get('/',[mainController::class,'home']);
@@ -25,4 +25,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('menus', menuController::class);
     Route::resource('orgs', orgController::class);
     Route::resource('contents', contentController::class);
+
+Route::controller(commonController::class)->group(function () {
+    Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
+});
+
 });

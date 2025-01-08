@@ -31,13 +31,13 @@
         <td>{{ ++$i }}</td>
         <td>{{ $contents->title }}</td>
         <td>
-            <a class="btn btn-info btn-sm" href="{{ route('contents.show',$contents->id) }}"><i class="fa-solid fa-list"></i> Show</a>
+            <a class="btn btn-info btn-sm" href="{{ route('contents.show',dEncrypt($contents->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
             @can('role-edit')
-                <a class="btn btn-primary btn-sm" href="{{ route('contents.edit',$contents->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('contents.edit',dEncrypt($contents->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
             @endcan
 
             @can('role-delete')
-            <form method="POST" action="{{ route('contents.destroy', $contents->id) }}" style="display:inline">
+            <form method="POST" action="{{ route('contents.destroy',dEncrypt($contents->id)) }}" style="display:inline">
                 @csrf
                 @method('DELETE')
 

@@ -76,7 +76,7 @@ class orgController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
+          
 
             // $this->validate($request, [
             //     'name' => 'required',
@@ -85,11 +85,26 @@ class orgController extends Controller
             //     'roles' => 'required'
             // ]);
 
-            $input = $request->all();
-            //    $input['password'] = Hash::make($input['password']);
-
-            $org = org::create($input);
-            // $banners->assignRole($request->input('roles'));
+            $data = new org;
+            $data->name = ucwords($request->name);
+            $data->email = $request->email;
+            $data->phone = $request->phone;
+            $data->instagram = $request->instagram;
+            $data->instagram_title = $request->instagram_title;
+            $data->facebook = $request->facebook;
+            $data->facebook_title = $request->facebook_title;
+            $data->twitter = $request->twitter;
+            $data->twitter_title = $request->twitter_title;
+            $data->logo = $request->logo;
+            $data->logo_title = $request->logo_title;
+            $path = public_path('uploads/logo');
+            if ($request->hasFile('logo')) {
+                $file = $request->file('logo');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->logo = $newname;
+            }
+            $data->save();
 
             return redirect()->route('orgs.index')
                 ->with('success', 'org created successfully');
@@ -114,10 +129,7 @@ class orgController extends Controller
     public function show($id): View
     {
         try {
-
-
-            $org = org::find($id);
-
+            $org = org::find(dDecrypt($id));
             return view('orgs.show', compact('org'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -140,7 +152,7 @@ class orgController extends Controller
     public function edit($id): View
     {
         try {
-            $org = org::find($id);
+            $org = org::find(dDecrypt($id));
             return view('orgs.edit', compact('org'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -164,25 +176,36 @@ class orgController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email,' . $id,
-            //     'password' => 'same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+            $this->validate($request, [
+                //  'name' => 'required',
+                //  'email' => 'required|email|unique:users,email,' . $id,
+                //  'password' => 'same:confirm-password',
+                //  'roles' => 'required'
+            ]);
 
-            $input = $request->all();
-            if (!empty($input['password'])) {
-                // $input['password'] = Hash::make($input['password']);
-            } else {
-                // $input = Arr::except($input, array('password'));
+            $data = org::find(dDecrypt($id));
+            $data->name = ucwords($request->name);
+            $data->email = $request->email;
+            $data->phone = $request->phone;
+            $data->instagram = $request->instagram;
+            $data->instagram_title = $request->instagram_title;
+            $data->facebook = $request->facebook;
+            $data->facebook_title = $request->facebook_title;
+            $data->twitter = $request->twitter;
+            $data->Twitter_title = $request->Twitter_title;
+            $data->linkedin = $request->linkedin;
+            $data->linkedIn_title = $request->linkedIn_title;
+            $data->logo_title = $request->logo_title;
+            $path = public_path('uploads/logo');
+            if ($request->hasFile('logo')) {
+                $file = $request->file('logo');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->logo = $newname;
             }
+            $data->save();
+            $data->save();
 
-            $orgs = org::find($id);
-            $orgs->update($input);
-            //  DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-            //   $banners->assignRole($request->input('roles'));
 
             return redirect()->route('orgs.index')
                 ->with('success', 'org updated successfully');
@@ -207,7 +230,7 @@ class orgController extends Controller
     public function destroy($id): RedirectResponse
     {
         try {
-            org::find($id)->delete();
+            org::find(dDecrypt($id))->delete();
             return redirect()->route('orgs.index')
                 ->with('success', 'orgs deleted successfully');
         } catch (\Exception $e) {

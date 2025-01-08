@@ -9,6 +9,9 @@ class imageContent extends Model
 {
 
     use HasFactory;
+    protected $table = 'imageContents';
+
+    
     public function content()
     {
         return $this->belongsTo(Content::class);
