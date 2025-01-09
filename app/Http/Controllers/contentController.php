@@ -325,4 +325,14 @@ class contentController extends Controller
         //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         // }
     }
+
+    public function deleteItem(Request $request)
+    {
+        // $request->validate([
+        //     'id' => 'required|exists:ImageContent,id',
+        // ]);
+
+        ImageContent::find($request->id)->delete();
+        return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
+    }
 }

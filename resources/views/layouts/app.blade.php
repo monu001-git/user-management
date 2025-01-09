@@ -13,16 +13,28 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        .navad1 {
+            position: absolute;
+            left: 58px;
+        }
+
+    </style>
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand navad1" href="{{ url('/') }}">
                     Admin Panel
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -53,11 +65,11 @@
                         @else
                         <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                         <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-
                         <li><a class="nav-link" href="{{ route('menus.index') }}">Manage Menu</a></li>
                         <li><a class="nav-link" href="{{ route('banners.index') }}">Manage Banner</a></li>
-                        <li><a class="nav-link" href="{{ route('orgs.index') }}">Manage Org Details</a></li>
-                        <li><a class="nav-link" href="{{ route('contents.index') }}">Manage content</a></li>
+                        <li><a class="nav-link" href="{{ route('orgs.index') }}">Manage organization Details</a></li>
+                        <li><a class="nav-link" href="{{ route('contents.index') }}">Manage Content</a></li>
+                        <li><a class="nav-link" href="{{ route('gallery.index') }}">Manage Gallery</a></li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
@@ -96,4 +108,5 @@
 
     </div>
 </body>
+
 </html>

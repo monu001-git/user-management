@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 
+
 class commonController extends Controller
 {
     function StatusChange($status = null, $id = null, $db = null)
@@ -29,4 +30,7 @@ class commonController extends Controller
             return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
+
+
+   
 }

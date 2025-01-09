@@ -1,13 +1,23 @@
 @extends('layouts.app')
 
+
 @section('content')
+<style>
+    .navad {
+        width: 80px;
+        margin-left: 13px;
+        height: 35px;
+    }
+
+</style>
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>Edit content</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('contents.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
+            <a class="btn btn-primary btn-sm mb-2" href="{{ route('contents.index') }}"><i class="fa fa-arrow-left"></i>
+                Back</a>
         </div>
     </div>
 </div>
@@ -68,14 +78,12 @@
             <div class="form-group">
                 <strong>Content Image: [Width:1920px, Height:500px]</strong>
                 <span style="color:green;font-size:12px;">
-                    @if($content->image)
-                    [{{$content->image}}]
+                    @if ($content->image)
+                    [{{ $content->image }}]
                     @endif
                 </span>
 
-                <input type="file" name="image" class="form-control" @if($content->image)
-                value="{{$content->image}}"
-                @endif>
+                <input type="file" name="image" class="form-control" @if ($content->image) value="{{ $content->image }}" @endif>
             </div>
         </div>
 
@@ -101,27 +109,25 @@
 
                     <strong>Image:</strong>
                     <span style="color:green;font-size:12px;">
-                        @if($imageContents->image)
-                        [{{$imageContents->image}}]
+                        @if ($imageContents->image)
+                        [{{ $imageContents->image }}]
                         @endif
                     </span>
 
-                    <input type="file" name="multipleimage[]" class="form-control" @if($imageContents->image)
-                    value="{{$imageContents->image}}"
-                    @endif>
+                    <input type="file" name="multipleimage[]" class="form-control" @if ($imageContents->image) value="{{ $imageContents->image }}" @endif>
 
 
                 </div>
                 <input type="hidden" class="form-control" name="id[]" value="{{ $imageContents->id }}" />
 
                 <div class="col-3">
-                    <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
+                    <button type="button" class="btn btn-danger" data-id="{{ $imageContents->id }}" onclick="removeItem(this)">Delete</button>
                 </div>
             </div>
             @endforeach
         </div>
 
-        <button type="button" class="btn btn-primary" onclick="addItem()">Add New Image</button>
+        <button type="button" class="btn btn-primary navad" onclick="addItem()">Add New Image</button>
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i>
@@ -131,32 +137,78 @@
 
 
 </form>
-
 <script>
     function addItem() {
-        const container = document.getElementById('imageItemsContainer');
-        const firstRow = container.querySelector('.form-group'); // Get the first row
-        const newRow = firstRow.cloneNode(true); // Clone the first row
 
-        // Reset the input values in the new row
-        const inputs = newRow.querySelectorAll('input');
-        inputs.forEach(input => input.value = ''); // Clear the values
+        var selectedFileType = $('#fileTypeSelect').val();
 
-        // Enable the "Delete" button in the new row
-        const deleteButton = newRow.querySelector('.btn-danger');
-        deleteButton.disabled = false;
-        deleteButton.setAttribute("onclick", "removeItem(this)");
+        const $container = $('#imageItemsContainer');
+        const newRowHtml = `
+       <div class="form-group row mb-3">
+            <div class="col-3">
+                <strong>Image title:</strong>
+                <input type="text" class="form-control" name="imageTitle[]" placeholder="Image title" />
+            </div>
 
-        // Append the new row to the container
-        container.appendChild(newRow);
+            <div class="col-3">
+                <strong>Image alt:</strong>
+                <input type="text" class="form-control" name="imageAlt[]" placeholder="Image Alt" />
+            </div>
+
+            <div class="col-3">
+                <strong>Image:</strong>
+                <input type="file" name="multipleimage[]" class="form-control"/>
+            </div>
+
+            <div class="col-3">
+                <input type="hidden" class="form-control" name="id[]" />
+            </div>
+
+            <div class="col-3">
+                <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
+            </div>
+        </div>`;
+
+        $container.append(newRowHtml);
     }
 
+
+
     function removeItem(button) {
-        const row = button.closest('.form-group'); 
-        alert(row);
-       // row.remove(); // Remove the row
+
+        const id = $(button).data('id');
+
+    if (id != undefined) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/delete-gallery-content'
+            , type: 'get'
+            , data: {
+                id: id
+            , }
+            , success: function(response) {
+                if (response.status == 200) {
+                    window.location.reload();
+                } else {
+
+                }
+            }
+            , error: function(xhr, status, error) {
+                alert(error);
+            }
+        });
+
+
+    } else {
+        const $row = $(button).closest('.form-group');
+        $row.remove();
+    }
+
     }
 
 </script>
-
 @endsection
