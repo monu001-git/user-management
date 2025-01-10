@@ -91,6 +91,7 @@ class menuController extends Controller
             $data->parent_id = $request->parentId;
             $data->order  = $request->order;
             $data->external  = $request->urlType;
+            $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
             $data->content_id  = $request->contentId;
             $data->save();
@@ -183,6 +184,7 @@ class menuController extends Controller
             $data->order  = $request->order;
             $data->external  = $request->urlType;
             $data->status  = $request->status;
+            $data->menu_place  = $request->menu_place;
             $data->content_id  = $request->contentId;
             $data->save();
 

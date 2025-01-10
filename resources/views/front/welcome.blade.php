@@ -12,5 +12,9 @@
 </head>
 <body>
     <h1>welcome page</h1>
+
+   @foreach ($menu as $menus)
+       {{ $menus->name }}
+   @endforeach
 </body>
 </html>

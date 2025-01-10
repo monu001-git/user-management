@@ -47,7 +47,7 @@
                 <strong>Parent Name:</strong>
                 <br />
                 <select name="parent_id" class="form-control">
-                  <option value=''>Section Option</option>
+                    <option value=''>Section Option</option>
                     @foreach($parentId as $value)
                     <option value="{{ $value->id }}" @if($value->id == $menu->parent_id) selected @endif>
                         {{ $value->name }}
@@ -58,12 +58,12 @@
         </div>
 
 
-                <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Content Name:</strong>
                 <br />
                 <select name="parent_id" class="form-control">
-                  <option value=''>Section Option</option>
+                    <option value=''>Section Option</option>
                     @foreach($contentId as $value)
                     <option value="{{ $value->contentID }}" @if($value->contentID == $menu->contentId) selected @endif>
                         {{ $value->title }}
@@ -84,6 +84,21 @@
                 </select>
             </div>
         </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Menu Place:</strong>
+                <br />
+                <select name="menu_place" class="form-control">
+                    <option value="">Select value</option>
+                    <option value="0" {{ old('menu_place', $menu->menu_place) == 0 ? 'selected' : '' }}>Header</option>
+                    <option value="1" {{ old('menu_place', $menu->menu_place) == 1 ? 'selected' : '' }}>Footer</option>
+                </select>
+            </div>
+        </div>
+
+
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">

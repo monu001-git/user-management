@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('external')->nullable(); 
             $table->integer('order')->nullable(); 
             $table->boolean('status')->default(true); 
+            $table->softDeletes();
             $table->timestamps(); 
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('alt');
             $table->string('file');
             $table->foreignId('gallery_id')->constrained()->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

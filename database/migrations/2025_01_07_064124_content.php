@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('meta_keyword');
             $table->string('status')->default(0);
             $table->string('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

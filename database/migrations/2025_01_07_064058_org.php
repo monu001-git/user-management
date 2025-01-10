@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('facebook_title')->nullable();
             $table->string('twitter')->nullable(); 
             $table->string('twitter_title')->nullable();
+            $table->softDeletes();
             $table->timestamps(); 
         });
     }
