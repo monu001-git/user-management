@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('url')->nullable(); 
             $table->unsignedBigInteger('parent_id')->nullable(); 
             $table->integer('order')->default(0); 
+            $table->string('content_id')->nullable(); 
             $table->string('menu_place')->nullable(); 
             $table->boolean('status')->default(true);
             $table->string('external')->nullable();

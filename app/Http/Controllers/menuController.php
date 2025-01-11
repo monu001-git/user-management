@@ -31,17 +31,17 @@ class menuController extends Controller
     {
         try {
             $menu = menu::orderBy('id', 'asc')->get();
-            return view('menus.index', compact('menu'))
+            return view('admin.common-page.menus.index', compact('menu'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -56,16 +56,16 @@ class menuController extends Controller
             $menu = menu::pluck('name', 'name')->all();
             $parentId = menu::get();
             $contentId = content::get();
-            return view('menus.create', compact('menu','parentId','contentId'));
+            return view('admin.common-page.menus.create', compact('menu','parentId','contentId'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -77,7 +77,7 @@ class menuController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // try {
+        try {
             $this->validate($request, [
                // 'name' => 'required',
                // 'email' => 'required|email|unique:users,email',
@@ -98,16 +98,16 @@ class menuController extends Controller
 
             return redirect()->route('menus.index')
                 ->with('success', 'menu created successfully');
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -120,16 +120,16 @@ class menuController extends Controller
     {
         try {
             $menu = menu::find(dDecrypt($id));
-            return view('menus.show', compact('menu'));
+            return view('admin.common-page.menus.show', compact('menu'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -145,16 +145,16 @@ class menuController extends Controller
             $menu = menu::find(dDecrypt($id));
             $parentId = menu::get();
             $contentId = content::get();
-            return view('menus.edit', compact('menu','parentId','contentId'));
+            return view('admin.common-page.menus.edit', compact('menu','parentId','contentId'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -192,13 +192,13 @@ class menuController extends Controller
                 ->with('success', 'menus updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -217,13 +217,13 @@ class menuController extends Controller
                 ->with('success', 'menu deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 }

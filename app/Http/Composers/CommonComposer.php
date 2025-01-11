@@ -34,28 +34,26 @@ class CommonComposer
      */
     public function compose(View $view)
     {
-
-        // try {
-
-            $menus = DB::table('menus')->whereIn('menu_place', [0,3])->where('status', 1)->where('soft_delete', 0)->orderBy('order', 'ASC')->get();
+        try {
+            $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+            $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+            $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
             $menuName = $this->getMenuTree($menus, 0);
-
-
             $view->with([
-
-                'menu' => $menuName,
-
+                'bannerData' => $bannerData,
+                'footerMenu' => $footerMenu,
+                'menuName' => $menuName,
             ]);
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     function getMenuTree($menus, $parentId)
@@ -63,7 +61,7 @@ class CommonComposer
         $branch = array();
         foreach ($menus as $menu) {
             if ($menu->parent_id == $parentId) {
-                $children = $this->getMenuTree($menus, $menu->uid);
+                $children = $this->getMenuTree($menus, $menu->id);
                 if ($children) {
                     $menu->children = $children;
                 }

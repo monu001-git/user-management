@@ -34,17 +34,17 @@ class galleryController extends Controller
         try {
             $gallery = gallery::orderBy('id', 'asc')->get();
 
-            return view('gallery.index', compact('gallery'))
+            return view('admin.common-page.gallery.index', compact('gallery'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -57,16 +57,16 @@ class galleryController extends Controller
     {
         try {
             $gallery = gallery::pluck('name', 'name')->all();
-            return view('gallery.create', compact('gallery'));
+            return view('admin.common-page.gallery.create', compact('gallery'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -128,17 +128,17 @@ class galleryController extends Controller
                     ->with('success', 'gallery created successfully');
             } catch (\Exception $e) {
                 DB::rollBack();
-                return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
             }
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -153,16 +153,16 @@ class galleryController extends Controller
         try {
             //  $menu = menu::find(dDecrypt($id));
 
-            return view('gallery.show', compact('menu'));
+            return view('admin.common-page.gallery.show', compact('menu'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -178,16 +178,16 @@ class galleryController extends Controller
             $gallery = gallery::find(dDecrypt($id));
             $gallerydetail = gallery_detail::wheregallery_id(dDecrypt($id))->get();
 
-            return view('gallery.edit', compact('gallery', 'gallerydetail'));
+            return view('admin.common-page.gallery.edit', compact('gallery', 'gallerydetail'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -265,19 +265,19 @@ class galleryController extends Controller
             ->with('success', 'gallery created successfully');
         //     } catch (\Exception $e) {
         //         DB::rollBack();
-        //         return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        //         return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         //     }
 
 
         // } catch (\Exception $e) {
         //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         // } catch (\PDOException $e) {
         //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         // } catch (\Throwable $e) {
         //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         // }
     }
 
@@ -296,25 +296,36 @@ class galleryController extends Controller
                 ->with('success', 'menu deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('pages.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
 
     public function deleteItem(Request $request)
     {
-        $request->validate([
-            'id' => 'required|exists:gallerydetails,id',
-        ]);
+        try {
+            $request->validate([
+                'id' => 'required|exists:gallerydetails,id',
+            ]);
 
-        $item = gallery_detail::find($request->id);
-        $item->delete();
-        return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
+            $item = gallery_detail::find($request->id);
+            $item->delete();
+            return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 }
