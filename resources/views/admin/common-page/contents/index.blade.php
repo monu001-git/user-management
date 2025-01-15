@@ -40,7 +40,7 @@
                     <div class="card-header">
                         <div class="pull-right">
                             @can('content-create')
-                            <a class="btn btn-success mb-2" href="{{ route('contents.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+                            <a class="btn btn-success mb-2" href="{{ route('contents.create') }}"><i class="fa fa-plus"></i> Create New Content</a>
                             @endcan
                         </div>
                     </div>

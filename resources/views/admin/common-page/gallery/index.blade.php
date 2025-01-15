@@ -13,7 +13,7 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">gallery Management</h3>
+            <h3 class="fw-bold mb-3">Gallery Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="#">
@@ -40,7 +40,7 @@
                     <div class="card-header">
                         <div class="pull-right">
                             @can('gallery-create')
-                            <a class="btn btn-success mb-2" href="{{ route('gallery.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+                            <a class="btn btn-success mb-2" href="{{ route('gallery.create') }}"><i class="fa fa-plus"></i> Create New Gallery</a>
                             @endcan
                         </div>
                     </div>

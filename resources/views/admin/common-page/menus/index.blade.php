@@ -99,7 +99,7 @@
                     <div class="card-header">
                         <div class="pull-right">
                             @can('menu-create')
-                            <a class="btn btn-success mb-2" href="{{ route('menus.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+                            <a class="btn btn-success mb-2" href="{{ route('menus.create') }}"><i class="fa fa-plus"></i> Create New Menu</a>
                             @endcan
                         </div>
                     </div>

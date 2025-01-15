@@ -40,7 +40,7 @@
                     <div class="card-header">
                         <div class="pull-right">
                             @can('org-create')
-                            <a class="btn btn-success mb-2" href="{{ route('orgs.create') }}"><i class="fa fa-plus"></i> Create New User</a>
+                            <a class="btn btn-success mb-2" href="{{ route('orgs.create') }}"><i class="fa fa-plus"></i> Create New Org structure</a>
                             @endcan
                         </div>
                     </div>
