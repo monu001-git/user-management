@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Permission;
 use DB;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -79,10 +80,19 @@ class RoleController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $this->validate($request, [
-                'name' => 'required|unique:roles,name',
+           
+
+            $validator = Validator::make($request->all(), [
+               'name' => 'required|unique:roles,name',
                 'permission' => 'required',
-            ]);
+                 
+             ]);
+ 
+             if ($validator->fails()) {
+                 return redirect()->back()->withErrors($validator)->withInput();
+             }
+
+
 
             $permissionsID = array_map(
                 function ($value) {
@@ -172,10 +182,17 @@ class RoleController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            $this->validate($request, [
+          
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'permission' => 'required',
-            ]);
+                 'permission' => 'required',
+                  
+              ]);
+  
+              if ($validator->fails()) {
+                  return redirect()->back()->withErrors($validator)->withInput();
+              }
+ 
 
             $role = Role::find($id);
             $role->name = $request->input('name');

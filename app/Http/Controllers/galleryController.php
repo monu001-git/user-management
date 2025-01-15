@@ -13,6 +13,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class galleryController extends Controller
 {
@@ -79,14 +80,16 @@ class galleryController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $this->validate($request, [
-                // 'name' => 'required',
-                // 'email' => 'required|email|unique:users,email',
-                // 'password' => 'required|same:confirm-password',
-                // 'roles' => 'required'
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'file_type' => 'required',
+              
             ]);
 
-            //dd($request->all());
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
             $data = new gallery();
             DB::beginTransaction();
 
@@ -201,12 +204,15 @@ class galleryController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            $this->validate($request, [
-                //  'name' => 'required',
-                //  'email' => 'required|email|unique:users,email,' . $id,
-                //  'password' => 'same:confirm-password',
-                //  'roles' => 'required'
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'file_type' => 'required',
+              
             ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
             $data = gallery::find(dDecrypt($id));
             $data->name = ucwords($request->name);

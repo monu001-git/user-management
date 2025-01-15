@@ -39,9 +39,9 @@
                          <div class="message-notif-scroll scrollbar-outer">
                              <div class="notif-center">
                                  <a href="#">
-                                     <div class="notif-img">
-                                         <img src="admin/img/jm_denis.jpg" alt="Img Profile" />
-                                     </div>
+                                     {{-- <div class="notif-img">
+                                         <img src="{{ asset('admin/img/jm_denis.jpg') }}" alt="Img Profile" />
+                                     </div> --}}
                                      <div class="notif-content">
                                          <span class="subject">Jimmy Denis</span>
                                          <span class="block"> How are you ? </span>

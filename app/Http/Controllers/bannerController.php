@@ -10,6 +10,8 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
+
 
 class bannerController extends Controller
 {
@@ -76,10 +78,16 @@ class bannerController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            // $this->validate($request, [
-            //     'order' => 'required',
-            //     'image' => 'image'
-            // ]);
+        
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'url' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
             $data = new banner;
             $data->title = ucwords($request->title);
             $data->description  = $request->description;
@@ -169,11 +177,14 @@ class bannerController extends Controller
     {
         try {
 
-            $this->validate($request, [
-                // 'order' => 'required',
-                // 'image' => 'image'
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'url' => 'required',
             ]);
-            //  dd($request->urlType);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
             $data = banner::find(dDecrypt($id));
             $data->title = ucwords($request->title);

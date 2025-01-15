@@ -25,7 +25,6 @@
     <!-- Fonts and icons -->
     <script src="{{ asset('admin/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 
-    <script src="{{ asset('admin/assets/js/common.js') }}"></script>
     <script>
         WebFont.load({
             google: {
@@ -167,6 +166,7 @@
 
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ asset('admin/assets/js/common.js') }}"></script>
     <script src="{{ asset('admin/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/core/bootstrap.min.js') }}"></script>
 

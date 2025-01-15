@@ -12,6 +12,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class contentController extends Controller
 {
@@ -78,12 +79,16 @@ class contentController extends Controller
     {
         // dd($request->all());
         try {
-            $this->validate($request, [
-                //  'name' => 'required',
-                //  'email' => 'required|email|unique:users,email',
-                //  'password' => 'required|same:confirm-password',
-                // 'roles' => 'required'
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'meta_title' => 'required',
+                'meta_description' => 'required',
+                'meta_keyword' => 'required',
             ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
             $content = new Content;
             $content->title = ucwords($request->title);
@@ -208,13 +213,17 @@ class contentController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email,' . $id,
-            //     'password' => 'same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'meta_title' => 'required',
+                'meta_description' => 'required',
+                'meta_keyword' => 'required',
+            ]);
 
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+            
             $content = content::find(dDecrypt($id));
             $content->title = ucwords($request->title);
             $content->descriptions = $request->descriptions;

@@ -11,6 +11,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class menuController extends Controller
 {
@@ -78,15 +79,18 @@ class menuController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-            $this->validate($request, [
+
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'url' => 'required',
                 'order' => 'required',
                 'external' => 'required',
                 'menu_place' => 'required',
-                'content_id' => 'required',
             ]);
 
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
             $data = new menu;
             $data->name = ucwords($request->name);
             $data->url  = $request->url;
@@ -170,16 +174,17 @@ class menuController extends Controller
     {
         try {
 
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'url' => 'required',
                 'order' => 'required',
                 'external' => 'required',
                 'menu_place' => 'required',
-                'content_id' => 'required',
             ]);
 
-
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
             $data = menu::find(dDecrypt($id));
             $data->name = ucwords($request->name);

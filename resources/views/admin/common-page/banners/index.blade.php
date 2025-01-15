@@ -47,17 +47,21 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="basic-datatables" class="display table table-striped table-hover">
-                                <tr>
-                                    <th width="100px">No</th>
-                                    <th>title</th>
-                                    <th>Status</th>
-                                    <th width="280px">Action</th>
-                                </tr>
-                                @foreach ($banner as $key => $banners)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $banners->title ??'' }}</td>
-                                    <td>
+                                <thead>
+                                    <tr>
+                                        <th width="100px">No</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th width="280px">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($banner as $key => $banners)
+                                    <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $banners->title }}</td>
+                                         <td>
                                         @if($banners->status != '0')
                                         <a href="{{ url('status-change/1/'.dEncrypt($banners->id) . '/banners') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
@@ -67,23 +71,25 @@
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
-                                    <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('banners.show',dEncrypt($banners->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
-                                        @can('banner-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('banners.edit',dEncrypt($banners->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                        @endcan
+                                        <td>
+                                            <a class="btn btn-info btn-sm" href="{{ route('banners.show',dEncrypt($banners->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                            @can('banner-edit')
+                                            <a class="btn btn-primary btn-sm" href="{{ route('banners.edit',dEncrypt($banners->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                            @endcan
 
-                                        @can('banner-delete')
-                                        <form method="POST" action="{{ route('banners.destroy',dEncrypt( $banners->id)) }}" style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
+                                            @can('banner-delete')
+                                            <form method="POST" action="{{ route('banners.destroy', dEncrypt($banners->id)) }}" style="display:inline">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
-                                        </form>
-                                        @endcan
-                                    </td>
-                                </tr>
-                                @endforeach
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
+                                            </form>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
                             </table>
                         </div>
                     </div>

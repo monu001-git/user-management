@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="pull-right">
-                            @can('user-create')
+                            @can('gallery-create')
                             <a class="btn btn-success mb-2" href="{{ route('gallery.create') }}"><i class="fa fa-plus"></i> Create New User</a>
                             @endcan
                         </div>
@@ -47,18 +47,22 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="basic-datatables" class="display table table-striped table-hover">
-                                <tr>
-                                    <th width="100px">No</th>
-                                    <th>Event Name</th>
-                                    <th>Status</th>
-                                    <th width="280px">Action</th>
-                                </tr>
-                                @foreach ($gallery as $key => $galleries)
-                                <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $galleries->name ??'' }}</td>
-                                    <td>
-                                        @if($galleries->status != '0')
+                                <thead>
+                                    <tr>
+                                        <th width="100px">No</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th width="280px">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($gallery as $key => $galleries)
+                                    <tr>
+                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $banners->title }}</td>
+                                         <td>
+                                        @if($banners->status != '0')
                                         <a href="{{ url('status-change/1/'.dEncrypt($galleries->id) . '/galleries') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
                                         </a>
@@ -67,23 +71,25 @@
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
-                                    <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
-                                        @can('banner-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('gallery.edit',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                        @endcan
+                                        <td>
+                                            <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                            @can('gallery-edit')
+                                            <a class="btn btn-primary btn-sm" href="{{ route('gallery.edit',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                            @endcan
 
-                                        @can('banner-delete')
-                                        <form method="POST" action="{{ route('gallery.destroy',dEncrypt($galleries->id)) }}" style="display:inline">
-                                            @csrf
-                                            @method('DELETE')
+                                            @can('gallery-delete')
+                                            <form method="POST" action="{{ route('gallery.destroy', dEncrypt($galleries->id)) }}" style="display:inline">
+                                                @csrf
+                                                @method('DELETE')
 
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
-                                        </form>
-                                        @endcan
-                                    </td>
-                                </tr>
-                                @endforeach
+                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
+                                            </form>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                </tbody>
                             </table>
                         </div>
                     </div>

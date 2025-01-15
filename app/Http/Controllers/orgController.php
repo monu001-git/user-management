@@ -11,6 +11,7 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class orgController extends Controller
 {
@@ -78,8 +79,9 @@ class orgController extends Controller
     {
 
         try {
-            $this->validate($request, [
-                'name' => 'required',
+          
+            $validator = Validator::make($request->all(), [
+               'name' => 'required',
                 'email' => 'required|email|unique:orgs,email',
                 'phone' => 'required',
                 'logo' => 'required',
@@ -87,8 +89,12 @@ class orgController extends Controller
                 'meta_title' => 'required',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
-
             ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
 
             $data = new org;
             $data->name = ucwords($request->name);
@@ -184,16 +190,20 @@ class orgController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            $this->validate($request, [
+            $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email|unique:orgs,email',
-                'phone' => 'required',
-                'logo' => 'required',
-                'logo_title' => 'required',
-                'meta_title' => 'required',
-                'meta_description' => 'required',
-                'meta_keyword' => 'required',
-            ]);
+                 'email' => 'required|email|unique:orgs,email',
+                 'phone' => 'required',
+                 'logo' => 'required',
+                 'logo_title' => 'required',
+                 'meta_title' => 'required',
+                 'meta_description' => 'required',
+                 'meta_keyword' => 'required',
+             ]);
+ 
+             if ($validator->fails()) {
+                 return redirect()->back()->withErrors($validator)->withInput();
+             }
 
             $data = org::find(dDecrypt($id));
             $data->name = ucwords($request->name);
