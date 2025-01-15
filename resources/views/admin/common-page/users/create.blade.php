@@ -13,14 +13,14 @@
 </div>
 
 @if (count($errors) > 0)
-    <div class="alert alert-danger">
-      <strong>Whoops!</strong> There were some problems with your input.<br><br>
-      <ul>
-         @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-         @endforeach
-      </ul>
-    </div>
+<div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    <ul>
+        {{-- @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach --}}
+    </ul>
+</div>
 @endif
 
 <form method="POST" action="{{ route('users.store') }}">
@@ -29,25 +29,44 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control">
+                <input type="text" name="name" placeholder="Name" value="{{ old('name') }}" class="form-control">
+                @error('name')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
-                <input type="email" name="email" placeholder="Email" class="form-control">
+                <input type="email" name="email" autocomplete="off" placeholder="Email" value="{{ old('email') }}" class="form-control">
+                @error('email')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Password:</strong>
-                <input type="password" name="password" placeholder="Password" class="form-control">
+                <input type="password" name="password" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control">
+                <button type="button" id="togglePassword">
+                    👁️
+                </button>
+                @error('password')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Confirm Password:</strong>
-                <input type="password" name="confirm-password" placeholder="Confirm Password" class="form-control">
+                <input type="password" name="confirm-password" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
+                <button type="button" id="ctogglePassword">
+                    👁️
+                </button>
+                @error('confirm-password')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -55,11 +74,14 @@
                 <strong>Role:</strong>
                 <select name="roles[]" class="form-control" multiple="multiple">
                     @foreach ($roles as $value => $label)
-                        <option value="{{ $value }}">
-                            {{ $label }}
-                        </option>
-                     @endforeach
+                    <option value="{{ $value }}">
+                        {{ $label }}
+                    </option>
+                    @endforeach
                 </select>
+                @error('roles')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -67,6 +89,5 @@
         </div>
     </div>
 </form>
-
 
 @endsection

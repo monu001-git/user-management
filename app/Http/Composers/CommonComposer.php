@@ -37,12 +37,14 @@ class CommonComposer
         try {
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+            $orgData = DB::table('orgs')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->first();
             $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
             $menuName = $this->getMenuTree($menus, 0);
             $view->with([
                 'bannerData' => $bannerData,
                 'footerMenu' => $footerMenu,
                 'menuName' => $menuName,
+                'orgData'=>$orgData
             ]);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

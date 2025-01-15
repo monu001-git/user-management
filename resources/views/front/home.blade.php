@@ -3,6 +3,7 @@
 @section('content')
 
 
+
 <h1>menu</h1>
 @if(isset($dmenuName) && count($dmenuName) > 0)
 @foreach ($menuName as $menuNames)
@@ -21,6 +22,11 @@
 @else
 <p>No banner items available.</p>
 @endif
+
+<h1>orgination</h1>
+
+{{ $orgData->name ?? 'o orgination items available' }}
+
 
 <h1>footer menu</h1>
 @if(isset($footerMenu) && count($footerMenu) > 0)

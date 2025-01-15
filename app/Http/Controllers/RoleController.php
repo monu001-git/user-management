@@ -38,13 +38,13 @@ class RoleController extends Controller
             return view('admin.common-page.roles.index', compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -60,13 +60,13 @@ class RoleController extends Controller
             return view('admin.common-page.roles.create', compact('permission'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -96,16 +96,16 @@ class RoleController extends Controller
 
             return redirect()->route('roles.index')
                 ->with('success', 'Role created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
     }
     /**
      * Display the specified resource.
@@ -124,13 +124,13 @@ class RoleController extends Controller
             return view('admin.common-page.roles.show', compact('role', 'rolePermissions'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -152,13 +152,13 @@ class RoleController extends Controller
             return view('admin.common-page.roles.edit', compact('role', 'permission', 'rolePermissions'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -192,16 +192,16 @@ class RoleController extends Controller
 
             return redirect()->route('roles.index')
                 ->with('success', 'Role updated successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
     }
     /**
      * Remove the specified resource from storage.
@@ -215,15 +215,15 @@ class RoleController extends Controller
             DB::table("roles")->where('id', $id)->delete();
             return redirect()->route('roles.index')
                 ->with('success', 'Role deleted successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
     }
 }

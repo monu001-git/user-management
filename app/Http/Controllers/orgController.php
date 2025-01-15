@@ -34,16 +34,16 @@ class orgController extends Controller
             $org = org::orderBy('id', 'asc')->get();
             return view('admin.common-page.orgs.index', compact('org'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
     }
 
     /**
@@ -58,13 +58,13 @@ class orgController extends Controller
             return view('admin.common-page.orgs.create', compact('org'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -78,12 +78,17 @@ class orgController extends Controller
     {
 
         try {
-            // $this->validate($request, [
-            //     'name' => 'required',
-            //     'email' => 'required|email|unique:users,email',
-            //     'password' => 'required|same:confirm-password',
-            //     'roles' => 'required'
-            // ]);
+            $this->validate($request, [
+                'name' => 'required',
+                'email' => 'required|email|unique:orgs,email',
+                'phone' => 'required',
+                'logo' => 'required',
+                'logo_title' => 'required',
+                'meta_title' => 'required',
+                'meta_description' => 'required',
+                'meta_keyword' => 'required',
+
+            ]);
 
             $data = new org;
             $data->name = ucwords($request->name);
@@ -97,6 +102,9 @@ class orgController extends Controller
             $data->twitter_title = $request->twitter_title;
             $data->logo = $request->logo;
             $data->logo_title = $request->logo_title;
+            $data->meta_title = $request->meta_title;
+            $data->meta_description = $request->meta_description;
+            $data->meta_keyword = $request->meta_keyword;
             $path = public_path('uploads/logo');
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -108,16 +116,16 @@ class orgController extends Controller
 
             return redirect()->route('orgs.index')
                 ->with('success', 'org created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
     }
 
     /**
@@ -133,13 +141,13 @@ class orgController extends Controller
             return view('admin.common-page.orgs.show', compact('org'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -156,13 +164,13 @@ class orgController extends Controller
             return view('admin.common-page.orgs.edit', compact('org'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -177,10 +185,14 @@ class orgController extends Controller
     {
         try {
             $this->validate($request, [
-                //  'name' => 'required',
-                //  'email' => 'required|email|unique:users,email,' . $id,
-                //  'password' => 'same:confirm-password',
-                //  'roles' => 'required'
+                'name' => 'required',
+                'email' => 'required|email|unique:orgs,email',
+                'phone' => 'required',
+                'logo' => 'required',
+                'logo_title' => 'required',
+                'meta_title' => 'required',
+                'meta_description' => 'required',
+                'meta_keyword' => 'required',
             ]);
 
             $data = org::find(dDecrypt($id));
@@ -196,6 +208,9 @@ class orgController extends Controller
             $data->linkedin = $request->linkedin;
             $data->linkedIn_title = $request->linkedIn_title;
             $data->logo_title = $request->logo_title;
+            $data->meta_title = $request->meta_title;
+            $data->meta_description = $request->meta_description;
+            $data->meta_keyword = $request->meta_keyword;
             $path = public_path('uploads/logo');
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -204,20 +219,17 @@ class orgController extends Controller
                 $data->logo = $newname;
             }
             $data->save();
-            $data->save();
 
-
-            return redirect()->route('orgs.index')
-                ->with('success', 'org updated successfully');
+            return redirect()->route('orgs.index')->with('success', 'org updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -235,13 +247,13 @@ class orgController extends Controller
                 ->with('success', 'orgs deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 }

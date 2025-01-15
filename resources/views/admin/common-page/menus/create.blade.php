@@ -16,9 +16,9 @@
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
-        @foreach ($errors->all() as $error)
+        {{-- @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
-        @endforeach
+        @endforeach --}}
     </ul>
 </div>
 @endif
@@ -29,14 +29,20 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control">
+                <input type="text" name="name" minlength="1" maxlength="25" placeholder="Enter your menu name" value="{{ old('name') }}" class="form-control">
             </div>
+            @error('name')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Url:</strong>
-                <input type="url" name="url" placeholder="url" class="form-control">
+                <input type="url" name="url" placeholder="url" value="{{ old('url') }}" class="form-control">
+                @error('url')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -65,6 +71,9 @@
                     <option value="{{ $value->id }}">{{ $value->title }}</option>
                     @endforeach
                 </select>
+                @error('contendId')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -79,6 +88,9 @@
                     <option value="1">Internal</option>
 
                 </select>
+                @error('external')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -91,6 +103,9 @@
                     <option value="0">Header</option>
                     <option value="1">Footer</option>
                 </select>
+                @error('menu_place')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -100,7 +115,10 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Sort Order:</strong>
-                <input type="number" name="order" placeholder="Sort order" class="form-control">
+                <input type="number" name="order" placeholder="Sort order" value="{{ old('order') }}" class="form-control">
+                @error('order')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 

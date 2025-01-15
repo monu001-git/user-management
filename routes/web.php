@@ -13,9 +13,11 @@ use App\Http\Controllers\commonController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
 
+
 Route::get('/', [mainController::class, 'home']);
 
 Auth::routes();
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -32,6 +34,5 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::controller(commonController::class)->group(function () {
         Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
-        
     });
 });

@@ -30,18 +30,18 @@ class bannerController extends Controller
     {
         try {
             $banner = banner::orderBy('id', 'asc')->get();
-            
+
             return view('admin.common-page.banners.index', compact('banner'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -57,13 +57,13 @@ class bannerController extends Controller
             return view('admin.common-page.banners.create', compact('banner'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -75,41 +75,41 @@ class bannerController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // try {
-        // $this->validate($request, [
-        //     'order' => 'required',
-        //     'image' => 'image'
-        // ]);
-        $data = new banner;
-        $data->title = ucwords($request->title);
-        $data->description  = $request->description;
-        $data->url  = $request->url;
-        $data->external  = $request->external;
-        $data->order  = $request->order;
-        $data->status  = $request->status;
+        try {
+            // $this->validate($request, [
+            //     'order' => 'required',
+            //     'image' => 'image'
+            // ]);
+            $data = new banner;
+            $data->title = ucwords($request->title);
+            $data->description  = $request->description;
+            $data->url  = $request->url;
+            $data->external  = $request->external;
+            $data->order  = $request->order;
+            $data->status  = $request->status;
 
-        $path = public_path('uploads/banner');
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-            $file->move($path, $newname);
-            $data->image = $newname;
+            $path = public_path('uploads/banner');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->image = $newname;
+            }
+
+            $data->save();
+
+            return redirect()->route('banners.index')
+                ->with('success', 'banner created successfully');
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
-
-        $data->save();
-
-        return redirect()->route('banners.index')
-            ->with('success', 'banner created successfully');
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
     }
 
     /**
@@ -125,13 +125,13 @@ class bannerController extends Controller
             return view('admin.common-page.banners.show', compact('banner'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -148,13 +148,13 @@ class bannerController extends Controller
             return view('admin.common-page.banners.edit', compact('banner'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -167,13 +167,13 @@ class bannerController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        // try {
-           
+        try {
+
             $this->validate($request, [
-               // 'order' => 'required',
-               // 'image' => 'image'
+                // 'order' => 'required',
+                // 'image' => 'image'
             ]);
-          //  dd($request->urlType);
+            //  dd($request->urlType);
 
             $data = banner::find(dDecrypt($id));
             $data->title = ucwords($request->title);
@@ -183,7 +183,7 @@ class bannerController extends Controller
             $data->order  = $request->order;
             $data->status  = $request->status;
 
-           // dd($request->hasFile('image'));
+            // dd($request->hasFile('image'));
 
             $path = public_path('uploads/banner');
             if ($request->hasFile('image')) {
@@ -197,16 +197,16 @@ class bannerController extends Controller
 
             return redirect()->route('banners.index')
                 ->with('success', 'banner updated successfully');
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -217,19 +217,19 @@ class bannerController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        // try {
+        try {
             banner::find(dDecrypt($id))->delete();
             return redirect()->route('banners.index')
                 ->with('success', 'banner deleted successfully');
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 }

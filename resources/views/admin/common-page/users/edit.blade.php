@@ -15,11 +15,11 @@
 @if (count($errors) > 0)
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
+    {{-- <ul>
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
-        @endforeach
-    </ul>
+    @endforeach
+    </ul> --}}
 </div>
 @endif
 
@@ -31,25 +31,43 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Name:</strong>
-                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $user->name }}">
+                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $user->name ?? "" }}">
+                @error('name')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Email:</strong>
-                <input type="email" name="email" placeholder="Email" class="form-control" value="{{ $user->email }}">
+                <input type="email" name="email" placeholder="Email" class="form-control" value='{{ $user->email ?? '' }}'>
+
+                @error('email')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Password:</strong>
-                <input type="password" name="password" placeholder="Password" class="form-control">
+                <input type="password" name="password" id="password" placeholder="Password" value="{{ $user->password ??'' }}" class="form-control">
+                <button type="button" id="togglePassword">
+                    👁️
+                </button>
+                @error('password')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Confirm Password:</strong>
-                <input type="password" name="confirm-password" placeholder="Confirm Password" class="form-control">
+               <input type="password" name="confirm-password" id="confirm-password" value="{{ $user->password }}" placeholder="Confirm Password" class="form-control">
+                <button type="button" id="ctogglePassword">
+                    👁️
+                </button>
+                {{-- @error('confirm-password')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror --}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -63,13 +81,16 @@
                     </option>
                     @endforeach
                 </select>
-
-                <!-- Add hidden inputs for each selected role when the dropdown is disabled -->
+          
                 @if(auth()->user()->id != 1)
                 @foreach ($userRole as $value => $role)
                 <input type="hidden" name="roles[]" value="{{ $value }}">
                 @endforeach
                 @endif
+
+                  @error('roles')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
