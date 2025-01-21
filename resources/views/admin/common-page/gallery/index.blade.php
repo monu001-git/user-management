@@ -9,60 +9,54 @@
 </div>
 @endsession
 
+<div class="page-inner">
+    <div class="page-header">
+        <h3 class="fw-bold mb-3">Gallery Management</h3>
+        <ul class="breadcrumbs mb-3">
+            <li class="nav-home">
+                <a >
+                    <i class="icon-home"></i>
+                </a>
+            </li>
+            <li class="separator">
+                <i class="icon-arrow-right"></i>
+            </li>
+            <li class="nav-item">
+                <a >Gallery Table</a>
+            </li>
 
-<div class="container">
-    <div class="page-inner">
-        <div class="page-header">
-            <h3 class="fw-bold mb-3">Gallery Management</h3>
-            <ul class="breadcrumbs mb-3">
-                <li class="nav-home">
-                    <a href="#">
-                        <i class="icon-home"></i>
-                    </a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Tables</a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
-                </li>
-            </ul>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="pull-right">
-                            @can('gallery-create')
-                            <a class="btn btn-success mb-2" href="{{ route('gallery.create') }}"><i class="fa fa-plus"></i> Create New Gallery</a>
-                            @endcan
-                        </div>
+
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="pull-right">
+                        @can('gallery-create')
+                        <a class="btn btn-success mb-2" href="{{ route('gallery.create') }}"><i class="fa fa-plus"></i> Create New Gallery</a>
+                        @endcan
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="basic-datatables" class="display table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th width="100px">No</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th width="280px">Action</th>
-                                    </tr>
-                                </thead>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="100px">No</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th width="280px">Action</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    @foreach ($gallery as $key => $galleries)
-                                    <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $banners->title }}</td>
-                                         <td>
-                                        @if($banners->status != '0')
+                            <tbody>
+                                @foreach ($gallery as $key => $galleries)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $galleries->name }}</td>
+                                    <td>
+                                        @if($galleries->status != '0')
                                         <a href="{{ url('status-change/1/'.dEncrypt($galleries->id) . '/galleries') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
                                         </a>
@@ -71,35 +65,31 @@
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
-                                        <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
-                                            @can('gallery-edit')
-                                            <a class="btn btn-primary btn-sm" href="{{ route('gallery.edit',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                            @endcan
+                                    <td>
+                                        <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                        @can('gallery-edit')
+                                        <a class="btn btn-primary btn-sm" href="{{ route('gallery.edit',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                        @endcan
 
-                                            @can('gallery-delete')
-                                            <form method="POST" action="{{ route('gallery.destroy', dEncrypt($galleries->id)) }}" style="display:inline">
-                                                @csrf
-                                                @method('DELETE')
+                                        @can('gallery-delete')
+                                        <form method="POST" action="{{ route('gallery.destroy', dEncrypt($galleries->id)) }}" style="display:inline">
+                                            @csrf
+                                            @method('DELETE')
 
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
-                                            </form>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
+                                        </form>
+                                        @endcan
+                                    </td>
+                                </tr>
+                                @endforeach
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-
 
 @endsection

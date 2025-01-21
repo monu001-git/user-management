@@ -3,8 +3,8 @@
      <div class="sidebar-logo">
          <!-- Logo Header -->
          <div class="logo-header" data-background-color="dark">
-             <a href="index.html" class="logo">
-                 <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" />
+             <a href="{{ url('/home') }}" class="logo">
+               {{-- <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" /> --}}
              </a>
              <div class="nav-toggle">
                  <button class="btn btn-toggle toggle-sidebar">
@@ -36,63 +36,61 @@
                      <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                  </li>
                  @endif
+
                  @else
 
+                 <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
+                     <a href="{{ route('home') }}">
+                         <i class="fas fa-home"></i>
+                         <p>Dashboard</p>
+                     </a>
+                 </li>
 
-                 <li class="nav-item">
+
+                 <li class="nav-item {{ request()->routeIs('users.index','users.create', 'users.edit') ? 'active' : '' }}">
                      <a href="{{ route('users.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-user"></i>
                          <p>Manage Users</p>
                      </a>
                  </li>
 
-
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('roles.index', 'roles.create', 'roles.edit') ? 'active' : '' }}">
                      <a href="{{ route('roles.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-id-card"></i>
                          <p>Manage Role</p>
                      </a>
                  </li>
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('menus.index', 'menus.create', 'menus.edit') ? 'active' : '' }}">
                      <a href="{{ route('menus.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-money-check"></i>
                          <p>Manage Menu</p>
                      </a>
                  </li>
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
                      <a href="{{ route('banners.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-rss-square"></i>
                          <p>Manage Banner</p>
                      </a>
                  </li>
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('orgs.index', 'orgs.create', 'orgs.edit') ? 'active' : '' }}">
                      <a href="{{ route('orgs.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-qrcode"></i>
                          <p>Manage Organization </p>
                      </a>
                  </li>
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('contents.index', 'contents.create', 'contents.edit') ? 'active' : '' }}">
                      <a href="{{ route('contents.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-id-card"></i>
                          <p>Manage Content</p>
                      </a>
                  </li>
 
-                 <li class="nav-item">
+                 <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
                      <a href="{{ route('gallery.index') }}">
-                         <i class="fas fa-file"></i>
+                         <i class="fas fa-image"></i>
                          <p>Manage Gallery</p>
                      </a>
                  </li>
-
-
-                 {{-- <li class="nav-item">
-                     <a href="{{ route('gallery.index') }}">
-                         <i class="fas fa-file"></i>
-                         <p>Manage Gallery</p>
-                     </a>
-                 </li> --}}
-
 
                  @endguest
 

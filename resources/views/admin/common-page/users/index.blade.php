@@ -23,14 +23,9 @@
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
+            
                 <li class="nav-item">
-                    <a href="#">Tables</a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
+                    <a href="#">Users Table</a>
                 </li>
             </ul>
         </div>
@@ -58,7 +53,7 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($data as $user)
+                                    @foreach ($data as  $key=>$user)
 
                                     <tr>
                                         <td>{{ ++$i }}</td>
@@ -72,22 +67,19 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                            <a class="btn btn-info btn-sm" href="{{ route('users.show',dEncrypt($user->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
 
-                                            @if(auth()->user()->id == 1 || $key == 1)
                                             @can('user-edit')
-                                            <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('users.edit',dEncrypt($user->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                             @endcan
-                                            @endif
-
-                                            @if(auth()->user()->id == 1 || $key == 1)
+                                           
                                             @can('user-delete')
-                                            <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display:inline">
+                                            <form method="POST" action="{{ route('users.destroy', dEncrypt($user->id)) }}" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
                                             </form>
-                                            @endcan
+                                           
 
                                             @endif
                                         </td>

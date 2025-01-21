@@ -16,7 +16,7 @@
             <h3 class="fw-bold mb-3">Role Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -24,13 +24,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Tables</a>
-                </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
+                    <a>Roles Table</a>
                 </li>
             </ul>
         </div>
@@ -58,16 +52,16 @@
                                 <tbody>
                                     @foreach ($roles as $key => $role)
                                     <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $role->name }}</td>
+                                        <td>{{ ++$i  }}</td>
+                                        <td>{{ $role->name ??'' }}</td>
                                         <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('roles.show',$role->id) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                            <a class="btn btn-info btn-sm" href="{{ route('roles.show', dEncrypt($role->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
                                             @can('role-edit')
-                                            <a class="btn btn-primary btn-sm" href="{{ route('roles.edit',$role->id) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', dEncrypt($role->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                             @endcan
 
                                             @can('role-delete')
-                                            <form method="POST" action="{{ route('roles.destroy', $role->id) }}" style="display:inline">
+                                            <form method="POST" action="{{ route('roles.destroy',dEncrypt($role->id)) }}" style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
 

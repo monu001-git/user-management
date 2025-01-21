@@ -16,7 +16,7 @@
             <h3 class="fw-bold mb-3">Content Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -24,14 +24,9 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Tables</a>
+                    <a>Content Tables</a>
                 </li>
-                <li class="separator">
-                    <i class="icon-arrow-right"></i>
-                </li>
-                <li class="nav-item">
-                    <a href="#">Datatables</a>
-                </li>
+
             </ul>
         </div>
         <div class="row">
@@ -61,16 +56,16 @@
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $banners->title }}</td>
-                                         <td>
-                                        @if($banners->status != '0')
-                                        <a href="{{ url('status-change/1/'.dEncrypt($contents->id) . '/contents') }}" style="color:green;">
-                                            <button class="btn btn-sm btn-success">Active</button>
-                                        </a>
-                                        @else
-                                        <a href="{{ url('status-change/0/'.dEncrypt($contents->id) . '/contents') }}" style="color:green;">
-                                            <button class="btn btn-sm btn-danger">Inactive</button>
-                                        </a>
-                                        @endif</td>
+                                        <td>
+                                            @if($banners->status != '0')
+                                            <a href="{{ url('status-change/1/'.dEncrypt($contents->id) . '/contents') }}" style="color:green;">
+                                                <button class="btn btn-sm btn-success">Active</button>
+                                            </a>
+                                            @else
+                                            <a href="{{ url('status-change/0/'.dEncrypt($contents->id) . '/contents') }}" style="color:green;">
+                                                <button class="btn btn-sm btn-danger">Inactive</button>
+                                            </a>
+                                            @endif</td>
                                         <td>
                                             <a class="btn btn-info btn-sm" href="{{ route('contents.show',dEncrypt($contents->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
                                             @can('content-edit')

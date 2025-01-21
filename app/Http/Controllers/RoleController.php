@@ -81,7 +81,6 @@ class RoleController extends Controller
     {
         try {
            
-
             $validator = Validator::make($request->all(), [
                'name' => 'required|unique:roles,name',
                 'permission' => 'required',
@@ -91,7 +90,6 @@ class RoleController extends Controller
              if ($validator->fails()) {
                  return redirect()->back()->withErrors($validator)->withInput();
              }
-
 
 
             $permissionsID = array_map(
@@ -126,9 +124,9 @@ class RoleController extends Controller
     public function show($id): View
     {
         try {
-            $role = Role::find($id);
+            $role = Role::find(dDecrypt($id));
             $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-                ->where("role_has_permissions.role_id", $id)
+                ->where("role_has_permissions.role_id",dDecrypt($id))
                 ->get();
 
             return view('admin.common-page.roles.show', compact('role', 'rolePermissions'));
@@ -153,7 +151,7 @@ class RoleController extends Controller
     public function edit($id): View
     {
         try {
-            $role = Role::find($id);
+            $role = Role::find(dDecrypt($id));
             $permission = Permission::get();
             $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
                 ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
@@ -194,7 +192,7 @@ class RoleController extends Controller
               }
  
 
-            $role = Role::find($id);
+            $role = Role::find(dDecrypt($id));
             $role->name = $request->input('name');
             $role->save();
 
@@ -229,7 +227,7 @@ class RoleController extends Controller
     public function destroy($id): RedirectResponse
     {
         try {
-            DB::table("roles")->where('id', $id)->delete();
+            DB::table("roles")->where('id', dDecrypt($id))->delete();
             return redirect()->route('roles.index')
                 ->with('success', 'Role deleted successfully');
             } catch (\Exception $e) {

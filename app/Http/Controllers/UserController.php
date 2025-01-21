@@ -121,7 +121,7 @@ class UserController extends Controller
     public function show($id): View
     {
         try {
-            $user = User::find($id);
+            $user = User::find(dDecrypt($id));
 
             return view('admin.common-page.users.show', compact('user'));
         } catch (\Exception $e) {
@@ -145,7 +145,7 @@ class UserController extends Controller
     public function edit($id): View
     {
         try {
-            $user = User::find($id);
+            $user = User::find(dDecrypt($id));
             $roles = Role::pluck('name', 'name')->all();
             $userRole = $user->roles->pluck('name', 'name')->all();
 
@@ -174,7 +174,7 @@ class UserController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email',
                 'password' => 'required|same:confirm-password',
                 'roles' => 'required',
             ]);
@@ -191,9 +191,9 @@ class UserController extends Controller
                 $input = Arr::except($input, array('password'));
             }
 
-            $user = User::find($id);
+            $user = User::find(dDecrypt($id));
             $user->update($input);
-            DB::table('model_has_roles')->where('model_id', $id)->delete();
+            DB::table('model_has_roles')->where('model_id', dDecrypt($id))->delete();
 
             $user->assignRole($request->input('roles'));
 
@@ -220,7 +220,7 @@ class UserController extends Controller
     public function destroy($id): RedirectResponse
     {
         try {
-            User::find($id)->delete();
+            User::find(dDecrypt($id))->delete();
             return redirect()->route('users.index')
                 ->with('success', 'User deleted successfully');
         } catch (\Exception $e) {
