@@ -13,11 +13,13 @@ class commonController extends Controller
     {
         //dd($status,dDecrypt($id),$db);
         try {
+            
             if ($status == '0') {
                 DB::table($db)->where('id', dDecrypt($id))->update(['status' => 1]);
             } else {
                 DB::table($db)->where('id', dDecrypt($id))->update(['status' => 0]);
             }
+
             return back()->with('status', 'Status Changed Successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

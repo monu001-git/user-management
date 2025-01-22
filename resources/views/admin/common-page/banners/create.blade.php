@@ -56,8 +56,12 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>title:</strong>
+                                    <strong>Title:</strong>
                                     <input type="text" name="title" placeholder="title" class="form-control">
+
+                                    @error('title')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -67,11 +71,17 @@
                                     <strong>Description:</strong>
                                     <textarea name="description" class="form-control"></textarea>
                                 </div>
+                                @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="url" name="url" placeholder="url" class="form-control">
+                                    <input type="text" name="url" placeholder="url" class="form-control">
+                                    @error('url')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -84,15 +94,21 @@
                                         <option value="">Select value</option>
                                         <option value="0">External</option>
                                         <option value="1">Internal</option>
-
                                     </select>
+
+                                    @error('external')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="number" name="order" placeholder="Sort order" class="form-control">
+                                    <input type="text" name="order" placeholder="Sort order" class="form-control" minlength="1" maxlength="3">
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -101,6 +117,9 @@
                                 <div class="form-group">
                                     <strong>Image</strong>
                                     <input type="file" name="image" class="form-control">
+                                    @error('image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -110,7 +129,7 @@
 
                             <div class="card-action">
                                 <button type="submit" class="btn btn-success">Submit</button>
-                                 <a class="btn btn-danger" href="{{ route('banners.index') }}"> Back</a>
+                                <a class="btn btn-danger" href="{{ route('banners.index') }}"> Back</a>
                             </div>
                         </div>
                     </form>

@@ -91,10 +91,11 @@ class menuController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+
             $data = new menu;
             $data->name = ucwords($request->name);
             $data->url  = $request->url;
-            $data->parent_id = $request->parentId;
+            $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->external  = $request->urlType;
             $data->menu_place  = $request->menu_place;
@@ -189,7 +190,7 @@ class menuController extends Controller
             $data = menu::find(dDecrypt($id));
             $data->name = ucwords($request->name);
             $data->url  = $request->url;
-            $data->parent_id = $request->parentId;
+            $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->external  = $request->urlType;
             $data->status  = $request->status;

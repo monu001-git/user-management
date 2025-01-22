@@ -57,8 +57,11 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>title:</strong>
+                                    <strong>Title:</strong>
                                     <input type="text" name="title" placeholder="title" class="form-control" value="{{ $banner->title }}">
+                                    @error('title')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -67,12 +70,18 @@
                                     <strong>Description:</strong>
                                     <textarea name="description" class="form-control">{{ $banner->description }}</textarea>
                                 </div>
+                                @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="url" name="url" placeholder="url" value="{{ $banner->url }}" class="form-control">
+                                    <input type="text" name="url" placeholder="url" value="{{ $banner->url }}" class="form-control">
+                                    @error('url')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -86,13 +95,19 @@
                                         <option value="0" {{ old('external', $banner->external) == 0 ? 'selected' : '' }}>External</option>
                                         <option value="1" {{ old('external', $banner->external) == 1 ? 'selected' : '' }}>Internal</option>
                                     </select>
+                                    @error('external')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="number" name="order" value={{ $banner->order }} placeholder="Sort order" class="form-control">
+                                    <input type="text" name="order" value={{ $banner->order }} placeholder="Sort order" minlength="1" maxlength="3" class="form-control">
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -111,6 +126,9 @@
                                     value="{{$banner->image}}"
                                     @endif>
                                 </div>
+                                @error('image')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="card-action">

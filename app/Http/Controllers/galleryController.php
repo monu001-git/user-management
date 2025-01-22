@@ -83,6 +83,7 @@ class galleryController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'file_type' => 'required',
+                'order' =>'required'
               
             ]);
 

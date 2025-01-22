@@ -54,16 +54,17 @@
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" minlength="1" maxlength="25" placeholder="Enter your menu name" value="{{ old('name') }}" class="form-control">
+
+                                        @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Url:</strong>
-                                        <input type="url" name="url" placeholder="url" value="{{ old('url') }}" class="form-control">
+                                        <input type="text" name="url" placeholder="url" value="{{ old('url') }}" class="form-control">
                                         @error('url')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -73,7 +74,7 @@
                                     <div class="form-group">
                                         <strong>Parent Name:</strong>
                                         <br />
-                                        <select name="parentId" class="form-control">
+                                        <select name="parent_id" class="form-control">
 
                                             <option value="">Select option</option>
                                             @foreach($parentId as $value)
@@ -135,7 +136,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Sort Order:</strong>
-                                        <input type="number" name="order" placeholder="Sort order" value="{{ old('order') }}" class="form-control">
+                                        <input type="text" minlenght="1" maxlength="3" name="order" placeholder="Sort order" value="{{ old('order') }}" class="form-control">
                                         @error('order')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror

@@ -47,6 +47,11 @@ class PermissionTableSeeder extends Seeder
            'gallery-create',
            'gallery-edit',
            'gallery-delete',
+
+           'team-list',
+           'team-create',
+           'team-edit',
+           'team-delete',
         ];
         
         foreach ($permissions as $permission) {

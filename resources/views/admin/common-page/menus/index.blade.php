@@ -62,14 +62,6 @@
 @section('content')
 
 
-@session('success')
-<div class="alert alert-success" role="alert">
-    {{ $value }}
-</div>
-@endsession
-
-
-
 <div class="page-inner">
     <div class="page-header">
         <h3 class="fw-bold mb-3">Menu Management</h3>
@@ -87,6 +79,26 @@
             </li>
         </ul>
     </div>
+
+
+    @session('success')
+    <div class="alert alert-success" role="alert" id="successMessage">
+        {{ $value }}
+    </div>
+
+    <script>
+        // Set a timeout to hide the alert after 3 seconds
+        setTimeout(function() {
+            let successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 3000); // 3000ms = 3 seconds
+
+    </script>
+    @endsession
+
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">

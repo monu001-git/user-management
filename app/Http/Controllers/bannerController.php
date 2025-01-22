@@ -32,7 +32,6 @@ class bannerController extends Controller
     {
         try {
             $banner = banner::orderBy('id', 'asc')->get();
-
             return view('admin.common-page.banners.index', compact('banner'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
@@ -78,10 +77,13 @@ class bannerController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try {
-        
+
             $validator = Validator::make($request->all(), [
-                'title' => 'required',
+                'title' => 'required|unique:banners,title',
                 'url' => 'required',
+                'order' => 'required',
+                'external' => 'required',
+                'image' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -108,6 +110,7 @@ class bannerController extends Controller
 
             return redirect()->route('banners.index')
                 ->with('success', 'banner created successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -178,8 +181,11 @@ class bannerController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'title' => 'required',
+               'title' => 'required|unique:banners,title',
                 'url' => 'required',
+                'order' => 'required',
+                'external' => 'required',
+                'image' => 'required',
             ]);
 
             if ($validator->fails()) {

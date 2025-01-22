@@ -65,7 +65,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Password:</strong>
                                         <input type="password" name="password" id="password" placeholder="Password" value="{{ $user->password ??'' }}" class="form-control">
@@ -76,15 +76,15 @@
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                </div> --}}
+                                {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <input type="password" name="confirm-password" id="confirm-password" value="{{ $user->password }}" placeholder="Confirm Password" class="form-control">
                                         <button type="button" id="ctogglePassword">
                                             👁️
                                         </button>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Role:</strong>

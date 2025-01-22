@@ -83,7 +83,7 @@ class UserController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|same:confirm-password',
-                'roles' => 'required',
+                'roles' => 'required'
             ]);
 
             if ($validator->fails()) {
@@ -175,15 +175,16 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email',
-                'password' => 'required|same:confirm-password',
+                // 'password' => 'required|same:confirm-password',
                 'roles' => 'required',
             ]);
-            
+
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
             $input = $request->all();
+           
 
             if (!empty($input['password'])) {
                 $input['password'] = Hash::make($input['password']);

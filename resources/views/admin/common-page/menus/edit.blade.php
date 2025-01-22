@@ -59,6 +59,10 @@
                                 <div class="form-group">
                                     <strong>Name:</strong>
                                     <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $menu->name }}">
+
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -75,8 +79,8 @@
                                     <select name="parent_id" class="form-control">
                                         <option value=''>Section Option</option>
                                         @foreach($parentId as $value)
-                                        <option value="{{ $value->id }}" @if($value->id == $menu->parent_id) selected @endif>
-                                            {{ $value->name }}
+                                        <option value='{{ $value->id }}' @if($value->id == $menu->parent_id) selected @endif>
+                                            {{ $value->name }} {{ $value->id }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -88,7 +92,7 @@
                                 <div class="form-group">
                                     <strong>Content Name:</strong>
                                     <br />
-                                    <select name="parent_id" class="form-control">
+                                    <select name="contendId" class="form-control">
                                         <option value=''>Section Option</option>
                                         @foreach($contentId as $value)
                                         <option value="{{ $value->contentID }}" @if($value->contentID == $menu->contentId) selected @endif>
@@ -108,6 +112,10 @@
                                         <option value="0" {{ old('external', $menu->external) == 0 ? 'selected' : '' }}>External</option>
                                         <option value="1" {{ old('external', $menu->external) == 1 ? 'selected' : '' }}>Internal</option>
                                     </select>
+
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -121,6 +129,10 @@
                                         <option value="0" {{ old('menu_place', $menu->menu_place) == 0 ? 'selected' : '' }}>Header</option>
                                         <option value="1" {{ old('menu_place', $menu->menu_place) == 1 ? 'selected' : '' }}>Footer</option>
                                     </select>
+
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -129,7 +141,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="number" name="order" value={{ $menu->order }} placeholder="Sort order" class="form-control">
+                                    <input type="text" minlenght="1" maxlength="3" name="order" value={{ $menu->order }} placeholder="Sort order" class="form-control">
                                 </div>
                             </div>
 

@@ -4,7 +4,7 @@
          <!-- Logo Header -->
          <div class="logo-header" data-background-color="dark">
              <a href="{{ url('/home') }}" class="logo">
-               {{-- <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" /> --}}
+                 {{-- <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" /> --}}
              </a>
              <div class="nav-toggle">
                  <button class="btn btn-toggle toggle-sidebar">
@@ -78,6 +78,14 @@
                          <p>Manage Organization </p>
                      </a>
                  </li>
+
+                 <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
+                     <a href="{{ route('teams.index') }}">
+                         <i class="fas fa-qrcode"></i>
+                         <p>Manage Team </p>
+                     </a>
+                 </li>
+
                  <li class="nav-item {{ request()->routeIs('contents.index', 'contents.create', 'contents.edit') ? 'active' : '' }}">
                      <a href="{{ route('contents.index') }}">
                          <i class="fas fa-id-card"></i>

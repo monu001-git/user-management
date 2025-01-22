@@ -79,18 +79,16 @@ class RoleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
+        // try {
            
             $validator = Validator::make($request->all(), [
                'name' => 'required|unique:roles,name',
-                'permission' => 'required',
-                 
+               'permission' => 'required', 
              ]);
  
              if ($validator->fails()) {
                  return redirect()->back()->withErrors($validator)->withInput();
              }
-
 
             $permissionsID = array_map(
                 function ($value) {
@@ -104,16 +102,16 @@ class RoleController extends Controller
 
             return redirect()->route('roles.index')
                 ->with('success', 'Role created successfully');
-            } catch (\Exception $e) {
-                \Log::error('An exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            } catch (\PDOException $e) {
-                \Log::error('A PDOException occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-            } catch (\Throwable $e) {
-                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-            }
+            // } catch (\Exception $e) {
+            //     \Log::error('An exception occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            // } catch (\PDOException $e) {
+            //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            // } catch (\Throwable $e) {
+            //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            // }
     }
     /**
      * Display the specified resource.

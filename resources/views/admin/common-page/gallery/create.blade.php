@@ -59,7 +59,13 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Event Name:</strong>
-                                        <input type="text" name="name" placeholder="event name" class="form-control">
+                                        <input type="text" name="name" placeholder="event name" value="{{ old('name') }}" class="form-control">
+
+
+                                        @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -72,13 +78,22 @@
                                             <option value="i">Image</option>
                                             <option value="v">Video</option>
                                         </select>
+
+                                        @error('file_type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>sort order:</strong>
-                                        <input type="number" name="order" placeholder="sort order" class="form-control">
+                                        <strong>Sort order:</strong>
+                                        <input type="text" minlenght="1" maxlenght="3" name="order" placeholder="sort order" value="{{ old('order') }}" class="form-control">
+
+                                        @error('order')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -111,11 +126,13 @@
                                     </div>
 
                                 </div>
-                                <button type="button" class="btn btn-primary me-2 btn-sm navad" onclick="addItem()">Add Input</button>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-primary me-2 btn-sm" id="addButton" onclick="addItem()">Add Input</button>
+                                </div>
                                 <br><br>
                                 <div class="card-action">
                                     <button type="submit" class="btn btn-success">Submit</button>
-                                        <a class="btn btn-danger" href="{{ route('gallery.index') }}"> Back</a>
+                                    <a class="btn btn-danger" href="{{ route('gallery.index') }}"> Back</a>
                                 </div>
                             </div>
                         </form>
@@ -127,55 +144,51 @@
 
 
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#addButton').prop('disabled', true);
+        });
+
+
+        function addItem() {
+            const container = $('#imageItemsContainer');
+            const firstRow = container.find('.form-group').first();
+            const newRow = firstRow.clone();
+            newRow.find('input').val('');
+            newRow.find('.btn-danger').prop('disabled', false);
+            container.append(newRow);
+        }
+
+        function removeItem(button) {
+            $(button).closest('.form-group').remove();
+        }
+
+    </script>
 
     <script>
-    function addItem() {
-        // Clone the first form-group row and append it to the container
-        const container = $('#imageItemsContainer');
-        const firstRow = container.find('.form-group').first();
-        const newRow = firstRow.clone();
+        $(document).ready(function() {
+            // When the dropdown selection changes
+            $('#fileTypeSelect').change(function() {
+                var selectedValue = $(this).val();
 
-        // Reset the input values in the new row
-        newRow.find('input').val('');
+                $('#addButton').prop('disabled', false);
 
-        // Enable the "Delete" button in the new row
-        newRow.find('.btn-danger').prop('disabled', false);
-
-        // Append the new row to the container
-        container.append(newRow);
-    }
-
-    function removeItem(button) {
-        // Remove the row that contains the clicked "Delete" button
-        $(button).closest('.form-group').remove();
-    }
-
-</script>
-
-<script>
-    $(document).ready(function() {
-        // When the dropdown selection changes
-        $('#fileTypeSelect').change(function() {
-            var selectedValue = $(this).val();
-
-            // Show file input for Image (option "i")
-            if (selectedValue === 'i') {
-                $('#fileInputContainer').show();
-                $('#urlInputContainer').hide();
-            }
-            // Show URL input for Video (option "v")
-            else if (selectedValue === 'v') {
-                $('#fileInputContainer').hide();
-                $('#urlInputContainer').show();
-            } else {
-                $('#fileInputContainer').hide();
-                $('#urlInputContainer').hide();
-            }
+                if (selectedValue === 'i') {
+                    $('#fileInputContainer').show();
+                    $('#urlInputContainer').hide();
+                }
+                // Show URL input for Video (option "v")
+                else if (selectedValue === 'v') {
+                    $('#fileInputContainer').hide();
+                    $('#urlInputContainer').show();
+                } else {
+                    $('#fileInputContainer').hide();
+                    $('#urlInputContainer').hide();
+                }
+            });
         });
-    });
 
-</script>
+    </script>
 
 
     @endsection

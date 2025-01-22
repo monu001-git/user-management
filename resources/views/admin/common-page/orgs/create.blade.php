@@ -11,8 +11,8 @@
 </div>
 </div>
 </div> --}}
-{{--
-@if (count($errors) > 0)
+
+{{-- @if (count($errors) > 0)
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
@@ -46,10 +46,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                   
+
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('orgs.store') }}">
+                        <form method="POST" action="{{ route('orgs.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
 
@@ -58,6 +58,11 @@
                                     <div class="form-group">
                                         <strong>Meta Title:</strong>
                                         <input type="text" class="form-control" name="meta_title" placeholder="Please enter meta tittle, use for seo" value="{{ old('tittle') }}" class="form-control">
+
+                                        @error('meta_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -66,6 +71,11 @@
                                     <div class="form-group">
                                         <strong>Meta Description:</strong>
                                         <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{{ old('description') }}</textarea>
+
+                                        @error('meta_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -73,6 +83,11 @@
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
                                         <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea><br>
+
+                                        @error('meta_keyword')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -80,21 +95,51 @@
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" placeholder="Name" class="form-control">
+
+                                        @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>email:</strong>
+                                        <strong>Email:</strong>
                                         <input type="email" name="email" placeholder="email" class="form-control">
+
+                                        @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>phone:</strong>
-                                        <input type="number" name="phone" placeholder="phone" class="form-control">
+                                        <input type="text" name="phone" placeholder="phone" class="form-control">
+
+                                        @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+
                                     </div>
                                 </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Address:</strong>
+                                        <textarea class="form-control" id="address" rows="4" class="form-control" name="address">{{ old('address') }}</textarea><br>
+
+                                        @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
 
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -108,6 +153,7 @@
                                     <div class="form-group">
                                         <strong>logo title:</strong>
                                         <input type="text" name="logo_title" class="form-control">
+
                                     </div>
                                 </div>
 

@@ -37,15 +37,17 @@ class CommonComposer
         try {
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $orgData = DB::table('orgs')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->first();
+            $orgData = DB::table('orgs')->whereNull('deleted_at')->first();
             $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $menuName = $this->getMenuTree($menus, 0);
+            $headerMenu = $this->getMenuTree($menus, 0);
+
             $view->with([
                 'bannerData' => $bannerData,
                 'footerMenu' => $footerMenu,
-                'menuName' => $menuName,
-                'orgData'=>$orgData
+                'headerMenu' => $headerMenu,
+                'orgData' => $orgData
             ]);
+            
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -71,14 +73,5 @@ class CommonComposer
             }
         }
         return $branch;
-    }
-
-    function checkLanguage()
-    {
-        if (Session::get('locale') == 'hi') {
-            return 'यह लिंक आपको एक बाहरी वेब साइट पर ले जाएगा।';
-        } else {
-            return 'This link will take you to an external web site.';
-        }
     }
 }

@@ -274,8 +274,8 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>sort order:</strong>
-                                    <input type="number" name="order" value="{{ $gallery->order }}" placeholder="sort order" class="form-control">
+                                    <strong>Sort order:</strong>
+                                    <input type="text" minlenght="1" maxlenght="3" name="order" value="{{ $gallery->order }}" placeholder="sort order" class="form-control">
                                 </div>
                             </div>
 
@@ -326,9 +326,9 @@
                                 </div>
                                 @endforeach
                             </div>
-
-                            <button type="button" class="btn btn-primary navad" onclick="addItem()">Add New Image</button>
-
+                            <div class="col-4">
+                                <button type="button" class="btn btn-primary me-2 btn-sm" onclick="addItem()">Add Input</button>
+                            </div><br><br>
                             <div class="card-action">
                                 <button type="submit" class="btn btn-success">Submit</button>
                                 <a class="btn btn-danger" href="{{ route('gallery.index') }}"> Back</a>

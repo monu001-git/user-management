@@ -35,16 +35,16 @@ class orgController extends Controller
             $org = org::orderBy('id', 'asc')->get();
             return view('admin.common-page.orgs.index', compact('org'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
-            } catch (\Exception $e) {
-                \Log::error('An exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            } catch (\PDOException $e) {
-                \Log::error('A PDOException occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-            } catch (\Throwable $e) {
-                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-            }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -79,13 +79,11 @@ class orgController extends Controller
     {
 
         try {
-          
+
             $validator = Validator::make($request->all(), [
-               'name' => 'required',
+                'name' => 'required',
                 'email' => 'required|email|unique:orgs,email',
                 'phone' => 'required',
-                'logo' => 'required',
-                'logo_title' => 'required',
                 'meta_title' => 'required',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
@@ -103,14 +101,15 @@ class orgController extends Controller
             $data->instagram = $request->instagram;
             $data->instagram_title = $request->instagram_title;
             $data->facebook = $request->facebook;
+            $data->address = $request->address;
             $data->facebook_title = $request->facebook_title;
             $data->twitter = $request->twitter;
             $data->twitter_title = $request->twitter_title;
-            $data->logo = $request->logo;
             $data->logo_title = $request->logo_title;
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
+
             $path = public_path('uploads/logo');
             if ($request->hasFile('logo')) {
                 $file = $request->file('logo');
@@ -122,16 +121,16 @@ class orgController extends Controller
 
             return redirect()->route('orgs.index')
                 ->with('success', 'org created successfully');
-            } catch (\Exception $e) {
-                \Log::error('An exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            } catch (\PDOException $e) {
-                \Log::error('A PDOException occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-            } catch (\Throwable $e) {
-                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-            }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -190,47 +189,44 @@ class orgController extends Controller
     public function update(Request $request, $id): RedirectResponse
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                 'email' => 'required|email|unique:orgs,email',
-                 'phone' => 'required',
-                 'logo' => 'required',
-                 'logo_title' => 'required',
-                 'meta_title' => 'required',
-                 'meta_description' => 'required',
-                 'meta_keyword' => 'required',
-             ]);
- 
-             if ($validator->fails()) {
-                 return redirect()->back()->withErrors($validator)->withInput();
-             }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'meta_title' => 'required',
+            'meta_description' => 'required',
+            'meta_keyword' => 'required',
+        ]);
 
-            $data = org::find(dDecrypt($id));
-            $data->name = ucwords($request->name);
-            $data->email = $request->email;
-            $data->phone = $request->phone;
-            $data->instagram = $request->instagram;
-            $data->instagram_title = $request->instagram_title;
-            $data->facebook = $request->facebook;
-            $data->facebook_title = $request->facebook_title;
-            $data->twitter = $request->twitter;
-            $data->Twitter_title = $request->Twitter_title;
-            $data->linkedin = $request->linkedin;
-            $data->linkedIn_title = $request->linkedIn_title;
-            $data->logo_title = $request->logo_title;
-            $data->meta_title = $request->meta_title;
-            $data->meta_description = $request->meta_description;
-            $data->meta_keyword = $request->meta_keyword;
-            $path = public_path('uploads/logo');
-            if ($request->hasFile('logo')) {
-                $file = $request->file('logo');
-                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                $file->move($path, $newname);
-                $data->logo = $newname;
-            }
-            $data->save();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-            return redirect()->route('orgs.index')->with('success', 'org updated successfully');
+        $data = org::find(dDecrypt($id));
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->instagram = $request->instagram;
+        $data->instagram_title = $request->instagram_title;
+        $data->facebook = $request->facebook;
+        $data->address = $request->address;
+        $data->facebook_title = $request->facebook_title;
+        $data->twitter = $request->twitter;
+        $data->twitter_title = $request->twitter_title;
+        $data->logo_title = $request->logo_title;
+        $data->meta_title = $request->meta_title;
+        $data->meta_description = $request->meta_description;
+        $data->meta_keyword = $request->meta_keyword;
+
+        $path = public_path('uploads/logo');
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $data->logo = $newname;
+        }
+        $data->save();
+
+        return redirect()->route('orgs.index')->with('success', 'org updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

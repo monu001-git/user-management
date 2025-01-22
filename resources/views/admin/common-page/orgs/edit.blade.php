@@ -29,10 +29,10 @@
 <div class="container">
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3"> <a >Organization Structure Tables</a></h3>
+            <h3 class="fw-bold mb-3"> <a>Organization Structure Tables</a></h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a >
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -40,26 +40,71 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a >Organization Update Form</a>
+                    <a>Organization Update Form</a>
                 </li>
-               
+
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                   
+
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('orgs.update',dEncrypt($org->id)) }}">
+                        <form method="POST" action="{{ route('orgs.update',dEncrypt($org->id)) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="row">
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Meta Title:</strong>
+                                        <input type="text" class="form-control" name="meta_title" placeholder="Please enter meta tittle, use for seo" value="{{ $org->meta_title ??'' }}" class="form-control">
+
+                                        @error('meta_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Meta Description:</strong>
+                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{{ $org->meta_description ??"" }}</textarea>
+
+                                        @error('meta_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Meta keyword:</strong>
+                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ $org->meta_keyword ??'' }}</textarea><br>
+
+                                        @error('meta_keyword')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" placeholder="Name" value="{{ $org->name }}" class="form-control">
+
+                                        @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
 
@@ -67,12 +112,24 @@
                                     <div class="form-group">
                                         <strong>email:</strong>
                                         <input type="email" name="email" placeholder="email" value="{{ $org->email }}" class="form-control">
+
+
+                                        @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>phone:</strong>
                                         <input type="number" name="phone" placeholder="phone" value="{{ $org->phone }}" class="form-control">
+
+                                        @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+
                                     </div>
                                 </div>
 
@@ -80,7 +137,16 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>logo:</strong>
-                                        <input type="file" name="logo" class="form-control">
+                                        <span style="color:green;font-size:12px;">
+                                            @if($org->logo)
+                                            [{{$org->logo}}]
+                                            @endif
+                                        </span>
+
+                                        <input type="file" name="logo" class="form-control" @if($org->logo)
+                                        value="{{$org->logo}}"
+                                        @endif>
+
                                     </div>
                                 </div>
 

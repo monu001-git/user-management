@@ -12,7 +12,7 @@ use App\Http\Controllers\orgController;
 use App\Http\Controllers\commonController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
-
+use App\Http\Controllers\teamController;
 
 Route::get('/', [mainController::class, 'home']);
 
@@ -20,6 +20,7 @@ Auth::routes();
 
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [mainController::class, 'aboutUs']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RoleController::class);
@@ -29,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('orgs', orgController::class);
     Route::resource('contents', contentController::class);
     Route::resource('gallery', galleryController::class);
+    Route::resource('teams', teamController::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
     Route::get('delete-gallery-content', [contentController::class, 'deleteItem'])->name('delete-item');
 
