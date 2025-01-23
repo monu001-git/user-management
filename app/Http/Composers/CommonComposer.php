@@ -35,19 +35,93 @@ class CommonComposer
     public function compose(View $view)
     {
         try {
-            $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
-            $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $orgData = DB::table('orgs')->whereNull('deleted_at')->first();
-            $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $headerMenu = $this->getMenuTree($menus, 0);
 
-            $view->with([
-                'bannerData' => $bannerData,
-                'footerMenu' => $footerMenu,
-                'headerMenu' => $headerMenu,
-                'orgData' => $orgData
-            ]);
-            
+        $galleryData = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->where('status', 1)->first();
+
+        if ($galleryData != null) {
+            $gallerydetailData = DB::table('gallerydetails')
+                ->where('gallery_id', $galleryData->id)
+                ->whereNull('deleted_at')
+                ->get();
+
+            $galleryDataCar = [
+                'galleryData' => $galleryData,  
+                'gallerydetailData' => $gallerydetailData,   
+            ];
+        }
+
+
+        $galleryData = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->where('status',1)->first();
+
+        if ($galleryData != null) {
+            $gallerydetailData = DB::table('gallerydetails')
+                ->where('gallery_id', $galleryData->id)
+                ->whereNull('deleted_at')
+                ->get();
+
+            $galleryDataNews = [
+                'galleryData' => $galleryData,  
+                'gallerydetailData' => $gallerydetailData,   
+            ];
+        }
+
+
+        $galleryData = DB::table('galleries')->where('section','3')->whereNull('deleted_at')->where('status',1)->first();
+
+        if ($galleryData != null) {
+            $gallerydetailData = DB::table('gallerydetails')
+                ->where('gallery_id', $galleryData->id)
+                ->whereNull('deleted_at')
+                ->get();
+
+            $galleryDataOth = [
+                'galleryData' => $galleryData,  
+                'gallerydetailData' => $gallerydetailData,   
+            ];
+        }
+
+
+        $galleryData = DB::table('galleries')
+        ->where('section', '1')   
+        ->whereNull('deleted_at')
+        ->where('status', 1)
+        ->first();
+
+    if ($galleryData != null) {
+        $gallerydetailData = DB::table('gallerydetails')
+            ->where('gallery_id', $galleryData->id)
+            ->whereNull('deleted_at')
+            ->get();
+
+        $galleryDataCar = [
+            'galleryData' => $galleryData,  
+            'gallerydetailData' => $gallerydetailData,   
+        ];
+    }
+
+
+
+        
+
+        $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+        $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+        $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+        $orgData = DB::table('orgs')->whereNull('deleted_at')->first();
+        $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+        $galleryData = DB::table('galleries')->wheresection('1')->whereNull('deleted_at')->where('status', 1)->first();
+
+        $headerMenu = $this->getMenuTree($menus, 0);
+
+        $view->with([
+            'bannerData' => $bannerData,
+            'footerMenu' => $footerMenu,
+            'headerMenu' => $headerMenu,
+            'orgData' => $orgData,
+            'teamData' => $teamData,
+            'galleryDataCar'=>$galleryDataCar,
+            'galleryDataNews'=>$galleryDataNews
+        ]);
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);

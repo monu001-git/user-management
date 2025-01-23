@@ -55,9 +55,9 @@
                                     @foreach ($content as $key => $contents)
                                     <tr>
                                         <td>{{ ++$i }}</td>
-                                        <td>{{ $banners->title }}</td>
+                                        <td>{{ $contents->title }}</td>
                                         <td>
-                                            @if($banners->status != '0')
+                                            @if($contents->status != '0')
                                             <a href="{{ url('status-change/1/'.dEncrypt($contents->id) . '/contents') }}" style="color:green;">
                                                 <button class="btn btn-sm btn-success">Active</button>
                                             </a>

@@ -141,6 +141,19 @@
                                 </div>
 
 
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>About Footer:</strong>
+                                        <textarea class="form-control" id="about" rows="4" class="form-control" name="about">{{ old('about') }}</textarea><br>
+
+                                        @error('about')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">

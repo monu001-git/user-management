@@ -101,6 +101,7 @@ class orgController extends Controller
             $data->instagram = $request->instagram;
             $data->instagram_title = $request->instagram_title;
             $data->facebook = $request->facebook;
+            $data->about = $request->about;
             $data->address = $request->address;
             $data->facebook_title = $request->facebook_title;
             $data->twitter = $request->twitter;
@@ -211,6 +212,7 @@ class orgController extends Controller
         $data->address = $request->address;
         $data->facebook_title = $request->facebook_title;
         $data->twitter = $request->twitter;
+        $data->about = $request->about;
         $data->twitter_title = $request->twitter_title;
         $data->logo_title = $request->logo_title;
         $data->meta_title = $request->meta_title;

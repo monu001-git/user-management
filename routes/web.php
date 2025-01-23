@@ -14,15 +14,12 @@ use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
 
-Route::get('/', [mainController::class, 'home']);
+
 
 Auth::routes();
 
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/about-us', [mainController::class, 'aboutUs']);
-
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('banners', bannerController::class);
@@ -38,3 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
     });
 });
+
+
+Route::get('/', [mainController::class, 'home']);
+Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);

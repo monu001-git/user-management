@@ -123,12 +123,24 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>phone:</strong>
-                                        <input type="number" name="phone" placeholder="phone" value="{{ $org->phone }}" class="form-control">
+                                        <input type="text" name="phone" placeholder="phone" value="{{ $org->phone }}" class="form-control">
 
                                         @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Address:</strong>
+                                        <textarea class="form-control" id="address" rows="4" class="form-control" name="address">{{ $org->address }}</textarea><br>
+
+                                        @error('address')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                 </div>
@@ -149,6 +161,21 @@
 
                                     </div>
                                 </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>About Footer:</strong>
+                                        <textarea class="form-control" id="about" rows="4" class="form-control" name="about">{{ $org->about }}</textarea><br>
+
+                                        @error('about')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
+
+
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">

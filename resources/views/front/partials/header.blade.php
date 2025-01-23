@@ -16,7 +16,9 @@
                       </div>
                       <div class="col-lg-3 col-md-3 col-6">
                           <div class="navbar-header">
-                              <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('front/assets/images/logo.svg') }}" alt=""></a>
+                          @if(isset($orgData->logo))
+                              <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('uploads/logo'.'/'.$orgData->logo) }}" title="{{ $orgData->logo_title ??"" }}"></a>
+                          @endif
                           </div>
                       </div>
                       <div class="col-lg-8 col-md-8 col-1">

@@ -2,6 +2,18 @@
 
 @section('content')
 
+
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 <div class="page-inner">
     <div class="page-header">
 
@@ -27,8 +39,9 @@
                     <div class="card-title">Team Update Form</div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('teams.update', dEncrypt($team->id)) }}" enctype="multipart/form-data" >
                         @csrf
+                         @method('PUT')
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">

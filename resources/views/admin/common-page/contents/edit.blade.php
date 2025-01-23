@@ -40,7 +40,7 @@ Back</a>
             <h3 class="fw-bold mb-3">Content Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a >
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -48,34 +48,22 @@ Back</a>
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a >Content Update Forms</a>
+                    <a>Content Update Forms</a>
                 </li>
-               
+
             </ul>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    
+
                     <div class="card-body">
                         <form method="POST" action="{{ route('contents.update', dEncrypt($content->id)) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
                             <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>content title:</strong>
-                                        <input type="text" name="title" placeholder="title" value="{{ $content->title }}" class="form-control">
-                                    </div>
-                                </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Content Description:</strong>
-                                        <textarea name="descriptions" placeholder="description" class="form-control">{{ $content->descriptions }}</textarea>
-                                    </div>
-                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -101,6 +89,20 @@ Back</a>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <strong>content title:</strong>
+                                        <input type="text" name="title" placeholder="title" value="{{ $content->title }}" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Content Description:</strong>
+                                        <textarea name="descriptions" placeholder="description" class="form-control">{{ $content->descriptions }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
                                         <strong>Content Image: [Width:1920px, Height:500px]</strong>
                                         <span style="color:green;font-size:12px;">
                                             @if ($content->image)
@@ -109,6 +111,22 @@ Back</a>
                                         </span>
 
                                         <input type="file" name="image" class="form-control" @if ($content->image) value="{{ $content->image }}" @endif>
+                                    </div>
+                                </div>
+
+
+
+
+                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Content banner: [Width:1920px, Height:500px]</strong>
+                                        <span style="color:green;font-size:12px;">
+                                            @if ($content->banner)
+                                            [{{ $content->banner }}]
+                                            @endif
+                                        </span>
+
+                                        <input type="file" name="banner" class="form-control" @if ($content->banner) value="{{ $content->banner }}" @endif>
                                     </div>
                                 </div>
 

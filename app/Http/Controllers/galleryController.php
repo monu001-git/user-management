@@ -99,6 +99,8 @@ class galleryController extends Controller
                 $data->file_type = $request->file_type;
                 $data->order = $request->order;
                 $data->status = $request->status;
+                $data->section = $request->section;
+                
                 $data->save();
 
                 $titles = $request->title ?? [];
@@ -220,6 +222,7 @@ class galleryController extends Controller
             $data->file_type = $request->file_type;
             $data->order = $request->order;
             $data->status = $request->status;
+            $data->section = $request->section;
             $data->save();
 
             $titles = $request->title ?? [];

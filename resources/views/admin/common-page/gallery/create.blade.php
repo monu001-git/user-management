@@ -87,6 +87,25 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <strong>Section Type:</strong>
+                                        <br />
+                                        <select name="section" class="form-control" id="section">
+                                            <option value="">Select Option </option>
+                                            <option value="1">Certificates</option>
+                                            <option value="2">News</option>
+                                            <option value="3">Other</option>
+                                        </select>
+
+                                        @error('section')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
                                         <strong>Sort order:</strong>
                                         <input type="text" minlenght="1" maxlenght="3" name="order" placeholder="sort order" value="{{ old('order') }}" class="form-control">
 

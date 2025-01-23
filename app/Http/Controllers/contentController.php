@@ -78,7 +78,7 @@ class contentController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // dd($request->all());
-        try {
+        // try {
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
                 'meta_title' => 'required',
@@ -105,6 +105,14 @@ class contentController extends Controller
                 $content->image = $newname;
             }
 
+            $path = public_path('uploads/banner');
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $content->banner = $newname;
+            }
+
             $content->save();
 
             $titles = $request->imageTitle ?? [];
@@ -126,33 +134,33 @@ class contentController extends Controller
             }
 
 
-            $videoAlts  = $request->videoAlt ?? [];
-            $videoTitles = $request->videoTitle ?? [];
-            $videoUrls = $request->videoUrl ?? [];
+            // $videoAlts  = $request->videoAlt ?? [];
+            // $videoTitles = $request->videoTitle ?? [];
+            // $videoUrls = $request->videoUrl ?? [];
 
-            foreach ($videoUrls as $index => $videoUrl) {
-                if ($videoUrl) {
-                    $videoContent = new VideoContent();
-                    $videoContent->content_id = $content->id;
-                    $videoContent->videoTitle = $videoTitles[$index] ?? null;
-                    $videoContent->videoAlt = $videoAlts[$index] ?? null;
-                    $videoContent->videoUrl = $videoUrl;
-                    $videoContent->save();
-                }
-            }
+            // foreach ($videoUrls as $index => $videoUrl) {
+            //     if ($videoUrl) {
+            //         $videoContent = new VideoContent();
+            //         $videoContent->content_id = $content->id;
+            //         $videoContent->videoTitle = $videoTitles[$index] ?? null;
+            //         $videoContent->videoAlt = $videoAlts[$index] ?? null;
+            //         $videoContent->videoUrl = $videoUrl;
+            //         $videoContent->save();
+            //     }
+            // }
 
             return redirect()->route('contents.index')
                 ->with('success', 'content created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -239,6 +247,14 @@ class contentController extends Controller
                 $content->image = $newname;
             }
 
+            $path = public_path('uploads/banner');
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $content->banner = $newname;
+            }
+
             $content->save();
 
             $titles = $request->imageTitle ?? [];
@@ -279,24 +295,7 @@ class contentController extends Controller
             }
 
 
-            $videoAlts  = $request->videoAlt ?? [];
-            $videoTitles = $request->videoTitle ?? [];
-            $videoUrls = $request->videoUrl ?? [];
-
-            foreach ($videoUrls as $index => $videoUrl) {
-                if ($videoUrl) {
-                    $videoContent = new VideoContent();
-                    $videoContent->content_id = $content->id;
-                    $videoContent->videoTitle = $videoTitles[$index] ?? null;
-                    $videoContent->videoAlt = $videoAlts[$index] ?? null;
-                    $videoContent->videoUrl = $videoUrl;
-                    $videoContent->save();
-                }
-            }
-
-
-
-
+        
             return redirect()->route('contents.index')
                 ->with('success', 'content updated successfully');
         } catch (\Exception $e) {

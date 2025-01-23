@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('file_type');
+            $table->string('section');
             $table->string('order');
             $table->string('status');
             $table->softDeletes();

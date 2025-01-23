@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\menu;
 use App\Models\content;
 use DB;
+use Illuminate\Support\Str;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
@@ -94,13 +95,14 @@ class menuController extends Controller
 
             $data = new menu;
             $data->name = ucwords($request->name);
+            $data->slug    = Str::slug($request->name, "-");
             $data->url  = $request->url;
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->external  = $request->urlType;
             $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
-            $data->content_id  = $request->contentId;
+            $data->content_id  = $request->content_id;
             $data->save();
 
             return redirect()->route('menus.index')->with('success', 'menu created successfully');
@@ -189,13 +191,14 @@ class menuController extends Controller
 
             $data = menu::find(dDecrypt($id));
             $data->name = ucwords($request->name);
+            $data->slug    = Str::slug($request->name, "-");
             $data->url  = $request->url;
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->external  = $request->urlType;
             $data->status  = $request->status;
             $data->menu_place  = $request->menu_place;
-            $data->content_id  = $request->contentId;
+            $data->content_id  = $request->content_id;
             $data->save();
 
             return redirect()->route('menus.index')

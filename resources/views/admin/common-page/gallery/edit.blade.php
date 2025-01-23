@@ -272,6 +272,24 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Section Type:</strong>
+                                    <br />
+                                    <select name="section" class="form-control" id="section">
+                                        <option value="">Select Option </option>
+                                        <option value="1" {{ old('section', $gallery->section) == "1" ? 'selected' : '' }}>Certificates</option>
+                                        <option value="2" {{ old('section', $gallery->section) == "0" ? 'selected' : '' }}>News</option>
+                                        <option value="3" {{ old('section', $gallery->section) == "0" ? 'selected' : '' }}>Other</option>
+                                    </select>
+
+                                    @error('section')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort order:</strong>

@@ -11,8 +11,10 @@
              <div class="row">
                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
                      <div class="widget about-widget">
-                         <p>Gunjan is a multispeciality clinic that provides patients with compassionate care. We make treatment tailored to your condition to ensure a fast recovery.
-                         </p>
+                         
+                          @if(isset($orgData->about) && !empty($orgData->about) )
+                         <p>{{ $orgData->about ??'' }}</p>
+                         @endif
                          <div class="social-widget">
                              <ul>
                                  @if(isset($orgData->facebook) && !empty($orgData->facebook) )

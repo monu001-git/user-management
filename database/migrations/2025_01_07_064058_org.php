@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('logo_title')->nullable();
             $table->string('address')->nullable();
+            $table->string('about')->nullable();
             $table->string('instagram')->nullable();
             $table->string('instagram_title')->nullable();
             $table->string('facebook')->nullable();

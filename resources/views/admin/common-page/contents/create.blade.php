@@ -67,19 +67,7 @@ Back</a>
                         <form method="POST" action="{{ route('contents.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>content title:</strong>
-                                        <input type="text" name="title" placeholder="title" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Content Description:</strong>
-                                        <textarea name="descriptions" placeholder="description" class="form-control"></textarea>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -103,11 +91,33 @@ Back</a>
                                     </div>
                                 </div>
 
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>content title:</strong>
+                                        <input type="text" name="title" placeholder="title" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Content Description:</strong>
+                                        <textarea name="descriptions" placeholder="description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content Image:</strong>
                                         <input type="file" name="contentImage" placeholder="content Image" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Content banner:</strong>
+                                        <input type="file" name="banner" placeholder="content Image" class="form-control">
                                     </div>
                                 </div>
 

@@ -9,6 +9,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta name="keywords" content="{{ $orgData->meta_keyword ??"" }}">
+    <meta name="description" content="{{ $orgData->meta_description ??"" }}">
+
+
     <title>Gunjan Clinin | Noida</title>
     <link href="{{ asset('front/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/css/flaticon.css') }}" rel="stylesheet">

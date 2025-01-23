@@ -76,14 +76,12 @@ class teamController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        try {
+        // try {
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'url' => 'required',
-                'order' => 'required',
-                'external' => 'required',
-                'menu_place' => 'required',
+                'email' => 'required',
+                'image' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -92,27 +90,37 @@ class teamController extends Controller
 
             $data = new team;
             $data->name = ucwords($request->name);
-            $data->url  = $request->url;
-            $data->parent_id = $request->parent_id;
+            $data->email  = $request->email;
+            $data->specialization = $request->specialization;
+            $data->qualification  = $request->qualification;
+            $data->designation  = $request->designation;
             $data->order  = $request->order;
-            $data->external  = $request->urlType;
-            $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
-            $data->content_id  = $request->contentId;
+
+
+            $path = public_path('team/image');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->image = $newname;
+            }
+
+
             $data->save();
 
-            return redirect()->route('users.index')
+            return redirect()->route('teams.index')
                 ->with('success', 'User created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
 
@@ -151,7 +159,7 @@ class teamController extends Controller
         try {
             $team = team::find(dDecrypt($id));
         
-            return view('admin.common-page.users.edit', compact('team'));
+            return view('admin.common-page.teams.edit', compact('team'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -177,10 +185,7 @@ class teamController extends Controller
             
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'url' => 'required',
-                'order' => 'required',
-                'external' => 'required',
-                'menu_place' => 'required',
+                'email' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -189,16 +194,22 @@ class teamController extends Controller
 
             $data = team::find(dDecrypt($id));
             $data->name = ucwords($request->name);
-            $data->url  = $request->url;
-            $data->parent_id = $request->parent_id;
+            $data->email  = $request->email;
+            $data->specialization = $request->specialization;
+            $data->qualification  = $request->qualification;
+            $data->designation  = $request->designation;
             $data->order  = $request->order;
-            $data->external  = $request->urlType;
-            $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
-            $data->content_id  = $request->contentId;
+
+            $path = public_path('team/image');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->image = $newname;
+            }
+
             $data->save();
-
-
 
             return redirect()->route('teams.index')
                 ->with('success', 'team updated successfully');
