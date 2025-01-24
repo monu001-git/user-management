@@ -30,6 +30,7 @@
     <link href="{{ asset('front/assets/css/odometer-theme-default.css?ver=1.1') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/sass/style.css?ver=1.1') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/sass/responsive.css?ver=1.1') }}" rel="stylesheet">
+     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <!-- start page-wrapper -->
@@ -143,7 +144,7 @@
     <script src="{{ asset('front/assets/js/jquery-plugin-collection.js') }}"></script>
     <!-- Custom script for this template -->
     <script src="{{ asset('front/assets/js/script.js') }}"></script>
-    <script src="{{ asset('front/assets/js/slide-stories.js') }}"></script>
+
 
 </body>
 </html>

@@ -1,30 +1,33 @@
-        <!-- start of hero slider -->
-        <section class="static-hero" id='div'>
-            <div class="video-container">
+   <section class="static-hero" id='div'>
+       <div class="swiper-container">
+           <div class="swiper-wrapper">
+               @if(isset($bannerData) && count($bannerData) > 0)
+               @foreach ($bannerData as $key=> $bannerDatas)
+               <div class="swiper-slide">
+                   <div class="slide-inner slide-bg-image" data-background="{{  asset('uploads/banner'.'/'.$bannerDatas->image)  }}">
+                       <div class="gradient-overlay"></div>
+                       <div class="container">
+                           <div class="slide-content">
+                               <div class="wpo-static-hero-inner">
+                                   <div class="slide-sub-title">
+                                       <h2>{{ $bannerDatas->title ??'' }}</h2>
+                                   </div>
+                                   <div class="slide-text">
+                                       {!! $bannerDatas->description !!}
+                                   </div>
+                                   <div class="clearfix"></div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
 
-            </div>
-            <div class="hero-container">
-                <div class="hero-inner">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-7 col-lg-8 col-12">
-                                <div class="wpo-static-hero-inner">
-                                    <div class="slide-sub-title">
-                                        <h2>State-of-the-Art <br>Boutique Clinic</h2>
-                                    </div>
-                                    <div class="slide-text">
-                                        <ul>
-                                            <li>26+ Years in Medicine & Healing</li>
-                                            <li>Expert Care</li>
-                                            <li>Specialized Treatment</li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- end of hero slider -->
+               @endforeach
+               @endif
+           </div>
+           <div class="swiper-pagination"></div>
+           <div class="swiper-button-next"></div>
+           <div class="swiper-button-prev"></div>
+       </div>
+
+   </section>
