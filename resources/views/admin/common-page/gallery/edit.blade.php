@@ -280,8 +280,8 @@
                                     <select name="section" class="form-control" id="section">
                                         <option value="">Select Option </option>
                                         <option value="1" {{ old('section', $gallery->section) == "1" ? 'selected' : '' }}>Certificates</option>
-                                        <option value="2" {{ old('section', $gallery->section) == "0" ? 'selected' : '' }}>News</option>
-                                        <option value="3" {{ old('section', $gallery->section) == "0" ? 'selected' : '' }}>Other</option>
+                                        <option value="2" {{ old('section', $gallery->section) == "2" ? 'selected' : '' }}>News</option>
+                                        <option value="3" {{ old('section', $gallery->section) == "3" ? 'selected' : '' }}>Other</option>
                                     </select>
 
                                     @error('section')
@@ -331,6 +331,18 @@
                                     </div>
                                     @else
 
+
+                                    <div class="col-3">
+                                        <strong>Image:</strong>
+                                        <span style="color:green;font-size:12px;">
+                                            @if($gallerydetails->image)
+                                            [{{$gallerydetails->image}}]
+                                            @endif
+                                        </span>
+
+                                        <input type="file" name="image[]" class="form-control" @if($gallerydetails->image) value="{{$gallerydetails->image }}" @endif>
+                                    </div>
+
                                     <div class="col-3">
                                         <strong>video url</strong>
                                         <input type="url" class="form-control" name="file[]" value="{{ $gallerydetails->file }}" />
@@ -379,14 +391,16 @@
 
             <input type="hidden" class="form-control" name="id[]" value="" />
 
-            <div class="col-3 fileInputContainer">
-                <strong>Image :</strong>
-                <input type="file" class="form-control" name="file[]" />
+            <div class="col-3 fileInputContainer"  >
+                <input type="file" class="form-control" name="file[]" id="fileInput" />
             </div>
 
-            <div class="col-3 urlInputContainer">
-                <strong>Video URL</strong>
-                <input type="url" class="form-control" name="file[]" placeholder="Enter Video URL" />
+            <div class="col-3 urlInputContainer" >
+                <input type="file" class="form-control" name="image[]" id="imageInput" />
+            </div>
+
+            <div class="col-3 urlInputContainer" >
+                <input type="url" class="form-control" name="file[]" id="urlInput" placeholder="Enter Video URL" />
             </div>
 
             <div class="col-3">
@@ -405,7 +419,6 @@
     function updateInputVisibility() {
         const selectedFileType = $('#fileTypeSelect').val();
 
-        // Target only the last row added
         const $lastRow = $('#imageItemsContainer .form-group').last();
 
         // Toggle visibility based on the selected file type
@@ -416,6 +429,7 @@
             $lastRow.find('.fileInputContainer').hide();
             $lastRow.find('.urlInputContainer').show();
         }
+
     }
 
 

@@ -3,18 +3,18 @@
 @section('content')
 
 
-@session('success')
+@if(session('success'))
 <div class="alert alert-success" role="alert">
-    {{ $value }}
+    {{ session('success') }}
 </div>
-@endsession
+@endif
 
 <div class="page-inner">
     <div class="page-header">
         <h3 class="fw-bold mb-3">Gallery Management</h3>
         <ul class="breadcrumbs mb-3">
             <li class="nav-home">
-                <a >
+                <a>
                     <i class="icon-home"></i>
                 </a>
             </li>
@@ -22,10 +22,8 @@
                 <i class="icon-arrow-right"></i>
             </li>
             <li class="nav-item">
-                <a >Gallery Table</a>
+                <a>Gallery Table</a>
             </li>
-
-
         </ul>
     </div>
     <div class="row">
@@ -57,16 +55,17 @@
                                     <td>{{ $galleries->name }}</td>
                                     <td>
                                         @if($galleries->status != '0')
-                                        <a href="{{ url('status-change/1/'.dEncrypt($galleries->id) . '/galleries') }}" style="color:green;">
+                                        <a href="{{ url('status-change/1/'.dEncrypt($galleries->id).'/galleries') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
                                         </a>
                                         @else
-                                        <a href="{{ url('status-change/0/'.dEncrypt($galleries->id) . '/galleries') }}" style="color:green;">
+                                        <a href="{{ url('status-change/0/'.dEncrypt($galleries->id).'/galleries') }}" style="color:green;">
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                        {{-- <a class="btn btn-info btn-sm" href="{{ route('gallery.show',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
+
                                         @can('gallery-edit')
                                         <a class="btn btn-primary btn-sm" href="{{ route('gallery.edit',dEncrypt($galleries->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @endcan

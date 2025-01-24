@@ -117,7 +117,7 @@ Back</a>
 
 
 
-                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content banner: [Width:1920px, Height:500px]</strong>
                                         <span style="color:green;font-size:12px;">
@@ -169,12 +169,13 @@ Back</a>
                                     </div>
                                     @endforeach
                                 </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-primary navad" onclick="addItem()">Add New Image</button>
+                                </div>
 
-                                <button type="button" class="btn btn-primary navad" onclick="addItem()">Add New Image</button>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i>
-                                        Submit</button>
+                                <div class="card-action">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a class="btn btn-danger" href="{{ route('contents.index') }}"> Back</a>
                                 </div>
                             </div>
 

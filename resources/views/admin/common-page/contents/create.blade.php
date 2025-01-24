@@ -145,11 +145,14 @@ Back</a>
                                     </div>
 
                                 </div>
+                                <div class="col-4">
                                 <button type="button" class="btn btn-primary me-2 btn-sm navad" onclick="addItem()">Add Input</button>
+                                </div>
                                 <br><br>
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                                    <button type="submit" class="btn btn-primary btn-sm mb-3"><i class="fa-solid fa-floppy-disk"></i>
-                                        Submit</button>
+                                
+                                <div class="card-action">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a class="btn btn-danger" href="{{ route('contents.index') }}"> Back</a>
                                 </div>
                             </div>
                         </form>
