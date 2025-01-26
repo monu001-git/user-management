@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title', 255);
             $table->text('descriptions');
-            $table->text('meta_title');
-            $table->text('meta_description');
-            $table->text('meta_keyword');
-            $table->string('status')->default(0);
-            $table->string('image');
-            $table->string('banner');
+            $table->text('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keyword')->nullable();
+            $table->string('image', 255)->nullable();
+            $table->string('image_title', 255)->nullable();
+            $table->string('banner', 255)->nullable();
+            $table->string('banner_title', 255)->nullable();
+            $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('contents');
     }
 };

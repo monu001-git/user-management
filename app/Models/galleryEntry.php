@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class gallery_detail extends Model
+
+class galleryEntry extends Model
 {
 
     use HasFactory,SoftDeletes;
 
-    protected $table = 'gallerydetails';
-    
     public function gallery()
     {
         return $this->belongsTo(gallery::class);

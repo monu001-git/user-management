@@ -13,22 +13,31 @@ return new class extends Migration
     {
         Schema::create('orgs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('logo_title')->nullable();
-            $table->string('address')->nullable();
-            $table->string('about')->nullable();
-            $table->string('instagram')->nullable();
-            $table->string('instagram_title')->nullable();
-            $table->string('facebook')->nullable();
-            $table->string('facebook_title')->nullable();
-            $table->string('twitter')->nullable();
-            $table->string('twitter_title')->nullable();
+            $table->string('name', 255);
+            $table->string('email', 255)->unique();
+            $table->string('phone', 100)->nullable();
+            $table->string('header_logo', 255)->nullable();
+            $table->string('header_logo_title', 255)->nullable();
+            $table->string('footer_logo', 255)->nullable();
+            $table->string('footer_logo_title', 255)->nullable();
+            $table->string('favicon', 255)->nullable();
+            $table->string('favicon_title', 255)->nullable();
+            $table->string('address', 255)->nullable();
+            $table->text('about')->nullable();
+            $table->string('instagram', 255)->nullable();
+            $table->string('instagram_title', 255)->nullable();
+            $table->string('facebook', 255)->nullable();
+            $table->string('facebook_title', 255)->nullable();
+            $table->string('twitter', 255)->nullable();
+            $table->string('twitter_title', 255)->nullable();
+            $table->string('youtube', 255)->nullable();
+            $table->string('youtube_title', 255)->nullable();
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keyword')->nullable();
+
+
+            
             $table->softDeletes();
             $table->timestamps();
         });
@@ -39,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('orgs');
     }
 };

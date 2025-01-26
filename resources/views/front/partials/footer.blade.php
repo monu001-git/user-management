@@ -4,17 +4,18 @@
              <div class="row">
                  <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
                      <div class="logo widget-title text-center mb-5 logo-f">
-                         <a href="index.php"><img src="{{ asset('front/assets/images/footer-logo.svg') }}" alt="logo"></a>
+                         @if(isset($orgData->footer_logo))
+                         <a href="{{ url('/') }}"><img src="{{ asset('uploads/logo/footerlogo'.'/'.$orgData->footer_logo) ??"" }}" title="{{ $orgData->footer_logo_title ??"" }}"></a>
+                         @endif
                      </div>
                  </div>
              </div>
              <div class="row">
                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
                      <div class="widget about-widget">
-                         
-                          @if(isset($orgData->about) && !empty($orgData->about) )
-                         <p>{{ $orgData->about ??'' }}</p>
-                         @endif
+
+                         <p>{{ $orgData->about ?? 'About not available' }}</p>
+
                          <div class="social-widget">
                              <ul>
                                  @if(isset($orgData->facebook) && !empty($orgData->facebook) )
@@ -78,11 +79,9 @@
                          </div>
                          <div class="contact-ft">
                              <ul>
-                                 <li><i class="fi flaticon-placeholder"></i>
-                                     {{ $orgData->address ??"" }}
-                                 </li>
-                                 <li><i class="fi flaticon-phone-call"></i>{{ $orgData->phone ?? "" }}</li>
-                                 <li><i class="fi flaticon-email"></i>{{ $orgData->email ??"" }}</li>
+                                 <li><i class="fi flaticon-placeholder"></i>{{ $orgData->address ??"Address not available" }}</li>
+                                 <li><i class="fi flaticon-phone-call"></i>{{ $orgData->phone ?? "Phone not available" }}</li>
+                                 <li><i class="fi flaticon-email"></i>{{ $orgData->email ?? "Email not available" }}</li>
                              </ul>
                          </div>
                      </div>

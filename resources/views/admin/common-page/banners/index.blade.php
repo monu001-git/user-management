@@ -67,7 +67,7 @@
                                         </a>
                                         @endif</td>
                                     <td>
-                                        <a class="btn btn-info btn-sm" href="{{ route('banners.show',dEncrypt($banners->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                        {{-- <a class="btn btn-info btn-sm" href="{{ route('banners.show',dEncrypt($banners->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
                                         @can('banner-edit')
                                         <a class="btn btn-primary btn-sm" href="{{ route('banners.edit',dEncrypt($banners->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @endcan

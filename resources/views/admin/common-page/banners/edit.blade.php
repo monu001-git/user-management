@@ -1,29 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-{{-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Edit banner</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('banners.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-</div>
-</div>
-</div> --}}
-
-{{-- @if (count($errors) > 0)
-<div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif --}}
-
-
 
 <div class="page-inner">
     <div class="page-header">
@@ -46,9 +23,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Banner Update Form</div>
-                </div>
+               
                 <div class="card-body">
                     <form method="POST" action="{{ route('banners.update',dEncrypt($banner->id)) }}" enctype="multipart/form-data">
                         @csrf
@@ -68,7 +43,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Description:</strong>
-                                    <textarea name="description" class="form-control">{{ $banner->description }}</textarea>
+                                    <textarea name="description" class="form-control">{{ $banner->description ??""}}</textarea>
                                 </div>
                                 @error('description')
                                 <div class="text-danger">{{ $message }}</div>
@@ -78,7 +53,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="text" name="url" placeholder="url" value="{{ $banner->url }}" class="form-control">
+                                    <input type="text" name="url" placeholder="url" value="{{ $banner->url  ??''}}" class="form-control">
                                     @error('url')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -90,12 +65,12 @@
                                 <div class="form-group">
                                     <strong>Link Type:</strong>
                                     <br />
-                                    <select name="external" class="form-control">
+                                    <select name="link_type" class="form-control">
                                         <option value="">Select value</option>
-                                        <option value="0" {{ old('external', $banner->external) == 0 ? 'selected' : '' }}>External</option>
-                                        <option value="1" {{ old('external', $banner->external) == 1 ? 'selected' : '' }}>Internal</option>
+                                        <option value="0" {{ old('link_type', $banner->link_type) == 0 ? 'selected' : '' }}>External</option>
+                                        <option value="1" {{ old('link_type', $banner->link_type) == 1 ? 'selected' : '' }}>Internal</option>
                                     </select>
-                                    @error('external')
+                                    @error('link_type')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -104,14 +79,14 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" value={{ $banner->order }} placeholder="Sort order" minlength="1" maxlength="3" class="form-control">
+                                    <input type="text" name="order" value="{{ $banner->order }}" placeholder="Sort order" minlength="1" maxlength="3" class="form-control">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
 
-                            <input type="hidden" name="status" value="{{ $banner->status }}" class="form-control">
+                            <input type="hidden" name="status" value="{{ $banner->status  }}" class="form-control">
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">

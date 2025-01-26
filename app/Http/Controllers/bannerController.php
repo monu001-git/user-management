@@ -32,8 +32,7 @@ class bannerController extends Controller
     {
         try {
             $banner = banner::orderBy('id', 'asc')->get();
-            return view('admin.common-page.banners.index', compact('banner'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
+            return view('admin.common-page.banners.index', compact('banner'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -56,6 +55,7 @@ class bannerController extends Controller
         try {
             $banner = banner::pluck('title', 'title')->all();
             return view('admin.common-page.banners.create', compact('banner'));
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -74,16 +74,13 @@ class bannerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         try {
 
             $validator = Validator::make($request->all(), [
                 'title' => 'required|unique:banners,title',
-                'url' => 'required',
-                'order' => 'required',
-                'external' => 'required',
-                'image' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -94,7 +91,7 @@ class bannerController extends Controller
             $data->title = ucwords($request->title);
             $data->description  = $request->description;
             $data->url  = $request->url;
-            $data->external  = $request->external;
+            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
 
@@ -176,16 +173,13 @@ class bannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         try {
 
             $validator = Validator::make($request->all(), [
-               'title' => 'required|unique:banners,title',
-                'url' => 'required',
-                'order' => 'required',
-                'external' => 'required',
-                'image' => 'required',
+                'title' => 'required',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -196,7 +190,7 @@ class bannerController extends Controller
             $data->title = ucwords($request->title);
             $data->description  = $request->description;
             $data->url  = $request->url;
-            $data->external  = $request->external;
+            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
 
@@ -232,7 +226,7 @@ class bannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         try {
             banner::find(dDecrypt($id))->delete();

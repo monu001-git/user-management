@@ -13,17 +13,19 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id(); 
-            $table->string('name'); 
-            $table->string('url')->nullable(); 
-            $table->unsignedBigInteger('parent_id')->nullable(); 
-            $table->integer('order')->default(0); 
-            $table->string('content_id')->nullable(); 
+            $table->string('name',150); 
+            $table->string('url')->nullable()->default(null); 
+            $table->integer('content_id')->nullable()->default(1); 
             $table->string('menu_place')->nullable(); 
-            $table->boolean('status')->default(true);
-            $table->string('external')->nullable();
+            $table->string('link_type')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->default(0);
+            $table->unsignedBigInteger('parent_id')->nullable(); 
             $table->softDeletes();
             $table->timestamps(); 
         });
+
+
     }
 
     /**
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('menus');
     }
 };

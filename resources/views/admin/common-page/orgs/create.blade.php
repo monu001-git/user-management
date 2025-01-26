@@ -1,27 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-{{-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Create New org structure</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('orgs.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-</div>
-</div>
-</div> --}}
-
-{{-- @if (count($errors) > 0)
-<div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif --}}
 
 
 <div class="container">
@@ -157,15 +136,48 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>logo:</strong>
-                                        <input type="file" name="logo" class="form-control">
+                                        <strong>Header logo:</strong>
+                                        <input type="file" name="header_logo" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>logo title:</strong>
-                                        <input type="text" name="logo_title" class="form-control">
+                                        <strong>Header logo title:</strong>
+                                        <input type="text" name="header_logo_title" class="form-control">
+
+                                    </div>
+                                </div>
+
+
+                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Favicon :</strong>
+                                        <input type="file" name="favicon" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Favicon title:</strong>
+                                        <input type="text" name="favicon_title" class="form-control">
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Footer logo:</strong>
+                                        <input type="file" name="footer_logo" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Footer logo title:</strong>
+                                        <input type="text" name="footer_logo_title" class="form-control">
 
                                     </div>
                                 </div>
@@ -213,6 +225,22 @@
                                     <div class="form-group">
                                         <strong>Twitter title :</strong>
                                         <input type="text" name="twitter_title" placeholder="twitter title" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Youtube:</strong>
+                                        <input type="text" name="youtube" placeholder="youtube" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Youtube title :</strong>
+                                        <input type="text" name="youtube_title" placeholder="youtube title" class="form-control">
                                     </div>
                                 </div>
 

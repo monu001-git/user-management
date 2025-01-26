@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('file_type');
-            $table->string('section');
-            $table->string('order');
-            $table->string('status');
+            $table->string('file_type')->nullable();
+            $table->string('section')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('galleries');
     }
 };

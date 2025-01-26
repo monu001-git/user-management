@@ -33,8 +33,7 @@ class orgController extends Controller
         try {
 
             $org = org::orderBy('id', 'asc')->get();
-            return view('admin.common-page.orgs.index', compact('org'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
+            return view('admin.common-page.orgs.index', compact('org'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -75,15 +74,14 @@ class orgController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-
         try {
-
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email|unique:orgs,email',
-                'phone' => 'required',
+                'header_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'footer_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'meta_title' => 'required',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
@@ -92,7 +90,6 @@ class orgController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
 
             $data = new org;
             $data->name = ucwords($request->name);
@@ -106,22 +103,43 @@ class orgController extends Controller
             $data->facebook_title = $request->facebook_title;
             $data->twitter = $request->twitter;
             $data->twitter_title = $request->twitter_title;
-            $data->logo_title = $request->logo_title;
+            $data->youtube = $request->youtube;
+            $data->youtube_title = $request->youtube_title;
             $data->meta_title = $request->meta_title;
             $data->meta_description = $request->meta_description;
             $data->meta_keyword = $request->meta_keyword;
+            $data->header_logo_title = $request->header_logo_title;
+            $data->footer_logo_title = $request->footer_logo_title;
+            $data->favicon_title = $request->favicon_title;
+            
 
-            $path = public_path('uploads/logo');
-            if ($request->hasFile('logo')) {
-                $file = $request->file('logo');
+            $path = public_path('uploads/logo/headerlogo');
+            if ($request->hasFile('header_logo')) {
+                $file = $request->file('header_logo');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $newname);
-                $data->logo = $newname;
+                $data->header_logo = $newname;
+            }
+
+            $path = public_path('uploads/logo/footerlogo');
+            if ($request->hasFile('footer_logo')) {
+                $file = $request->file('footer_logo');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->footer_logo = $newname;
+            }
+
+            $path = public_path('uploads/logo/favicon');
+            if ($request->hasFile('favicon')) {
+                $file = $request->file('favicon');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->favicon = $newname;
             }
             $data->save();
 
-            return redirect()->route('orgs.index')
-                ->with('success', 'org created successfully');
+            return redirect()->route('orgs.index')->with('success', 'Organization Structure Created Successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -132,6 +150,7 @@ class orgController extends Controller
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
+        
     }
 
     /**
@@ -168,6 +187,7 @@ class orgController extends Controller
         try {
             $org = org::find(dDecrypt($id));
             return view('admin.common-page.orgs.edit', compact('org'));
+            
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -187,48 +207,74 @@ class orgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         try {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'meta_title' => 'required',
-            'meta_description' => 'required',
-            'meta_keyword' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email',
+                'header_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'footer_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'meta_title' => 'required',
+                'meta_description' => 'required',
+                'meta_keyword' => 'required',
+            ]);
 
-        $data = org::find(dDecrypt($id));
-        $data->email = $request->email;
-        $data->phone = $request->phone;
-        $data->instagram = $request->instagram;
-        $data->instagram_title = $request->instagram_title;
-        $data->facebook = $request->facebook;
-        $data->address = $request->address;
-        $data->facebook_title = $request->facebook_title;
-        $data->twitter = $request->twitter;
-        $data->about = $request->about;
-        $data->twitter_title = $request->twitter_title;
-        $data->logo_title = $request->logo_title;
-        $data->meta_title = $request->meta_title;
-        $data->meta_description = $request->meta_description;
-        $data->meta_keyword = $request->meta_keyword;
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
 
-        $path = public_path('uploads/logo');
-        if ($request->hasFile('logo')) {
-            $file = $request->file('logo');
-            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-            $file->move($path, $newname);
-            $data->logo = $newname;
-        }
-        $data->save();
+            $data = org::find(dDecrypt($id));
+            $data->name = ucwords($request->name);
+            $data->email = $request->email;
+            $data->phone = $request->phone;
+            $data->instagram = $request->instagram;
+            $data->instagram_title = $request->instagram_title;
+            $data->facebook = $request->facebook;
+            $data->about = $request->about;
+            $data->address = $request->address;
+            $data->facebook_title = $request->facebook_title;
+            $data->twitter = $request->twitter;
+            $data->twitter_title = $request->twitter_title;
+            $data->youtube = $request->youtube;
+            $data->youtube_title = $request->youtube_title;
+            $data->meta_title = $request->meta_title;
+            $data->meta_description = $request->meta_description;
+            $data->meta_keyword = $request->meta_keyword;
+            $data->header_logo_title = $request->header_logo_title;
+            $data->footer_logo_title = $request->footer_logo_title;
+            $data->favicon_title = $request->favicon_title;
+            
 
-        return redirect()->route('orgs.index')->with('success', 'org updated successfully');
+            $path = public_path('uploads/logo/headerlogo');
+            if ($request->hasFile('header_logo')) {
+                $file = $request->file('header_logo');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->header_logo = $newname;
+            }
+
+            $path = public_path('uploads/logo/footerlogo');
+            if ($request->hasFile('footer_logo')) {
+                $file = $request->file('footer_logo');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->footer_logo = $newname;
+            }
+
+            $path = public_path('uploads/logo/favicon');
+            if ($request->hasFile('favicon')) {
+                $file = $request->file('favicon');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->favicon = $newname;
+            }
+
+            $data->save();
+
+            return redirect()->route('orgs.index')->with('success', 'Organization Structure updated successfully');
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -247,12 +293,12 @@ class orgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         try {
             org::find(dDecrypt($id))->delete();
             return redirect()->route('orgs.index')
-                ->with('success', 'orgs deleted successfully');
+                ->with('success', 'Organization Structure record deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

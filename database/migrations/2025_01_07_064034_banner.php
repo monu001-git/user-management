@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('banners', function (Blueprint $table) {
-            $table->id(); 
-            $table->string('title'); 
+            $table->id();
+            $table->string('title', 150);
             $table->text('description')->nullable();
-            $table->string('image'); 
-            $table->string('url')->nullable();
-            $table->string('external')->nullable(); 
-            $table->integer('order')->nullable(); 
-            $table->boolean('status')->default(true); 
+            $table->string('image', 255);
+            $table->string('url')->nullable()->default(null);
+            $table->string('link_type')->nullable()->default(null);
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->default(0);
             $table->softDeletes();
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('banners');
     }
 };

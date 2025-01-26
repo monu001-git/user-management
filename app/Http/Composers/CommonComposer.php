@@ -95,7 +95,7 @@ class CommonComposer
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $orgData = DB::table('orgs')->whereNull('deleted_at')->first();
+            $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
             $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
             $galleryData = DB::table('galleries')->wheresection('1')->whereNull('deleted_at')->where('status', 1)->first();
 

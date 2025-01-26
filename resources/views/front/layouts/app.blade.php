@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="wpOceans">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('front/assets/images/favicon.png') }}">
+    @if(isset($orgData->favicon))
+    <link rel="shortcut icon" type="image/png" href="{{ asset('uploads/logo/favicon'.'/'.$orgData->favicon) }}" title="{{ $orgData->favicon_title ??'' }}">
+    @endif
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">

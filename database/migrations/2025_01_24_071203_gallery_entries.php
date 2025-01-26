@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('galleryDetails', function (Blueprint $table) {
+        Schema::create('gallery_entries', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('alt');
-            $table->string('file');
+            $table->string('title', 255)->nullable();
+            $table->text('image')->nullable(); 
+            $table->text('file')->nullable(); 
             $table->foreignId('gallery_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('gallery_entries');
     }
 };
