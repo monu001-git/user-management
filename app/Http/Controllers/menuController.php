@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class menuController extends Controller
@@ -77,7 +76,7 @@ class menuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         try {
 
@@ -85,7 +84,7 @@ class menuController extends Controller
                 'name' => 'required',
                 'url' => 'required',
                 'order' => 'required',
-                'external' => 'required',
+                'link_type' => 'required',
                 'menu_place' => 'required',
             ]);
 
@@ -96,10 +95,17 @@ class menuController extends Controller
             $data = new menu;
             $data->name = ucwords($request->name);
             $data->slug    = Str::slug($request->name, "-");
-            $data->url  = $request->url;
+
+            if ($request->link_type === "0") {
+                $data->url  = $request->url;
+            } else {
+                $data->url  =  Str::slug($request->name, "-");
+            }
+
+
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
-            $data->external  = $request->urlType;
+            $data->link_type = $request->link_type;
             $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
             $data->content_id  = $request->content_id;
@@ -173,16 +179,16 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         try {
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'url' => 'required',
                 'order' => 'required',
-                'external' => 'required',
+                'link_type' => 'required',
                 'menu_place' => 'required',
+                'url' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -192,10 +198,16 @@ class menuController extends Controller
             $data = menu::find(dDecrypt($id));
             $data->name = ucwords($request->name);
             $data->slug    = Str::slug($request->name, "-");
-            $data->url  = $request->url;
+
+            if ($request->link_type === "0") {
+                $data->url  = $request->url;
+            } else {
+                $data->url  =  Str::slug($request->name, "-");
+            }
+
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
-            $data->external  = $request->urlType;
+            $data->link_type = $request->link_type;
             $data->status  = $request->status;
             $data->menu_place  = $request->menu_place;
             $data->content_id  = $request->content_id;
@@ -221,13 +233,12 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         try {
 
             menu::find(dDecrypt($id))->delete();
-            return redirect()->route('menus.index')
-                ->with('success', 'menu deleted successfully');
+            return redirect()->route('menus.index')->with('success', 'Menu deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);

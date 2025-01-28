@@ -32,7 +32,7 @@
     <link href="{{ asset('front/assets/css/odometer-theme-default.css?ver=1.1') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/sass/style.css?ver=1.1') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/sass/responsive.css?ver=1.1') }}" rel="stylesheet">
-     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <!-- start page-wrapper -->
@@ -55,20 +55,15 @@
                 <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
                 <div class="modal-body p-0">
                     <div data-slide="slide" class="slide">
+
+                        @if(isset($galleryDataTopImage) && count($galleryDataTopImage) > 0 )
+                        @foreach ($galleryDataTopImage['gallerydetailData'] as $galleryDataTopImages)
                         <div class="slide-items">
-                            <img src="{{ asset('front/assets/images/story/story-01.jpg') }}" alt="story">
+                            <img src="{{ asset('uploads/content/image'.'/'.$galleryDataTopImages->image) ??'' }}" alt="story">
                         </div>
-                        <div class="slide-items">
-                            <img src="{{ asset('front/assets/images/story/story-02.jpg') }}" alt="story">
-                        </div>
-                        <div class="slide-items">
-                            <img src="{{ asset('front/assets/images/story/story-03.jpg') }}" alt="story">
-                        </div>
-                        <!--div class="slide-items">
-							 <video class="videostory" autoplay muted>
-								 <source src="https://cdn.pixabay.com/video/2024/03/14/204214-923594173_large.mp4" type="video/mp4">
-							 </video>
-						</div -->
+                        @endforeach
+                        @endif
+
                         <nav class="slide-nav">
                             <div class="slide-thumbs"></div>
                             <button class="slide-prev">Previous</button>

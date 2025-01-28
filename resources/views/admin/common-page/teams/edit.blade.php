@@ -14,6 +14,7 @@
 </div>
 @endif
 
+
 <div class="page-inner">
     <div class="page-header">
 
@@ -46,7 +47,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" placeholder="name" value="{{ $team->name }}" class="form-control">
+                                    <input type="text" name="name" minlength="1" maxlength="25" placeholder="name" value="{{ $team->name }}" class="form-control">
 
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -57,7 +58,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="text" name="email" placeholder="email" value="{{ $team->email }}" class="form-control">
+                                    <input type="text" name="email" minlength="1" maxlength="25" placeholder="email" value="{{ $team->email }}" class="form-control">
 
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>
@@ -69,7 +70,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Specialization:</strong>
-                                    <input type="text" name="specialization" placeholder="specialization" value="{{ $team->specialization }}" class="form-control">
+                                    <input type="text" name="specialization" minlength="1" maxlength="25" placeholder="specialization" value="{{ $team->specialization }}" class="form-control">
 
                                     @error('specialization')
                                     <div class="text-danger">{{ $message }}</div>
@@ -80,7 +81,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Qualification:</strong>
-                                    <input type="text" name="qualification" placeholder="qualification" value="{{ $team->qualification }}" class="form-control">
+                                    <input type="text" name="qualification" minlength="1" maxlength="25" placeholder="qualification" value="{{ $team->qualification }}" class="form-control">
 
                                     @error('qualification')
                                     <div class="text-danger">{{ $message }}</div>
@@ -91,7 +92,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Designation:</strong>
-                                    <input type="text" name="designation" placeholder="designation" value="{{ $team->designation }}" class="form-control">
+                                    <input type="text" name="designation" minlength="1" maxlength="25" placeholder="designation" value="{{ $team->designation }}" class="form-control">
 
                                     @error('designation')
                                     <div class="text-danger">{{ $message }}</div>
@@ -103,7 +104,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" placeholder="Sort order" class="form-control" value="{{ $team->order }}" minlength="1" maxlength="3">
+                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control" value="{{ $team->order }}" minlength="1" maxlength="3">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror

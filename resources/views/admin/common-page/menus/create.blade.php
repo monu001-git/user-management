@@ -1,29 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-{{-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Create New menu</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('menus.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
-</div>
-</div>
-</div> --}}
-
-{{-- @if (count($errors) > 0)
-<div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       
-    </ul>
-</div>
-@endif --}}
-
-
-
-
 
 <div class="container">
     <div class="page-inner">
@@ -31,7 +8,7 @@
             <h3 class="fw-bold mb-3">Menu Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -39,7 +16,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Menu Create Form</a>
+                    <a>Menu Create Form</a>
                 </li>
             </ul>
         </div>
@@ -61,15 +38,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Url:</strong>
-                                        <input type="text" name="url" placeholder="url" value="{{ old('url') }}" class="form-control">
-                                        @error('url')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Parent Name:</strong>
@@ -106,17 +74,26 @@
                                     <div class="form-group">
                                         <strong>Link Type:</strong>
                                         <br />
-                                        <select name="external" class="form-control">
+                                        <select name="link_type" id="link_type" class="form-control">
                                             <option value="">Select value</option>
                                             <option value="0">External</option>
                                             <option value="1">Internal</option>
 
                                         </select>
-                                        @error('external')
+                                        @error('link_type')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12" id="url-input-group" style="display: none;">
+                                    <div class="form-group">
+                                        <strong>Url:</strong>
+                                        <input type="url" name="url" placeholder="url" class="form-control">
+                                    </div>
+                                </div>
+
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -124,8 +101,9 @@
                                         <br />
                                         <select name="menu_place" class="form-control">
                                             <option value="">Select value</option>
-                                            <option value="0">Header</option>
-                                            <option value="1">Footer</option>
+                                            <option value="1">Header</option>
+                                            <option value="2">Footer</option>
+                                            <option value="3">Both</option>
                                         </select>
                                         @error('menu_place')
                                         <div class="text-danger">{{ $message }}</div>
@@ -159,5 +137,22 @@
         </div>
     </div>
 
+
+
+    <script>
+        $(document).ready(function() {
+            $('#link_type').on('change', function() {
+                if ($(this).val() === "0") {
+                    $('#url-input-group').show();
+                    $('input[name="url"]').attr('required', true);
+                } else {
+                    $('#url-input-group').hide();
+                    $('input[name="url"]').removeAttr('required');
+                }
+            });
+            $('#link_type').trigger('change');
+        });
+
+    </script>
 
     @endsection

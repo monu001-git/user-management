@@ -1,38 +1,18 @@
 @extends('admin.layouts.app')
 
-
 @section('content')
-{{-- <style>
-    .navad {
-        width: 80px;
-        margin-left: 13px;
-        height: 35px;
-    }
 
-</style> --}}
-{{-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Edit content</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('contents.index') }}"><i class="fa fa-arrow-left"></i>
-Back</a>
-</div>
-</div>
-</div> --}}
 
-{{-- @if (count($errors) > 0)
+@if (count($errors) > 0)
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
-@endforeach
-</ul>
+        @endforeach
+    </ul>
 </div>
-@endif --}}
-
+@endif
 
 <div class="container">
     <div class="page-inner">
@@ -58,6 +38,7 @@ Back</a>
                 <div class="card">
 
                     <div class="card-body">
+                    
                         <form method="POST" action="{{ route('contents.update', dEncrypt($content->id)) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -83,13 +64,13 @@ Back</a>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
-                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ $content->id }}</textarea><br>
+                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ $content->meta_keyword }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>content title:</strong>
+                                        <strong>Content title:</strong>
                                         <input type="text" name="title" placeholder="title" value="{{ $content->title }}" class="form-control">
                                     </div>
                                 </div>
@@ -130,7 +111,7 @@ Back</a>
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="status" value="{{ $content->status }}" class="form-control">
+                                <input type="hidden" name="status" value="{{ $content->status ??'' }}" class="form-control">
 
 
 
@@ -140,15 +121,12 @@ Back</a>
                                 <div id="imageItemsContainer">
                                     @foreach ($imageContent as $imageContents)
                                     <div class="form-group row mb-3">
-                                        <div class="col-3">
+                                        <div class="col-5">
                                             <strong>Image title:</strong>
-                                            <input type="text" class="form-control" name="imageTitle[]" placeholder="Image title" value="{{ $imageContents->imageTitle }}" />
+                                            <input type="text" class="form-control" name="image_title[]" placeholder="Image title" value="{{ $imageContents->image_title }}" />
                                         </div>
-                                        <div class="col-3">
-                                            <strong>Image alt:</strong>
-                                            <input type="text" class="form-control" name="imageAlt[]" placeholder="Image Alt" value="{{ $imageContents->imageAlt }}" />
-                                        </div>
-                                        <div class="col-3">
+
+                                        <div class="col-5">
 
                                             <strong>Image:</strong>
                                             <span style="color:green;font-size:12px;">
@@ -157,20 +135,20 @@ Back</a>
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="multipleimage[]" class="form-control" @if ($imageContents->image) value="{{ $imageContents->image }}" @endif>
+                                            <input type="file" name="multipleimage[]" class="form-control" @if ($imageContents->image) value="{{ $imageContents->image  }}" @endif>
 
 
                                         </div>
                                         <input type="hidden" class="form-control" name="id[]" value="{{ $imageContents->id }}" />
 
-                                        <div class="col-3">
+                                        <div class="col-2">
                                             <button type="button" class="btn btn-danger" data-id="{{ $imageContents->id }}" onclick="removeItem(this)">Delete</button>
                                         </div>
                                     </div>
                                     @endforeach
                                 </div>
-                                <div class="col-4">
-                                    <button type="button" class="btn btn-primary navad" onclick="addItem()">Add New Image</button>
+                                <div class="col-5">
+                                    <button type="button" class="btn btn-primary navad" onclick="addItem()">Add Input</button>
                                 </div>
 
                                 <div class="card-action">
@@ -192,36 +170,26 @@ Back</a>
 
     <script>
         function addItem() {
-
             var selectedFileType = $('#fileTypeSelect').val();
-
             const $container = $('#imageItemsContainer');
             const newRowHtml = `
-       <div class="form-group row mb-3">
-            <div class="col-3">
-                <strong>Image title:</strong>
-                <input type="text" class="form-control" name="imageTitle[]" placeholder="Image title" />
-            </div>
+            <div class="form-group row mb-3">
+                <div class="col-5">
+                    <strong>Image title:</strong>
+                    <input type="text" class="form-control" name="image_title[]" placeholder="Image title" />
+                </div>
 
-            <div class="col-3">
-                <strong>Image alt:</strong>
-                <input type="text" class="form-control" name="imageAlt[]" placeholder="Image Alt" />
-            </div>
-
-            <div class="col-3">
-                <strong>Image:</strong>
-                <input type="file" name="multipleimage[]" class="form-control"/>
-            </div>
-
-            <div class="col-3">
+                <div class="col-5">
+                    <strong>Image:</strong>
+                    <input type="file" name="multipleimage[]" class="form-control" />
+                </div>
+            
                 <input type="hidden" class="form-control" name="id[]" />
-            </div>
 
-            <div class="col-3">
-                <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
-            </div>
-        </div>`;
-
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
+                </div>
+            </div>`;
             $container.append(newRowHtml);
         }
 

@@ -12,25 +12,18 @@
         <div class="department-wrap">
             <div class="department-doctor-wrap mt-0 spty">
                 <div class="video-slider owl-carousel owl-theme">
-
-      
-
                     @if(isset($galleryDataNews) && count($galleryDataNews) > 0 && !empty($galleryDataNews))
-
-                    @foreach ($galleryDataNews['gallerydetailData'] as $galleryNews)
-
-
-                    <div class="notice-block-two">
-                        <div class="video-single-img">
-                            <img src="{{ asset('front/assets/images/cover/dr-vp-singh1.jpg') }}" alt="">
-                        </div>
-                        <a href="{{ $galleryNews->file }}" class="video-btn" data-type="iframe"><img src="{{ asset('front/assets/images/icon/play.svg') }}" /></a>
-                    </div>
-                    @endforeach
+                        @foreach ($galleryDataNews['gallerydetailData'] as $galleryNews)
+                            <div class="notice-block-two">
+                                <div class="video-single-img">
+                                    <img src="{{ asset('uploads/content/image'.'/'.$galleryNews->image ) }}" title="{{ $galleryNews->title ??"" }}">
+                                </div>
+                                <a href="{{ $galleryNews->file }}" class="video-btn" data-type="iframe"><img src="{{ asset('front/assets/images/icon/play.svg') }}" /></a>
+                            </div>
+                        @endforeach
                     @endif
                 </div>
             </div>
-
         </div>
         <div class="blog-sec-btnn text-center ">
             <a href="news-and-media.php" class="link custom-buttomm">View All News &amp; Updates <img src="{{ asset('front/assets/images/icon/arrow-btn1.svg') }}"></a>

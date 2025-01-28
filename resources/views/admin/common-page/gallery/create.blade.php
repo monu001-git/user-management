@@ -78,6 +78,7 @@
                                             <option value="">Select Option </option>
                                             <option value="1">Certificates</option>
                                             <option value="2">News</option>
+                                            <option value="4">Model Image</option>
                                             <option value="3">Other</option>
                                         </select>
 
@@ -105,25 +106,22 @@
                                 <h5 style="text-align:center;">Upload Gallery</h5>
                                 <div id="imageItemsContainer">
                                     <div class="form-group row mb-3">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <input type="text" class="form-control" name="title[]" placeholder="title" />
                                         </div>
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" name="alt[]" placeholder="Alt" />
+
+
+                                        <div class="col-4" id="fileInputContainer" style="display: none;">
+                                            <input type="file" class="form-control" name="image1[]" id="fileInput" />
                                         </div>
 
 
-                                        <div class="col-3" id="fileInputContainer" style="display: none;">
-                                            <input type="file" class="form-control" name="file[]" id="fileInput" />
+                                        <div class="col-4 urlInputContainer" style="display: none;">
+                                            <input type="file" class="form-control" name="image2[]" id="imageInput" />
                                         </div>
 
-
-                                        <div class="col-3 urlInputContainer" style="display: none;">
-                                            <input type="file" class="form-control" name="image[]" id="imageInput" />
-                                        </div>
-
-                                        <div class="col-3 urlInputContainer" style="display: none;">
-                                            <input type="url" class="form-control" name="file[]" id="urlInput" placeholder="Enter Video URL" />
+                                        <div class="col-4 urlInputContainer" style="display: none;">
+                                            <input type="url" class="form-control" name="url[]" id="urlInput" placeholder="Enter Video URL" />
                                         </div>
 
 

@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class imageContent extends Model
+class image_content extends Model
 {
 
     use HasFactory,SoftDeletes;
-
-    protected $table = 'imageContents';
-
     
     public function content()
     {

@@ -1,42 +1,18 @@
 @extends('admin.layouts.app')
 
-
 @section('content')
 
-{{-- <style>
-    .navad {
-        width: 80px;
-        margin-left: 13px;
-        height: 35px;
-    }
 
-</style>
- --}}
-
-
-{{-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Create New content</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary btn-sm mb-2" href="{{ route('contents.index') }}"><i class="fa fa-arrow-left"></i>
-Back</a>
-</div>
-</div>
-</div> --}}
-
-{{-- @if (count($errors) > 0)
+@if (count($errors) > 0)
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
-@endforeach
-</ul>
+        @endforeach
+    </ul>
 </div>
-@endif --}}
-
+@endif
 
 <div class="container">
     <div class="page-inner">
@@ -44,7 +20,7 @@ Back</a>
             <h3 class="fw-bold mb-3">Content Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -52,9 +28,9 @@ Back</a>
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Content Create Forms</a>
+                    <a>Content Create Forms</a>
                 </li>
-               
+
             </ul>
         </div>
         <div class="row">
@@ -67,7 +43,7 @@ Back</a>
                         <form method="POST" action="{{ route('contents.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                
+
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -87,13 +63,13 @@ Back</a>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
-                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea><br>
+                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>content title:</strong>
+                                        <strong>Content title:</strong>
                                         <input type="text" name="title" placeholder="title" class="form-control">
                                     </div>
                                 </div>
@@ -114,7 +90,7 @@ Back</a>
                                 </div>
 
 
-                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content banner:</strong>
                                         <input type="file" name="banner" placeholder="content Image" class="form-control">
@@ -130,26 +106,24 @@ Back</a>
                                 <h5 style="text-align:center;">Content Image</h5>
                                 <div id="imageItemsContainer">
                                     <div class="form-group row mb-3">
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" name="imageTitle[]" placeholder="Image title" />
+                                        <div class="col-5">
+                                            <input type="text" class="form-control" name="image_title[]" placeholder="Image title" />
                                         </div>
-                                        <div class="col-3">
-                                            <input type="text" class="form-control" name="imageAlt[]" placeholder="Image Alt" />
-                                        </div>
-                                        <div class="col-3">
+
+                                        <div class="col-5">
                                             <input type="file" class="form-control" name="multipleimage[]" />
                                         </div>
-                                        <div class="col-3">
+                                        <div class="col-2">
                                             <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="col-4">
-                                <button type="button" class="btn btn-primary me-2 btn-sm navad" onclick="addItem()">Add Input</button>
+                                <div class="col-5">
+                                    <button type="button" class="btn btn-primary me-2 btn-sm" onclick="addItem()">Add Input</button>
                                 </div>
                                 <br><br>
-                                
+
                                 <div class="card-action">
                                     <button type="submit" class="btn btn-success">Submit</button>
                                     <a class="btn btn-danger" href="{{ route('contents.index') }}"> Back</a>
@@ -164,29 +138,17 @@ Back</a>
     </div>
 
 
-
-
-
-
     <script>
         function addItem() {
-            // Clone the first form-group row and append it to the container
             const container = $('#imageItemsContainer');
             const firstRow = container.find('.form-group').first();
             const newRow = firstRow.clone();
-
-            // Reset the input values in the new row
             newRow.find('input').val('');
-
-            // Enable the "Delete" button in the new row
             newRow.find('.btn-danger').prop('disabled', false);
-
-            // Append the new row to the container
             container.append(newRow);
         }
 
         function removeItem(button) {
-            // Remove the row that contains the clicked "Delete" button
             $(button).closest('.form-group').remove();
         }
 

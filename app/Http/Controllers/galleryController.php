@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\menu;
 use App\Models\gallery;
-use App\Models\gallery_detail;
+use App\Models\galleryEntry;
 use DB;
-use Hash;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class galleryController extends Controller
@@ -30,23 +26,22 @@ class galleryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
-            $gallery = gallery::orderBy('id', 'asc')->get();
 
-            return view('admin.common-page.gallery.index', compact('gallery'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
-            } catch (\Exception $e) {
-                \Log::error('An exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            } catch (\PDOException $e) {
-                \Log::error('A PDOException occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-            } catch (\Throwable $e) {
-                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-            }
+            $gallery = gallery::orderBy('id', 'asc')->get();
+            return view('admin.common-page.gallery.index', compact('gallery'))->with('i', ($request->input('page', 1) - 1) * 5);
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**
@@ -54,9 +49,10 @@ class galleryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
+
             $gallery = gallery::pluck('name', 'name')->all();
             return view('admin.common-page.gallery.create', compact('gallery'));
         } catch (\Exception $e) {
@@ -77,65 +73,66 @@ class galleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'file_type' => 'required',
+            'order' => 'required'
+
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        DB::beginTransaction();
         try {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'file_type' => 'required',
-                'order' =>'required'
-              
-            ]);
+            $data = new gallery;
+            $data->name = ucwords($request->name);
+            $data->file_type = $request->file_type;
+            $data->order = $request->order;
+            $data->status = $request->status;
+            $data->section = $request->section;
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+            $data->save();
 
-            $data = new gallery();
-            DB::beginTransaction();
 
-            try {
-                $data->name = ucwords($request->name);
-                $data->file_type = $request->file_type;
-                $data->order = $request->order;
-                $data->status = $request->status;
-                $data->section = $request->section;
-                
-                $data->save();
+            $titles = $request->title ?? [];
+            $urls = $request->url ?? [];
+            $images1 = $request->image1 ?? [];
+            $images2 = $request->image2 ?? [];
 
-                $titles = $request->title ?? [];
-                $alts = $request->alt ?? [];
-                $files = $request->file ?? [];
+            foreach ($titles as $index => $title) {
+                if ($title) {
+                    $gallerydetail = new galleryEntry();
+                    $gallerydetail->gallery_id = $data->id;
+                    $gallerydetail->title = $title;
 
-                foreach ($files as $index => $file) {
-                    if ($file) {
-                        $gallerydetail = new gallery_detail();
-                        $gallerydetail->gallery_id = $data->id;
-                        $gallerydetail->title = $titles[$index] ?? null;
-                        $gallerydetail->alt = $alts[$index] ?? null;
+                    $file = $request->file_type == 'i'  ? ($images1[$index] ?? null) : ($images2[$index] ?? null);
 
-                        if ($request->file_type == 'i') {
-                            if ($file && $file->isValid()) {
-                                $path = public_path('uploads/content/image');
-                                $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                                $file->move($path, $newName);
-                                $gallerydetail->file = $newName;
-                            }
-                        } else {
-                            $gallerydetail->file = $files[$index] ?? null;
-                        }
-
-                        $gallerydetail->save();
+                    if ($file && $file->isValid()) {
+                        $path = public_path('uploads/content/image');
+                        $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                        $file->move($path, $newName);
+                        $gallerydetail->image = $newName;
                     }
-                }
 
-                DB::commit();
-                return redirect()->route('gallery.index')
-                    ->with('success', 'gallery created successfully');
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+                    if ($request->file_type != 'i') {
+                        $gallerydetail->file = $urls[$index] ?? null;
+                    }
+
+                    $gallerydetail->save();
+                }
             }
+
+            DB::commit();
+
+            return redirect()->route('gallery.index')->with('success', 'gallery created successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -154,12 +151,12 @@ class galleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
+    public function show($id)
     {
         try {
-            //  $menu = menu::find(dDecrypt($id));
+            $gallery = gallery::orderBy('id', 'asc')->get();
 
-            return view('admin.common-page.gallery.show', compact('menu'));
+            return view('admin.common-page.gallery.show', compact('gallery'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -178,11 +175,12 @@ class galleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id)
     {
         try {
+
             $gallery = gallery::find(dDecrypt($id));
-            $gallerydetail = gallery_detail::wheregallery_id(dDecrypt($id))->get();
+            $gallerydetail = galleryEntry::wheregallery_id(dDecrypt($id))->get();
 
             return view('admin.common-page.gallery.edit', compact('gallery', 'gallerydetail'));
         } catch (\Exception $e) {
@@ -204,91 +202,96 @@ class galleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'file_type' => 'required',
-              
-            ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'file_type' => 'required',
+            'order' => 'required'
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+        ]);
 
-            $data = gallery::find(dDecrypt($id));
-            $data->name = ucwords($request->name);
-            $data->file_type = $request->file_type;
-            $data->order = $request->order;
-            $data->status = $request->status;
-            $data->section = $request->section;
-            $data->save();
-
-            $titles = $request->title ?? [];
-            $alts = $request->alt ?? [];
-            $files = $request->file ?? [];
-            $ids = $request->id ?? [];
-
-
-            foreach ($ids as $index => $id) {
-                $file = $files[$index] ?? null;
-                if ($id) {
-                    $gallerydetail = gallery_detail::find($id);
-                    if ($gallerydetail) {
-                        $gallerydetail->gallery_id = $data->id;
-                        $gallerydetail->title = $titles[$index] ?? null;
-                        $gallerydetail->alt = $alts[$index] ?? null;
-
-                        if ($request->file_type == 'i') {
-                            if ($file && $file->isValid()) {
-                                $path = public_path('uploads/content/image');
-                                $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                                $file->move($path, $newName);
-                                $gallerydetail->file = $newName;
-                            }
-                        } else {
-                            $gallerydetail->file = $files[$index] ?? null;
-                        }
-                        $gallerydetail->save();
-                    }
-                } else {
-                    $gallerydetail = new gallery_detail();
-                    $gallerydetail->gallery_id = $data->id;
-                    $gallerydetail->title = $titles[$index] ?? null;
-                    $gallerydetail->alt = $alts[$index] ?? null;
-
-                    if ($request->file_type == 'i') {
-                        $path = public_path('uploads/content/image');
-                        $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                        $file->move($path, $newName);
-                        $gallerydetail->file = $newName;
-                    } else {
-                        $gallerydetail->file = $files[$index] ?? null;
-                    }
-
-                    $gallerydetail->save();
-                }
-            }
-            DB::commit();
-            return redirect()->route('gallery.index')
-                ->with('success', 'gallery created successfully');
-            //     } catch (\Exception $e) {
-            //         DB::rollBack();
-            //         return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            //     }
-
-
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        DB::beginTransaction();
+        // try {
+        $data = gallery::find(dDecrypt($id));
+        $data->name = ucwords($request->name);
+        $data->file_type = $request->file_type;
+        $data->order = $request->order;
+        $data->status = $request->status;
+        $data->section = $request->section;
+
+        $data->save();
+
+
+        $titles = $request->title ?? [];
+        $urls = $request->url ?? [];
+        $images1 = $request->image1 ?? [];
+        $images2 = $request->image2 ?? [];
+        $ids = $request->id ?? [];
+
+        foreach ($ids as $index => $id) {
+            $file = $files[$index] ?? null;
+            if ($id) {
+
+                $gallerydetail = galleryEntry::find($id);
+                $gallerydetail->gallery_id = $data->id;
+                $gallerydetail->title = $titles[$index] ?? null;
+
+                $file = $request->file_type == 'i'  ? ($images1[$index] ?? null) : ($images2[$index] ?? null);
+
+                if ($file && $file->isValid()) {
+                    $path = public_path('uploads/content/image');
+                    $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                    $file->move($path, $newName);
+                    $gallerydetail->image = $newName;
+                }
+
+                if ($request->file_type != 'i') {
+                    $gallerydetail->file = $urls[$index] ?? null;
+                }
+
+                $gallerydetail->save();
+            } else {
+
+                $gallerydetail = new galleryEntry();
+                $gallerydetail->gallery_id = $data->id;
+                $gallerydetail->title = $titles[$index] ?? null;
+
+                $file = $request->file_type == 'i'  ? ($images1[$index] ?? null) : ($images2[$index] ?? null);
+
+                if ($file && $file->isValid()) {
+                    $path = public_path('uploads/content/image');
+                    $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                    $file->move($path, $newName);
+                    $gallerydetail->image = $newName;
+                }
+
+                if ($request->file_type != 'i') {
+                    $gallerydetail->file = $urls[$index] ?? null;
+                }
+
+                $gallerydetail->save();
+            }
+        }
+
+        DB::commit();
+
+
+        return redirect()->route('gallery.index')->with('success', 'gallery created successfully');
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -297,13 +300,12 @@ class galleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         try {
 
             gallery::find(dDecrypt($id))->delete();
-            return redirect()->route('gallery.index')
-                ->with('success', 'menu deleted successfully');
+            return redirect()->route('gallery.index')->with('success', 'Gallery deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -321,10 +323,10 @@ class galleryController extends Controller
     {
         try {
             $request->validate([
-                'id' => 'required|exists:gallerydetails,id',
+                'id' => 'required|exists:gallery_entries,id',
             ]);
 
-            $item = gallery_detail::find($request->id);
+            $item = galleryEntry::find($request->id);
             $item->delete();
             return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
         } catch (\Exception $e) {

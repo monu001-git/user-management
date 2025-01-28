@@ -7,7 +7,6 @@ $('#togglePassword').click(function () {
 });
 
 $('#ctogglePassword').click(function () {
-    alert('sdfkljdskl');
     var passwordField = $('#confirm-password');
     var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
     passwordField.attr('type', type);

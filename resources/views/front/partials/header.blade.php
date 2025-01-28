@@ -16,9 +16,9 @@
                       </div>
                       <div class="col-lg-3 col-md-3 col-6">
                           <div class="navbar-header">
-                          @if(isset($orgData->header_logo))
+                              @if(isset($orgData->header_logo))
                               <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('uploads/logo/headerlogo'.'/'.$orgData->header_logo) }}" title="{{ $orgData->header_logo_title ??"" }}"></a>
-                          @endif
+                              @endif
                           </div>
                       </div>
                       <div class="col-lg-8 col-md-8 col-1">
@@ -31,7 +31,7 @@
                                   @foreach ($headerMenu as $headerMenu)
                                   @if (isset($headerMenu->children) && count($headerMenu->children) > 0)
                                   <li class="menu-item-has-children">
-                                      <a >{{ $headerMenu->name ??""  }}<span class="dwn"><svg xmlns="http://www.w3.org/2000/svg" width="10.121" height="6.121" viewBox="0 0 10.121 6.121">
+                                      <a>{{ $headerMenu->name ?? ""  }}<span class="dwn"><svg xmlns="http://www.w3.org/2000/svg" width="10.121" height="6.121" viewBox="0 0 10.121 6.121">
                                                   <g transform="translate(-1181.797 -99.44)">
                                                       <line x2="3.786" y2="4" transform="translate(1182.857 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
                                                       <line x1="4.214" y2="4" transform="translate(1186.643 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
@@ -39,13 +39,14 @@
                                               </svg></span></a>
                                       <ul class="sub-menu">
                                           @foreach ($headerMenu->children as $subMenu)
-                                          <li><a href="{{ url($subMenu->url) ?? "" }}">{{ $subMenu->name  ??""}}</a></li>
+                                          <li><a @if($subMenu->link_type != "0") href="{{ $subMenu->url ?? "" }}" @else target="_blank" href="{{ url($subMenu->url ??'')  }}" @endif>{{ $subMenu->name  ??""}}</a></li>
                                           @endforeach
                                       </ul>
                                   </li>
                                   @else
 
-                                  <li><a href="{{  url($headerMenu->url) ??'' }}">{{ $headerMenu->name  ??""}}</a> </li>
+
+                                  <li><a @if($headerMenu->link_type != "0") href="{{ $headerMenu->url ??"" }}" @else target="_blank" href="{{ url($headerMenu->url ??'')  }}" @endif>{{ $headerMenu->name  ??""}}</a> </li>
 
                                   @endif
 
@@ -55,41 +56,7 @@
                                   @endif
 
 
-                                  {{-- <li class="menu-item-has-children">
-                                            <a href="#">SPECIALITIES <span class="dwn"><svg xmlns="http://www.w3.org/2000/svg" width="10.121" height="6.121" viewBox="0 0 10.121 6.121">
-                                                        <g transform="translate(-1181.797 -99.44)">
-                                                            <line x2="3.786" y2="4" transform="translate(1182.857 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
-                                                            <line x1="4.214" y2="4" transform="translate(1186.643 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
-                                                        </g>
-                                                    </svg></span></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="robotics-surgeries.php">Robotic Surgery</a></li>
-                                                <li><a href="laser-treatment.php">Laser Treatment</a></li>
-                                                <li><a href="general-physician.php">General Physician</a></li>
-                                                <li><a href="aesthetic-surgeries.php">Aesthetic Surgeries</a></li>
-                                                <li><a href="gynaecology-and-obstetrics.php">Gynaecology & Obstetrics</a></li>
-                                                <li><a href="lifestyle-and-nutrition.php">Lifestyle & Nutrition</a></li>
-                                                <li><a href="pharmacy.php">Pharmacy</a></li>
-                                                <li><a href="csr-with-ddf.php">CSR With DDF</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a href="#">AMENITIES <span class="dwn"><svg xmlns="http://www.w3.org/2000/svg" width="10.121" height="6.121" viewBox="0 0 10.121 6.121">
-                                                        <g transform="translate(-1181.797 -99.44)">
-                                                            <line x2="3.786" y2="4" transform="translate(1182.857 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
-                                                            <line x1="4.214" y2="4" transform="translate(1186.643 100.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5" />
-                                                        </g>
-                                                    </svg></span></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="in-house-pharmacy.php">In House Pharmacy</a></li>
-                                                <li><a href="diagnostics-services.php">Diagnostics Services</a></li>
-                                                <li><a href="opd.php">OPD</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="pathology-lab.php">PATHOLOGY LAB</a></li>
-                                        <li><a href="contact.php">CONTACT US</a></li> --}}
 
-                                 
                                   <div class="rk d-lg-none">
                                       <ul>
                                           <li><i class="fi flaticon-placeholder"></i>
@@ -114,7 +81,10 @@
                               <div class="header-search-form-wrapper">
                                   <div class="cart-search-contact">
                                       <a href="https://wa.me/919711010235?text=Hello" target="_blank" class="search-toggle-btn"><img src="{{ asset('front/assets/images/icon/whataApp.svg') }}"></a>
+                                     
+            
                                       <a class="search-toggle-btn story" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="{{ asset('front/assets/images/icon/subtraction.svg') }}"></a>
+                                      
                                   </div>
                               </div>
                           </div>

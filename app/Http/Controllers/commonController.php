@@ -11,7 +11,6 @@ class commonController extends Controller
 {
     function StatusChange($status = null, $id = null, $db = null)
     {
-        //dd($status,dDecrypt($id),$db);
         try {
             
             if ($status == '0') {

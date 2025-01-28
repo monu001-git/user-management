@@ -10,7 +10,6 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class orgController extends Controller

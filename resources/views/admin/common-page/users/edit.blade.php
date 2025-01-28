@@ -34,7 +34,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a>Users update Form</a>
+                    <a>Users Update Form</a>
                 </li>
             </ul>
         </div>
@@ -49,7 +49,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
-                                        <input type="text" name="name" placeholder="Name" class="form-control" value="{{ $user->name ?? "" }}">
+                                        <input type="text" name="name" placeholder="Name" minlength="2" maxlength="38" class="form-control" value="{{ $user->name ?? "" }}">
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror

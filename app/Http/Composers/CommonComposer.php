@@ -36,14 +36,13 @@ class CommonComposer
     {
         try {
 
+            
             $galleryDatarecord1 = DB::table('galleries')->where('section', '1')->whereNull('deleted_at')->where('status', 1)->first();
-
             if ($galleryDatarecord1 != null) {
-                $gallerydetailData = DB::table('gallerydetails')
+                $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord1->id)
                     ->whereNull('deleted_at')
                     ->get();
-
                 $galleryDataCar = [
                     'galleryData' => $galleryDatarecord1,
                     'gallerydetailData' => $gallerydetailData,
@@ -55,10 +54,9 @@ class CommonComposer
             }
 
 
-            $galleryDatarecord2 = DB::table('galleries')->where('section', '2')->whereNull('deleted_at')->where('status', 1)->first();
-
+            $galleryDatarecord2 = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->where('status', 1)->first();
             if ($galleryDatarecord2 != null) {
-                $gallerydetailData = DB::table('gallerydetails')
+                $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord2->id)
                     ->whereNull('deleted_at')
                     ->get();
@@ -73,11 +71,9 @@ class CommonComposer
                 ];
             }
 
-
             $galleryDatarecord3 = DB::table('galleries')->where('section', '3')->whereNull('deleted_at')->where('status', 1)->first();
-
             if ($galleryDatarecord3 != null) {
-                $gallerydetailData = DB::table('gallerydetails')
+                $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord3->id)
                     ->whereNull('deleted_at')
                     ->get();
@@ -92,12 +88,30 @@ class CommonComposer
                 ];
             }
 
+            $galleryDatarecord4 = DB::table('galleries')->where('section','4')->whereNull('deleted_at')->where('status', 1)->first();
+            if ($galleryDatarecord4 != null) {
+                $gallerydetailData = DB::table('gallery_entries')
+                    ->where('gallery_id', $galleryDatarecord4->id)
+                    ->whereNull('deleted_at')
+                    ->get();
+
+                $galleryDataTopImage = [
+                    'galleryData' => $galleryDatarecord4,
+                    'gallerydetailData' => $gallerydetailData,
+                ];
+            } else {
+                $galleryDataTopImage = [
+                    
+                ];
+            }
+
+    
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
-            $footerMenu = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+            $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();   
             $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
-            $menus = DB::table('menus')->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $galleryData = DB::table('galleries')->wheresection('1')->whereNull('deleted_at')->where('status', 1)->first();
+            $menus = DB::table('menus')->whereIn('menu_place', [1,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
+ 
 
             $headerMenu = $this->getMenuTree($menus, 0);
 
@@ -108,7 +122,8 @@ class CommonComposer
                 'orgData' => $orgData,
                 'teamData' => $teamData,
                 'galleryDataCar' => $galleryDataCar,
-                'galleryDataNews' => $galleryDataNews
+                'galleryDataNews' => $galleryDataNews,
+                'galleryDataTopImage'=>$galleryDataTopImage
             ]);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

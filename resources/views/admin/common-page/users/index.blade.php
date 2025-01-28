@@ -16,7 +16,7 @@
             <h3 class="fw-bold mb-3">Users Management</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
-                    <a href="#">
+                    <a>
                         <i class="icon-home"></i>
                     </a>
                 </li>
@@ -25,7 +25,7 @@
                 </li>
             
                 <li class="nav-item">
-                    <a href="#">Users Table</a>
+                    <a >Users Table</a>
                 </li>
             </ul>
         </div>
@@ -67,7 +67,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-info btn-sm" href="{{ route('users.show',dEncrypt($user->id)) }}"><i class="fa-solid fa-list"></i> Show</a>
+                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('users.show',dEncrypt($user->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
 
                                             @can('user-edit')
                                             <a class="btn btn-primary btn-sm" href="{{ route('users.edit',dEncrypt($user->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>

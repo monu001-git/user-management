@@ -2,9 +2,8 @@
       <div class="container">
           <div class="wpo-contact-area ex-wiget certificate">
               <div class="certificate-slider owl-carousel owl-theme">
-
-                 
-                  @if(isset($galleryDataCar) && count($galleryDataCar) > 0 && !empty($galleryDataCar))
+           
+                  @if(isset($galleryDataCar) && count($galleryDataCar) > 0 && empty($galleryDataCar))
 
                   @foreach ( $galleryDataCar['gallerydetailData'] as $galleryCar)
 

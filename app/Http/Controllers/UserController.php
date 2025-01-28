@@ -10,7 +10,6 @@ use DB;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -75,7 +74,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         try {
             // Manual validation check
@@ -97,8 +96,8 @@ class UserController extends Controller
             $user = User::create($input);
             $user->assignRole($request->input('roles'));
 
-            return redirect()->route('users.index')
-                ->with('success', 'User created successfully');
+            return redirect()->route('users.index')->with('success', 'User created successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -145,6 +144,7 @@ class UserController extends Controller
     public function edit($id): View
     {
         try {
+
             $user = User::find(dDecrypt($id));
             $roles = Role::pluck('name', 'name')->all();
             $userRole = $user->roles->pluck('name', 'name')->all();
@@ -169,7 +169,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(Request $request, $id)
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -198,8 +198,8 @@ class UserController extends Controller
 
             $user->assignRole($request->input('roles'));
 
-            return redirect()->route('users.index')
-                ->with('success', 'User updated successfully');
+            return redirect()->route('users.index')->with('success', 'User updated successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -218,12 +218,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id): RedirectResponse
+    public function destroy($id)
     {
         try {
             User::find(dDecrypt($id))->delete();
-            return redirect()->route('users.index')
-                ->with('success', 'User deleted successfully');
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+            
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
