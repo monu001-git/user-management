@@ -52,6 +52,11 @@ class PermissionTableSeeder extends Seeder
            'team-create',
            'team-edit',
            'team-delete',
+
+           'specialitie-list',
+           'specialitie-create',
+           'specialitie-edit',
+           'specialitie-delete',
         ];
         
         foreach ($permissions as $permission) {
