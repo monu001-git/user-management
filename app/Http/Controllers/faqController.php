@@ -2,25 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\menu;
-use App\Models\content;
-use DB;
-use Illuminate\Support\Str;
-use Hash;
-use Illuminate\Support\Arr;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\faq;
 use Illuminate\Support\Facades\Validator;
 
-class menuController extends Controller
+class faqController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:menu-list|menu-create|menu-edit|menu-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:menu-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:menu-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:menu-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:faq-list|faq-create|faq-edit|faq-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:faq-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:faq-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:faq-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -28,12 +22,13 @@ class menuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
-            $menu = menu::orderBy('id', 'asc')->get();
-            return view('admin.common-page.menus.index', compact('menu'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
+
+            $faq = faq::orderBy('id', 'asc')->get();
+            return view('admin.common-page.faqs.index', compact('faq'))->with('i', ($request->input('page', 1) - 1) * 5);
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -51,13 +46,13 @@ class menuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
-            $menu = menu::pluck('name', 'name')->all();
-            $parentId = menu::get();
-            $contentId = content::get();
-            return view('admin.common-page.menus.create', compact('menu', 'parentId', 'contentId'));
+
+            $faq = faq::pluck('question', 'question')->all();
+            return view('admin.common-page.faqs.create', compact('faq'));
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -81,37 +76,23 @@ class menuController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
-               /// 'url' => 'required',
-                'order' => 'required',
-                'link_type' => 'required',
-                'menu_place' => 'required',
+               // 'title' => 'required|unique:specialities,title',
+               // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = new menu;
-            $data->name = ucwords($request->name);
-            $data->slug    = Str::slug($request->name, "-");
-
-            if ($request->link_type === "0") {
-                $data->url  = $request->url;
-            } else {
-                $data->url  =  Str::slug($request->name, "-");
-            }
-
-
-            $data->parent_id = $request->parent_id;
+            $data = new faq;
+            $data->question = $request->question;
+            $data->answer  = $request->answer;
             $data->order  = $request->order;
-            $data->link_type = $request->link_type;
-            $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
-            $data->content_id  = $request->content_id;
-            $data->save();
 
-            return redirect()->route('menus.index')->with('success', 'menu created successfully');
+
+            $data->save();
+            return redirect()->route('faqs.index')->with('success', 'faq created successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -130,11 +111,13 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
+    public function show($id)
     {
         try {
-            $menu = menu::find(dDecrypt($id));
-            return view('admin.common-page.menus.show', compact('menu'));
+
+            $faq = faq::find(dDecrypt($id));
+            return view('admin.common-page.faqs.show', compact('faq'));
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -153,23 +136,23 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id)
     {
-        try {
-            $menu = menu::find(dDecrypt($id));
-            $parentId = menu::get();
-            $contentId = content::get();
-            return view('admin.common-page.menus.edit', compact('menu', 'parentId', 'contentId'));
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // try {
+
+            $faq = faq::find(dDecrypt($id));
+            return view('admin.common-page.faqs.edit', compact('faq'));
+
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -184,46 +167,31 @@ class menuController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'order' => 'required',
-                'link_type' => 'required',
-                'menu_place' => 'required',
-              //  'url' => 'required',
+                //'title' => 'required',
+                //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = menu::find(dDecrypt($id));
-            $data->name = ucwords($request->name);
-            $data->slug    = Str::slug($request->name, "-");
-
-            if ($request->link_type === "0") {
-                $data->url  = $request->url;
-            } else {
-                $data->url  =  Str::slug($request->name, "-");
-            }
-
-            $data->parent_id = $request->parent_id;
+            $data = faq::find(dDecrypt($id));
+            $data->question = $request->question;
+            $data->answer  = $request->answer;
             $data->order  = $request->order;
-            $data->link_type = $request->link_type;
             $data->status  = $request->status;
-            $data->menu_place  = $request->menu_place;
-            $data->content_id  = $request->content_id;
             $data->save();
 
-            return redirect()->route('menus.index')
-                ->with('success', 'menus updated successfully');
+            return redirect()->route('faqs.index')->with('success', 'faq updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 
@@ -237,17 +205,18 @@ class menuController extends Controller
     {
         try {
 
-            menu::find(dDecrypt($id))->delete();
-            return redirect()->route('menus.index')->with('success', 'Menu deleted successfully');
+            faq::find(dDecrypt($id))->delete();
+            return redirect()->route('faqs.index')->with('success', 'faq deleted successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
 }

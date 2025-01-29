@@ -33,6 +33,13 @@
     <link href="{{ asset('front/assets/sass/style.css?ver=1.1') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/sass/responsive.css?ver=1.1') }}" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/plugin.css')}}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/font.css')}}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/lightgallery.min.css')}}">
+
 </head>
 <body>
     <!-- start page-wrapper -->
@@ -141,6 +148,14 @@
     <script src="{{ asset('front/assets/js/jquery-plugin-collection.js') }}"></script>
     <!-- Custom script for this template -->
     <script src="{{ asset('front/assets/js/script.js') }}"></script>
+
+
+    <script src="{{ asset('front/assets/gallery/js/jquery.smartmenus.min.js')}}"></script>
+    <script src="{{ asset('front/assets/gallery/js/aos.js')}}"></script>
+    <script src="{{ asset('front/assets/gallery/js/isotope.js')}}"></script>
+    <script src="{{ asset('front/assets/gallery/js/imagesloaded.pkgd.min.js')}}"></script>
+    <script src="{{ asset('front/assets/gallery/js/lightgallery-all.min.js')}}"></script>
+    <script src="{{ asset('front/assets/gallery/js/main.js')}}"></script>
 
 
 </body>

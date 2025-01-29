@@ -29,7 +29,7 @@ class mainController extends Controller
 
     public function getAllPageContent(Request $request, $slug1 = null, $slug2 = null)
     {
-        try {
+        // try {
 
             if ($slug1 != null && $slug2 != null) {
                 $slug = $slug2;
@@ -39,20 +39,21 @@ class mainController extends Controller
               
             }
             
-
             $menu = DB::table('menus')->where('url', $slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
-        
+           // $menuParent = DB::table('menus')->where('url', $slug2)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+
             if ($menu != null) {
                 $contentData = DB::table('contents')
                     ->where('id', $menu->content_id)
                     ->whereNull('deleted_at')
                     ->where('status', 1)
                     ->first();
+                    
 
                 if ($contentData != null) {
                     $organizedData = [];
 
-                    $image = DB::table('imagecontents')
+                    $image = DB::table('image_contents')
                         ->where('content_id', $contentData->id)
                         ->whereNull('deleted_at')
                         ->get();
@@ -61,32 +62,38 @@ class mainController extends Controller
                         'image' => $image,
                     ];
 
+                    // dd($organizedData);
+
                     return view('front.common-page.master-page', [
                         'content' => $contentData,
                         'organizedData' => $organizedData,
+                        'menu' =>$menu
                     ]);
                 } else {
+                    dd('content not null');
                     return view('front.common-page.master-page', [
-                        'message' => 'common soon'
+                        'message' => 'common soon',
+                        'menu'=>$menu
                     ]);
                 }
             } else {
 
+                dd('menu null ');
                 return view('front.common-page.master-page', [
                     'message' => 'common soon'
                 ]);
             }
 
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
 

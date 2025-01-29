@@ -10,6 +10,7 @@ use App\Http\Controllers\contentController;
 use App\Http\Controllers\menuController;
 use App\Http\Controllers\orgController;
 use App\Http\Controllers\commonController;
+use App\Http\Controllers\faqController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('gallery', galleryController::class);
     Route::resource('teams', teamController::class);
     Route::resource('specialities',specialitiesController ::class);
+    Route::resource('faqs',faqController ::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
     Route::get('delete-gallery-content', [contentController::class, 'deleteItem'])->name('delete-item');
 

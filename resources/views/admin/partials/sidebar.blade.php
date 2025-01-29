@@ -109,6 +109,13 @@
                      </a>
                  </li>
 
+                   <li class="nav-item {{ request()->routeIs('faqs.index', 'faqs.create', 'faqs.edit') ? 'active' : '' }}">
+                     <a href="{{ route('faqs.index') }}">
+                         <i class="fas fa-image"></i>
+                         <p>Manage Faq</p>
+                     </a>
+                 </li>
+
 
                  @endguest
 

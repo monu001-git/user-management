@@ -57,6 +57,11 @@ class PermissionTableSeeder extends Seeder
            'specialitie-create',
            'specialitie-edit',
            'specialitie-delete',
+
+           'faq-list',
+           'faq-create',
+           'faq-edit',
+           'faq-delete',
         ];
         
         foreach ($permissions as $permission) {
