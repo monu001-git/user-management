@@ -23,6 +23,10 @@
                </div>
 
                @endforeach
+
+               @else
+               <p>No Banner available</p>
+
                @endif
            </div>
            <div class="swiper-pagination"></div>

@@ -100,6 +100,16 @@
                      </a>
                  </li>
 
+
+
+                 <li class="nav-item {{ request()->routeIs('specialities.index', 'specialities.create', 'specialities.edit') ? 'active' : '' }}">
+                     <a href="{{ route('specialities.index') }}">
+                         <i class="fas fa-image"></i>
+                         <p>Manage Specialitie</p>
+                     </a>
+                 </li>
+
+
                  @endguest
 
 

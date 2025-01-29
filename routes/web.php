@@ -13,6 +13,8 @@ use App\Http\Controllers\commonController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\specialitiesController;
 
 
 
@@ -28,14 +30,22 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('contents', contentController::class);
     Route::resource('gallery', galleryController::class);
     Route::resource('teams', teamController::class);
+    Route::resource('specialities',specialitiesController ::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
     Route::get('delete-gallery-content', [contentController::class, 'deleteItem'])->name('delete-item');
 
     Route::controller(commonController::class)->group(function () {
         Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
     });
+
+
 });
 
 
+
+    
+Route::get('send-mail', [MailController::class, 'index']);
+
 Route::get('/', [mainController::class, 'home']);
+Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);

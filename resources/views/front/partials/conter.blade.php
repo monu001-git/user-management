@@ -5,9 +5,9 @@
                         <div class="counter-box">
                             <div class="info">
                                 <h3>
-                                    <span class="odometer number" data-count="1">00</span>Lakh+
+                                    <span class="odometer number" data-count="{{ $orgData->number_count1 ??''  }}">00</span>{{ $orgData->unit_count1 ??''   }}
                                 </h3>
-                                <p>Happy <br>Patients</p>
+                                 <p>{{ $orgData->text_count1  ??'' }}</p>
                             </div>
                         </div>
                     </div>
@@ -15,9 +15,9 @@
                         <div class="counter-box">
                             <div class="info">
                                 <h3>
-                                    <span class="odometer number" data-count="15">00</span>K+
+                                    <span class="odometer number" data-count="{{ $orgData->number_count2 ??""  }}">00</span>{{ $orgData->unit_count2 ??''  }}
                                 </h3>
-                                <p>Successful <br>Surgery</p>
+                                 <p>{{ $orgData->text_count2  ??'' }}</p>
                             </div>
                         </div>
                     </div>
@@ -25,9 +25,9 @@
                         <div class="counter-box">
                             <div class="info">
                                 <h3>
-                                    <span class="odometer number" data-count="10">00</span>K+
+                                    <span class="odometer number" data-count="{{ $orgData->number_count3  ??'' }}">00</span>{{ $orgData->unit_count3 ??''  }}
                                 </h3>
-                                <p>Successful <br>Plastic Surgery</p>
+                                <p>{{ $orgData->text_count3  ??'' }}</p>
                             </div>
                         </div>
                     </div>
@@ -35,17 +35,17 @@
                         <div class="counter-box">
                             <div class="info">
                                 <h3>
-                                    <span class="odometer number" data-count="2">00</span>+
+                                    <span class="odometer number" data-count="{{ $orgData->number_count4  ??"" }}">00</span>{{ $orgData->unit_count4 ??''  }}
                                 </h3>
-                                <p>New <br>Clinics</p>
+                                 <p>{{ $orgData->text_count4  ??'' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center subtitle-white">
                     <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
-                        <h6>Celebrating milestones on a quest to promote holistic well-being</h6>
-                        <a href="tel:9711010235"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
+                        <h6>{{ $orgData->count_heading ??'' }}</h6>
+                        <a href="{{ $orgData->count_phone ??'' }}"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
                     </div>
                 </div>
             </div>

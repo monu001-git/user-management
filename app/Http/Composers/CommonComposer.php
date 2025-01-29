@@ -37,7 +37,8 @@ class CommonComposer
         try {
 
             
-            $galleryDatarecord1 = DB::table('galleries')->where('section', '1')->whereNull('deleted_at')->where('status', 1)->first();
+            $galleryDatarecord1 = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->where('status', 1)->first();
+           
             if ($galleryDatarecord1 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord1->id)
@@ -52,7 +53,7 @@ class CommonComposer
                     
                 ];
             }
-
+     
 
             $galleryDatarecord2 = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->where('status', 1)->first();
             if ($galleryDatarecord2 != null) {
@@ -105,7 +106,6 @@ class CommonComposer
                 ];
             }
 
-    
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();   

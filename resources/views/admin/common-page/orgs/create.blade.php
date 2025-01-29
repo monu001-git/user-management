@@ -1,6 +1,16 @@
 @extends('admin.layouts.app')
 
 @section('content')
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
 
 <div class="container">
@@ -150,7 +160,7 @@
                                 </div>
 
 
-                                 <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Favicon :</strong>
                                         <input type="file" name="favicon" class="form-control">
@@ -182,6 +192,8 @@
                                     </div>
                                 </div>
 
+                                <hr>
+                                <h3>Social media</h3>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -244,6 +256,238 @@
                                     </div>
                                 </div>
 
+
+                                <hr>
+                                <h3>Count</h3>
+                                {{-- counter --}}
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter 1 :</strong>
+                                        <input type="text" name="number_count1" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter text 1:</strong>
+                                        <input type="text" name="text_count1" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Unit 1:</strong>
+                                        <input type="text" name="unit_count1" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter 2 :</strong>
+                                        <input type="text" name="number_count2" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter text 2 :</strong>
+                                        <input type="text" name="text_count2" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Unit 2:</strong>
+                                        <input type="text" name="unit_count2" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter 3 :</strong>
+                                        <input type="text" name="number_count3" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter text 3 :</strong>
+                                        <input type="text" name="text_count3" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Unit 3:</strong>
+                                        <input type="text" name="unit_count3" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter 4 :</strong>
+                                        <input type="text" name="number_count4" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Counter text 4 :</strong>
+                                        <input type="text" name="text_count4" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Unit 4:</strong>
+                                        <input type="text" name="unit_count4" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Count Heading:</strong>
+                                        <input type="text" name="count_heading" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Count phone:</strong>
+                                        <input type="text" name="count_phone" class="form-control">
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <h3>SPECIALITIES</h3>
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Specialities title :</strong>
+                                        <input type="text" name="specialities_title" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Specialities heading :</strong>
+                                        <input type="text" name="specialities_heading" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Specialities description 1 :</strong>
+                                        <textarea class="form-control" rows="4" name="Specialities_description1" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Specialities description 2 :</strong>
+                                        <textarea class="form-control" rows="4" name="Specialities_description2" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Specialities Phone:</strong>
+                                        <input type="text" name="Specialities_phone" placeholder="phone" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <hr>
+                                <h3>Team</h3>
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Team title :</strong>
+                                        <input type="text" name="team_title" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Team Heading :</strong>
+                                        <input type="text" name="team_heading" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Team description 1 :</strong>
+                                        <textarea class="form-control" rows="4" name="team_description1" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Team description 2 :</strong>
+                                        <textarea class="form-control" rows="4" name="team_description2" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Team Phone:</strong>
+                                        <input type="text" name="team_phone" placeholder="phone" class="form-control">
+                                    </div>
+                                </div>
+
+
+
+                                <hr>
+                                <h3>News & Video</h3>
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>News title :</strong>
+                                        <input type="text" name="news_title" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>News Heading :</strong>
+                                        <input type="text" name="news_heading" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>News description :</strong>
+                                        <textarea class="form-control" rows="4" name="news_description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+
+
+                                <hr>
+                                <h3>WHAT MAKES US DIFFERENT?</h3>
+   
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Middle Image:</strong>
+                                        <input type="file" name="middle_image" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <strong>Points :</strong>
+                                        <textarea class="form-control" rows="4" name="some_point" class="form-control"></textarea>
+                                    </div>
+                                </div>
 
                                 <div class="card-action">
                                     <button type="submit" class="btn btn-success">Submit</button>

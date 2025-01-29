@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
-
+use App\Models\appoinment_book;
+use Illuminate\Support\Facades\Validator;
 
 class mainController extends Controller
 {
@@ -86,5 +87,46 @@ class mainController extends Controller
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
+    }
+
+
+
+    public function appoinment_book(Request $request){
+
+        // try {
+
+            $validator = Validator::make($request->all(), [
+               // 'name' => 'required|unique:banners,title',
+               
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = new appoinment_book;
+            $data->name = ucwords($request->name);
+            $data->email  = $request->email;
+            $data->phone  = $request->phone;
+            $data->age  = $request->age;
+            $data->gender  = $request->gender;
+            $data->department  = $request->department;
+            $data->date  = $request->date;
+            
+            $data->save();
+
+            return redirect('/')->with('success', 'Appoinment book created successfully');
+
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
+
     }
 }

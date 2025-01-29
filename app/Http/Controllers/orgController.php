@@ -135,6 +135,51 @@ class orgController extends Controller
                 $file->move($path, $newname);
                 $data->favicon = $newname;
             }
+
+            $data->number_count1 = $request->number_count1;
+            $data->text_count1 = $request->text_count1;
+            $data->unit_count1 = $request->unit_count1;
+            $data->number_count2 = $request->number_count2;
+            $data->text_count2 = $request->text_count2;
+            $data->unit_count3 = $request->unit_count3;
+            $data->number_count3 = $request->number_count3;
+            $data->text_count3 = $request->text_count3;
+            $data->unit_count3 = $request->unit_count3;
+            $data->number_count4 = $request->number_count4;
+            $data->text_count4 = $request->text_count4;
+            $data->unit_count4 = $request->unit_count4; 
+            $data->count_phone = $request->count_phone; 
+            $data->count_heading = $request->count_heading; 
+      
+
+            $data->specialities_title = $request->specialities_title;
+            $data->specialities_heading  = $request->specialities_heading ;
+            $data->specialities_description1 = $request->specialities_description1;
+            $data->specialities_description2 = $request->specialities_description2;
+            $data->specialities_phone = $request->specialities_phone;
+
+            $data->team_title = $request->team_title;
+            $data->team_heading  = $request->team_heading;
+            $data->team_description1 = $request->team_description1;
+            $data->team_description2 = $request->team_description2;
+            $data->team_phone = $request->team_phone;
+
+            $data->news_title = $request->team_title;
+            $data->news_heading  = $request->news_heading ;
+            $data->news_description = $request->news_description;
+
+     
+            $data->some_point = $request->some_point;
+            $path = public_path('uploads/middleimage');
+            if ($request->hasFile('middle_image')) {
+                $file = $request->file('middle_image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->middle_image = $newname;
+            }
+            
+           
+
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure Created Successfully');
@@ -269,6 +314,35 @@ class orgController extends Controller
                 $file->move($path, $newname);
                 $data->favicon = $newname;
             }
+
+
+            $data->number_count1 = $request->number_count1;
+            $data->text_count1 = $request->text_count1;
+            $data->unit_count1 = $request->unit_count1;
+            
+            $data->number_count2 = $request->number_count2;
+            $data->text_count2 = $request->text_count2;
+            $data->unit_count3 = $request->unit_count3;
+
+            $data->number_count3 = $request->number_count3;
+            $data->text_count3 = $request->text_count3;
+            $data->unit_count3 = $request->unit_count3;
+
+            $data->number_count4 = $request->number_count4;
+            $data->text_count4 = $request->text_count4;
+            $data->unit_count4 = $request->unit_count4;
+
+
+            $data->specialities_title = $request->specialities_title;
+            $data->Specialities_description1 = $request->Specialities_description1;
+            $data->Specialities_description2 = $request->Specialities_description2;
+            $data->Specialities_phone = $request->Specialities_phone;
+
+            $data->team_title = $request->team_title;
+            $data->team_description1 = $request->team_description1;
+            $data->team_description2 = $request->team_description2;
+            $data->team_phone = $request->team_phone;
+
 
             $data->save();
 
