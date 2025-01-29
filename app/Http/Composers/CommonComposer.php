@@ -111,7 +111,7 @@ class CommonComposer
             $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();   
             $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
             $menus = DB::table('menus')->whereIn('menu_place', [1,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
- 
+            $specialitieData = DB::table('specialities')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
 
             $headerMenu = $this->getMenuTree($menus, 0);
 
@@ -123,7 +123,8 @@ class CommonComposer
                 'teamData' => $teamData,
                 'galleryDataCar' => $galleryDataCar,
                 'galleryDataNews' => $galleryDataNews,
-                'galleryDataTopImage'=>$galleryDataTopImage
+                'galleryDataTopImage'=>$galleryDataTopImage,
+                'specialitieData'=>$specialitieData
             ]);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

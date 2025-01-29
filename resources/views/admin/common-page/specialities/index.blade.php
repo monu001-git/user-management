@@ -35,7 +35,7 @@
                 <div class="card-header">
                     <div class="pull-right">
                         @can('user-create')
-                        <a class="btn btn-success mb-2" href="{{ route('Specialitie.create') }}"><i class="fa fa-plus"></i> Create New Team</a>
+                        <a class="btn btn-success mb-2" href="{{ route('specialities.create') }}"><i class="fa fa-plus"></i> Create New Team</a>
                         @endcan
                     </div>
                 </div>
@@ -45,36 +45,36 @@
                             <thead>
                                 <tr>
                                     <th width="100px">No</th>
-                                    <th>Name</th>
+                                    <th>Title</th>
                                     <th>Status</th>
                                     <th width="280px">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($Specialitie as $key => $Specialities)
+                                @foreach ($specialitie as $key => $specialities)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $Specialities->name }}</td>
+                                    <td>{{ $specialities->title ??'' }}</td>
                                    
                                     <td>
-                                        @if($Specialities->status != '0')
-                                        <a href="{{ url('status-change/1/'.dEncrypt($Specialities->id) . '/Specialities') }}" style="color:green;">
+                                        @if($specialities->status != '0')
+                                        <a href="{{ url('status-change/1/'.dEncrypt($specialities->id) . '/specialities') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
                                         </a>
                                         @else
-                                        <a href="{{ url('status-change/0/'.dEncrypt($Specialities->id) . '/Specialities') }}" style="color:green;">
+                                        <a href="{{ url('status-change/0/'.dEncrypt($specialities->id) . '/specialities') }}" style="color:green;">
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
                                     <td>
                                         {{-- <a class="btn btn-info btn-sm" href="{{ route('teams.show',dEncrypt($teams->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
-                                        @can('Specialitie-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('Specialities.edit',dEncrypt($Specialities->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                        @can('specialitie-edit')
+                                        <a class="btn btn-primary btn-sm" href="{{ route('specialities.edit',dEncrypt($specialities->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @endcan
 
-                                        @can('Specialitie-delete')
-                                        <form method="POST" action="{{ route('Specialities.destroy', dEncrypt($Specialities->id)) }}" style="display:inline">
+                                        @can('specialitie-delete')
+                                        <form method="POST" action="{{ route('specialities.destroy', dEncrypt($specialities->id)) }}" style="display:inline">
                                             @csrf
                                             @method('DELETE')
 

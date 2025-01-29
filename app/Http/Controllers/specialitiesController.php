@@ -28,7 +28,6 @@ class specialitiesController extends Controller
         try {
 
             $specialitie = specialitie::orderBy('id','asc')->get();
-            dd( $specialitie);
             return view('admin.common-page.specialities.index', compact('specialitie'))->with('i', ($request->input('page', 1) - 1) * 5);
 
         } catch (\Exception $e) {
@@ -78,17 +77,17 @@ class specialitiesController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'title' => 'required|unique:banners,title',
+                'title' => 'required|unique:specialities,title',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-
+           
             $data = new specialitie;
             $data->title = ucwords($request->title);
-            $data->description  = $request->description;
+            $data->description  = $request->descriptions;
             $data->order  = $request->order;
             $data->status  = $request->status;
 

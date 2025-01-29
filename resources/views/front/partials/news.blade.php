@@ -19,7 +19,7 @@
         <div class="department-wrap">
             <div class="department-doctor-wrap mt-0 spty">
                 <div class="video-slider owl-carousel owl-theme">
-                    @if(isset($galleryDataNews) && count($galleryDataNews) > 0 && !empty($galleryDataNews))
+                    @if(isset($galleryDataNews) && count($galleryDataNews) > 0 )
                     @foreach ($galleryDataNews['gallerydetailData'] as $galleryNews)
                     <div class="notice-block-two">
                         <div class="video-single-img">
