@@ -79,7 +79,7 @@
                                             <option value="1">Certificates</option>
                                             <option value="2">News</option>
                                             <option value="4">Model Image</option>
-                                            <option value="3">Other</option>
+                                            <option value="3">Image</option>
                                         </select>
 
                                         @error('section')

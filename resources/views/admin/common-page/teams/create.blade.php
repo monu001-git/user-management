@@ -2,6 +2,18 @@
 
 @section('content')
 
+@if (count($errors) > 0)
+<div class="alert alert-danger">
+    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+
 <div class="page-inner">
     <div class="page-header">
         <h3 class="fw-bold mb-3">Team Management</h3>
@@ -22,9 +34,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Team Create Form</div>
-                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('teams.store') }}" enctype="multipart/form-data">
                         @csrf
@@ -74,7 +83,7 @@
                                 </div>
                             </div>
 
-                              <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Designation:</strong>
                                     <input type="text" minlength="1" maxlength="25" name="designation" placeholder="designation" class="form-control">

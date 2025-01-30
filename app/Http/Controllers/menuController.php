@@ -82,7 +82,7 @@ class menuController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-               /// 'url' => 'required',
+                'content_id' => 'required',
                 'order' => 'required',
                 'link_type' => 'required',
                 'menu_place' => 'required',
@@ -91,6 +91,7 @@ class menuController extends Controller
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+        
 
             $data = new menu;
             $data->name = ucwords($request->name);
@@ -102,13 +103,14 @@ class menuController extends Controller
                 $data->url  =  Str::slug($request->name, "-");
             }
 
+          
 
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->link_type = $request->link_type;
             $data->menu_place  = $request->menu_place;
             $data->status  = $request->status;
-            $data->content_id  = $request->content_id;
+            $data->content_id = $request->content_id;
             $data->save();
 
             return redirect()->route('menus.index')->with('success', 'menu created successfully');
@@ -188,12 +190,14 @@ class menuController extends Controller
                 'order' => 'required',
                 'link_type' => 'required',
                 'menu_place' => 'required',
-              //  'url' => 'required',
+                'content_id' => 'required',
             ]);
 
+          
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
+            
 
             $data = menu::find(dDecrypt($id));
             $data->name = ucwords($request->name);
@@ -205,16 +209,16 @@ class menuController extends Controller
                 $data->url  =  Str::slug($request->name, "-");
             }
 
+            $data->content_id  = $request->content_id;
             $data->parent_id = $request->parent_id;
             $data->order  = $request->order;
             $data->link_type = $request->link_type;
             $data->status  = $request->status;
             $data->menu_place  = $request->menu_place;
-            $data->content_id  = $request->content_id;
+        
             $data->save();
 
-            return redirect()->route('menus.index')
-                ->with('success', 'menus updated successfully');
+            return redirect()->route('menus.index')->with('success', 'menus updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

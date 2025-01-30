@@ -1,20 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\content;
 use App\Models\image_content;
-use DB;
-use Hash;
-use Illuminate\Support\Arr;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 
 class contentController extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         $this->middleware('permission:content-list|content-create|content-edit|content-delete', ['only' => ['index', 'show']]);
         $this->middleware('permission:content-create', ['only' => ['create', 'store']]);
@@ -33,6 +29,7 @@ class contentController extends Controller
 
             $content = content::orderBy('id', 'asc')->get();
             return view('admin.common-page.contents.index', compact('content'))->with('i', ($request->input('page', 1) - 1) * 5);
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -56,6 +53,7 @@ class contentController extends Controller
 
             $content = content::pluck('title', 'title')->all();
             return view('admin.common-page.contents.create', compact('content'));
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -78,67 +76,64 @@ class contentController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'meta_title' => 'required|string|max:255',
+            'title'            => 'required|string|max:255',
+            'meta_title'       => 'required|string|max:255',
             'meta_description' => 'required|string',
-            'meta_keyword' => 'required|string',
-            'banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'contentImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'multipleimage.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_keyword'     => 'required|string',
+            'banner'           => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image2'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        DB::beginTransaction();
         try {
-            $content = new Content;
-            $content->title = ucwords($request->title);
-            $content->descriptions = $request->descriptions;
-            $content->meta_title = $request->meta_title;
-            $content->meta_description = $request->meta_description;
-            $content->meta_keyword = $request->meta_keyword;
-            $content->status = $request->status;
+        $content                   = new Content;
+        $content->title            = ucwords($request->title);
+        $content->descriptions     = $request->descriptions;
+        $content->meta_title       = $request->meta_title;
+        $content->meta_description = $request->meta_description;
+        $content->meta_keyword     = $request->meta_keyword;
+        $content->status           = $request->status;
+        $content->descriptions2    = $request->descriptions2;
+        $content->descriptions3    = $request->descriptions3;
+        $content->team             = $request->team;
+        $content->certificate      = $request->certificate;
+        $content->image_content    = $request->image_content;
+        $content->faq              = $request->faq;
+        $content->left_right       = $request->left_right;
+        $content->center_content   = $request->center_content;
+        $content->right_left       = $request->right_left;
+        $content->count       = $request->count;
 
-            $path = public_path('uploads/content');
-            if ($request->hasFile('contentImage')) {
-                $file = $request->file('contentImage');
-                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                $file->move($path, $newname);
-                $content->image = $newname;
-            }
+        $path = public_path('uploads/content');
+        if ($request->hasFile('image')) {
+            $file    = $request->file('image');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $content->image = $newname;
+        }
 
-            $path = public_path('uploads/banner');
-            if ($request->hasFile('banner')) {
-                $file = $request->file('banner');
-                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                $file->move($path, $newname);
-                $content->banner = $newname;
-            }
-            $content->save();
+        $path = public_path('uploads/content');
+        if ($request->hasFile('image2')) {
+            $file    = $request->file('image2');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $content->image2 = $newname;
+        }
 
-            $titles = $request->image_title ?? [];
-            $files = $request->multipleimage ?? [];
+        $path = public_path('uploads/banner');
+        if ($request->hasFile('banner')) {
+            $file    = $request->file('banner');
+            $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+            $file->move($path, $newname);
+            $content->banner = $newname;
+        }
+        $content->save();
 
-            foreach ($files as $index => $file) {
-                if ($file) {
-                    $imageContent = new image_content();
-                    $imageContent->content_id = $content->id;
-                    $imageContent->image_title = $titles[$index] ?? null;
-
-                    $path = public_path('uploads/content/image');
-                    $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                    $file->move($path, $newName);
-                    $imageContent->image = $newName;
-                    $imageContent->save();
-                }
-            }
-
-            DB::commit();
-
-
-            return redirect()->route('contents.index')->with('success', 'content created successfully');
+        return redirect()->route('contents.index')->with('success', 'content created successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -185,11 +180,11 @@ class contentController extends Controller
     {
         try {
 
-            $content = content::find(dDecrypt($id));
+            $content      = content::find(dDecrypt($id));
             $imageContent = image_content::wherecontent_id(dDecrypt($id))->get();
 
             return view('admin.common-page.contents.edit', compact('content', 'imageContent'));
-       
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -213,86 +208,62 @@ class contentController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'meta_title' => 'required|string|max:255',
+            'title'            => 'required|string|max:255',
+            'meta_title'       => 'required|string|max:255',
             'meta_description' => 'required|string',
-            'meta_keyword' => 'required|string',
-            'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'contentImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'multipleimage.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meta_keyword'     => 'required|string',
+            'banner'           => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image2'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
-        DB::beginTransaction();
         try {
-            $content = content::find(dDecrypt($id));
-            $content->title = ucwords($request->title);
-            $content->descriptions = $request->descriptions;
-            $content->meta_title = $request->meta_title;
+            $content                   = content::find(dDecrypt($id));
+            $content->title            = ucwords($request->title);
+            $content->descriptions     = $request->descriptions;
+            $content->meta_title       = $request->meta_title;
             $content->meta_description = $request->meta_description;
-            $content->meta_keyword = $request->meta_keyword;
-            $content->status = $request->status;
+            $content->meta_keyword     = $request->meta_keyword;
+            $content->status           = $request->status;
+            $content->descriptions2    = $request->descriptions2;
+            $content->descriptions3    = $request->descriptions3;
+            $content->team             = $request->team;
+            $content->certificate      = $request->certificate;
+            $content->image_content    = $request->image_content;
+            $content->faq              = $request->faq;
+            $content->left_right       = $request->left_right;
+            $content->center_content   = $request->center_content;
+            $content->right_left       = $request->right_left;
+            $content->count            = $request->count;
 
             $path = public_path('uploads/content');
-            if ($request->hasFile('contentImage')) {
-                $file = $request->file('contentImage');
+            if ($request->hasFile('image')) {
+                $file    = $request->file('image');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $newname);
                 $content->image = $newname;
             }
 
+            $path = public_path('uploads/content');
+            if ($request->hasFile('image2')) {
+                $file    = $request->file('image2');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $content->image2 = $newname;
+            }
+
             $path = public_path('uploads/banner');
             if ($request->hasFile('banner')) {
-                $file = $request->file('banner');
+                $file    = $request->file('banner');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $newname);
                 $content->banner = $newname;
             }
             $content->save();
-
-
-            $titles = $request->image_title ?? [];
-            $files = $request->multipleimage ?? [];
-            $ids = $request->id ?? [];
-
-
-            foreach ($ids as $index => $id) {
-                $file = $files[$index] ?? null;
-                if ($id) {
-                    $imageContent = image_content::find($id);
-                    if ($imageContent) {
-                        $imageContent->image_title = $titles[$index] ?? null;
-
-                        if ($file && $file->isValid()) {
-                            $path = public_path('uploads/content/image');
-                            $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                            $file->move($path, $newName);
-                            $imageContent->image = $newName;
-                        }
-                        $imageContent->save();
-                    }
-                } else {
-
-                    $imageContent = new image_content();
-                    $imageContent->content_id = $content->id;
-                    $imageContent->image_title = $titles[$index] ?? null;
-
-                    if ($file && $file->isValid()) {
-                        $path = public_path('uploads/content/image');
-                        $newName = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                        $file->move($path, $newName);
-                        $imageContent->image = $newName;
-                    }
-                    $imageContent->save();
-                }
-            }
-
-            DB::commit();
-
 
             return redirect()->route('contents.index')->with('success', 'content updated successfully');
         } catch (\Exception $e) {
@@ -307,8 +278,6 @@ class contentController extends Controller
         }
     }
 
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -317,42 +286,22 @@ class contentController extends Controller
      */
     public function destroy($id)
     {
-        // try {
+        try {
 
         content::find(dDecrypt($id))->delete();
         return redirect()->route('contents.index')->with('success', 'content deleted successfully');
 
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
-    public function deleteItem(Request $request)
-    {
-        // try {
-        $request->validate([
-            'id' => 'required|exists:image_contents,id',
-        ]);
-
-        image_content::find($request->id)->delete();
-        return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
-
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
-    }
+   
 }

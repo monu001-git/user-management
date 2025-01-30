@@ -71,7 +71,7 @@
                                         <option value="1" {{ old('section', $gallery->section) == "1" ? 'selected' : '' }}>Certificates</option>
                                         <option value="2" {{ old('section', $gallery->section) == "2" ? 'selected' : '' }}>News</option>
                                         <option value="4" {{ old('section', $gallery->section) == "4" ? 'selected' : '' }}>Model Image</option>
-                                        <option value="3" {{ old('section', $gallery->section) == "3" ? 'selected' : '' }}>Other</option>
+                                        <option value="3" {{ old('section', $gallery->section) == "3" ? 'selected' : '' }}>image</option>
                                     </select>
 
                                     @error('section')

@@ -28,7 +28,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
             $data = User::orderBy('id', 'asc')->get();
@@ -51,7 +51,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
             $roles = Role::pluck('name', 'name')->all();
@@ -221,6 +221,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
+
             User::find(dDecrypt($id))->delete();
             return redirect()->route('users.index')->with('success', 'User deleted successfully');
             

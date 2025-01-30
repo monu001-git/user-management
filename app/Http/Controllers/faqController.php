@@ -76,8 +76,9 @@ class faqController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-               // 'title' => 'required|unique:specialities,title',
-               // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'question' => 'required',
+                'answer' => 'required',
+                'order' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -89,9 +90,9 @@ class faqController extends Controller
             $data->answer  = $request->answer;
             $data->order  = $request->order;
             $data->status  = $request->status;
-
-
             $data->save();
+
+
             return redirect()->route('faqs.index')->with('success', 'faq created successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

@@ -2,6 +2,15 @@
 
 @section('content')
 
+
+@session('success')
+<div class="alert alert-success" role="alert">
+    {{ $value }}
+</div>
+@endsession
+
+
+
 <div class="page-inner">
     <div class="page-header">
         <h3 class="fw-bold mb-3">Menu Management</h3>

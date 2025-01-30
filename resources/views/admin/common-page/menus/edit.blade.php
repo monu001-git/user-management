@@ -60,28 +60,30 @@
                                         <option value=''>Section Option</option>
                                         @foreach($parentId as $value)
                                         <option value='{{ $value->id }}' @if($value->id == $menu->parent_id) selected @endif>
-                                            {{ $value->name }} {{ $value->id }}
+                                            {{ $value->name }}
                                         </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+
 
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Content Name:</strong>
                                     <br />
-                                    <select name="contendId" class="form-control">
+                                    <select name="content_id" class="form-control">
                                         <option value=''>Section Option</option>
-                                        @foreach($contentId as $value)
-                                        <option value="{{ $value->contentID }}" @if($value->contentID == $menu->contentId) selected @endif>
-                                            {{ $value->title }}
+                                        @foreach($contentId as $contentlist)
+                                        <option value='{{ $contentlist->id }}' @if($contentlist->id == $menu->content_id) selected @endif>
+                                            {{ $contentlist->title }}
                                         </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">

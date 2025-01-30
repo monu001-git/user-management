@@ -29,111 +29,134 @@ class mainController extends Controller
 
     public function getAllPageContent(Request $request, $slug1 = null, $slug2 = null)
     {
-        // try {
+        try {
 
-            if ($slug1 != null && $slug2 != null) {
-                $slug = $slug2;
-            } elseif ($slug1 != null && $slug2 == null) {
-                $slug = $slug1;
-            } else {
-              
-            }
-            
-            $menu = DB::table('menus')->where('url', $slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
-           // $menuParent = DB::table('menus')->where('url', $slug2)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+        if ($slug1 != null && $slug2 != null) {
+            $slug = $slug2;
+        } elseif ($slug1 != null && $slug2 == null) {
+            $slug = $slug1;
+        } else {
+        }
 
-            if ($menu != null) {
-                $contentData = DB::table('contents')
-                    ->where('id', $menu->content_id)
-                    ->whereNull('deleted_at')
-                    ->where('status', 1)
-                    ->first();
-                    
+        $menu = DB::table('menus')->where('url', $slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+        // $menuParent = DB::table('menus')->where('url', $slug2)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
 
-                if ($contentData != null) {
-                    $organizedData = [];
+        if ($menu != null) {
+            $contentData = DB::table('contents')
+                ->where('id', $menu->content_id)
+                ->whereNull('deleted_at')
+                ->where('status', 1)
+                ->first();
 
-                    $image = DB::table('image_contents')
-                        ->where('content_id', $contentData->id)
+
+            if ($contentData != null) {
+                $organizedData = [];
+
+                    $image = DB::table('galleries')
+                       ->select('galleries.*', 'gallery_entries.*')
+                       ->join('gallery_entries', 'galleries.id', '=', 'gallery_entries.gallery_id')
+                       ->where('galleries.section', 3)
+                       ->whereNull('galleries.deleted_at')
+                       ->whereNull('gallery_entries.deleted_at')
+                       ->get();
+
+                    $team = DB::table('teams')
                         ->whereNull('deleted_at')
                         ->get();
 
+                    $certificate = DB::table('galleries')
+                        ->select('galleries.*', 'gallery_entries.*')
+                        ->join('gallery_entries', 'galleries.id', '=', 'gallery_entries.gallery_id')
+                        ->where('galleries.section', 1)
+                        ->whereNull('galleries.deleted_at')
+                        ->whereNull('gallery_entries.deleted_at')
+                        ->get();
+
+
+                    $faq = DB::table('faqs')
+                        ->whereNull('deleted_at')
+                        ->get();
+
+
                     $organizedData = [
                         'image' => $image,
+                        'team' => $team,
+                        'certificate' => $certificate,
+                        'faq' => $faq
                     ];
 
-                    // dd($organizedData);
-
-                    return view('front.common-page.master-page', [
-                        'content' => $contentData,
-                        'organizedData' => $organizedData,
-                        'menu' =>$menu
-                    ]);
-                } else {
-                    dd('content not null');
-                    return view('front.common-page.master-page', [
-                        'message' => 'common soon',
-                        'menu'=>$menu
-                    ]);
-                }
-            } else {
-
-                dd('menu null ');
+          
                 return view('front.common-page.master-page', [
-                    'message' => 'common soon'
+                    'content' => $contentData,
+                    'organizedData' => $organizedData,
+                    'menu' => $menu
+                ]);
+            } else {
+                dd('content not null');
+                return view('front.common-page.master-page', [
+                    'message' => 'common soon',
+                    'menu' => $menu
                 ]);
             }
+        } else {
 
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+            dd('menu null ');
+            return view('front.common-page.master-page', [
+                'message' => 'common soon'
+            ]);
+        }
+
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
 
 
-    public function appoinment_book(Request $request){
+    public function appoinment_book(Request $request)
+    {
 
-        // try {
+        try {
 
-            $validator = Validator::make($request->all(), [
-               // 'name' => 'required|unique:banners,title',
-               
-            ]);
+        $validator = Validator::make($request->all(), [
+            // 'name' => 'required|unique:banners,title',
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+        ]);
 
-            $data = new appoinment_book;
-            $data->name = ucwords($request->name);
-            $data->email  = $request->email;
-            $data->phone  = $request->phone;
-            $data->age  = $request->age;
-            $data->gender  = $request->gender;
-            $data->department  = $request->department;
-            $data->date  = $request->date;
-            
-            $data->save();
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-            return redirect('/')->with('success', 'Appoinment book created successfully');
+        $data = new appoinment_book;
+        $data->name = ucwords($request->name);
+        $data->email  = $request->email;
+        $data->phone  = $request->phone;
+        $data->age  = $request->age;
+        $data->gender  = $request->gender;
+        $data->department  = $request->department;
+        $data->date  = $request->date;
 
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        $data->save();
+
+        return redirect('/')->with('success', 'Appoinment book created successfully');
+
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
 
     }
 }

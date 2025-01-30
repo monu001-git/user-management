@@ -36,9 +36,6 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Team Update Form</div>
-                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('teams.update', dEncrypt($team->id)) }}" enctype="multipart/form-data" >
                         @csrf

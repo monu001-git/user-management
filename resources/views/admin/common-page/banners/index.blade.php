@@ -3,11 +3,12 @@
 @section('content')
 
 
-@session('success')
+
+@if(session('success'))
 <div class="alert alert-success" role="alert">
-    {{ $value }}
+    {{ session('success') }}
 </div>
-@endsession
+@endif
 
 
 

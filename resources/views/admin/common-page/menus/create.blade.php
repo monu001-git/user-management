@@ -54,7 +54,6 @@
                                         <strong>Parent Name:</strong>
                                         <br />
                                         <select name="parent_id" class="form-control">
-
                                             <option value="">Select option</option>
                                             @foreach($parentId as $value)
                                             <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -67,16 +66,15 @@
                                     <div class="form-group">
                                         <strong>Content Name:</strong>
                                         <br />
-                                        <select name="contendId" class="form-control">
-
+                                        <select name="content_id" class="form-control">
                                             <option value="">Select option</option>
-                                            @foreach($contentId as $value)
-                                            <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @foreach($contentId as $contentlist)
+                                            <option value='{{ $contentlist->id }}'>
+                                                {{ $contentlist->title }}
+                                            </option>
                                             @endforeach
                                         </select>
-                                        @error('contendId')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+
                                     </div>
                                 </div>
 

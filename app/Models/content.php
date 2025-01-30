@@ -15,15 +15,4 @@ class content extends Model
         'tilte',
     ];
 
-
-    public function imageContents()
-    {
-        return $this->hasMany(ImageContent::class);
-    }
-
-    // One content can have many video contents
-    public function videoContents()
-    {
-        return $this->hasMany(VideoContent::class);
-    }
 }
