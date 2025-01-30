@@ -25,19 +25,22 @@
              <ul class="nav nav-secondary">
 
                  @guest
+
                  @if (Route::has('login'))
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                  </li>
                  @endif
 
-                 @if (Route::has('register'))
+                 {{-- @if (Route::has('register'))
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                  </li>
-                 @endif
+                 @endif --}}
 
                  @else
+
+
 
                  <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                      <a href="{{ route('home') }}">
@@ -46,76 +49,97 @@
                      </a>
                  </li>
 
-
+                 @can('user-index')
                  <li class="nav-item {{ request()->routeIs('users.index','users.create', 'users.edit') ? 'active' : '' }}">
                      <a href="{{ route('users.index') }}">
                          <i class="fas fa-user"></i>
                          <p>Manage Users</p>
                      </a>
                  </li>
+                 @endcan
 
+                 @can('role-index')
                  <li class="nav-item {{ request()->routeIs('roles.index', 'roles.create', 'roles.edit') ? 'active' : '' }}">
                      <a href="{{ route('roles.index') }}">
                          <i class="fas fa-id-card"></i>
                          <p>Manage Role</p>
                      </a>
                  </li>
-                 <li class="nav-item {{ request()->routeIs('menus.index', 'menus.create', 'menus.edit') ? 'active' : '' }}">
-                     <a href="{{ route('menus.index') }}">
-                         <i class="fas fa-money-check"></i>
-                         <p>Manage Menu</p>
-                     </a>
-                 </li>
-                 <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
-                     <a href="{{ route('banners.index') }}">
-                         <i class="fas fa-rss-square"></i>
-                         <p>Manage Banner</p>
-                     </a>
-                 </li>
-                 <li class="nav-item {{ request()->routeIs('orgs.index', 'orgs.create', 'orgs.edit') ? 'active' : '' }}">
-                     <a href="{{ route('orgs.index') }}">
-                         <i class="fas fa-qrcode"></i>
-                         <p>Manage Organization </p>
-                     </a>
-                 </li>
+                 @endcan
 
-                 <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
-                     <a href="{{ route('teams.index') }}">
-                         <i class="fas fa-qrcode"></i>
-                         <p>Manage Team </p>
-                     </a>
-                 </li>
 
+                 @can('content-index')
                  <li class="nav-item {{ request()->routeIs('contents.index', 'contents.create', 'contents.edit') ? 'active' : '' }}">
                      <a href="{{ route('contents.index') }}">
                          <i class="fas fa-id-card"></i>
                          <p>Manage Content</p>
                      </a>
                  </li>
+                 @endcan
 
+
+                 @can('menu-index')
+                 <li class="nav-item {{ request()->routeIs('menus.index', 'menus.create', 'menus.edit') ? 'active' : '' }}">
+                     <a href="{{ route('menus.index') }}">
+                         <i class="fas fa-money-check"></i>
+                         <p>Manage Menu</p>
+                     </a>
+                 </li>
+                 @endcan
+
+
+                 @can('banner-index')
+                 <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
+                     <a href="{{ route('banners.index') }}">
+                         <i class="fas fa-rss-square"></i>
+                         <p>Manage Banner</p>
+                     </a>
+                 </li>
+                 @endcan
+
+                 @can('org-index')
+                 <li class="nav-item {{ request()->routeIs('orgs.index', 'orgs.create', 'orgs.edit') ? 'active' : '' }}">
+                     <a href="{{ route('orgs.index') }}">
+                         <i class="fas fa-qrcode"></i>
+                         <p>Manage Organization </p>
+                     </a>
+                 </li>
+                 @endcan
+
+                 @can('team-index')
+                 <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
+                     <a href="{{ route('teams.index') }}">
+                         <i class="fas fa-qrcode"></i>
+                         <p>Manage Team </p>
+                     </a>
+                 </li>
+                 @endcan
+
+                 @can('gallery-index')
                  <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
                      <a href="{{ route('gallery.index') }}">
                          <i class="fas fa-image"></i>
                          <p>Manage Gallery</p>
                      </a>
                  </li>
+                 @endcan
 
-
-
+                 @can('specialitie-index')
                  <li class="nav-item {{ request()->routeIs('specialities.index', 'specialities.create', 'specialities.edit') ? 'active' : '' }}">
                      <a href="{{ route('specialities.index') }}">
                          <i class="fas fa-image"></i>
                          <p>Manage Specialitie</p>
                      </a>
                  </li>
-
-                   <li class="nav-item {{ request()->routeIs('faqs.index', 'faqs.create', 'faqs.edit') ? 'active' : '' }}">
+                 @endcan
+                 @can('faq-index')
+                 <li class="nav-item {{ request()->routeIs('faqs.index', 'faqs.create', 'faqs.edit') ? 'active' : '' }}">
                      <a href="{{ route('faqs.index') }}">
                          <i class="fas fa-image"></i>
                          <p>Manage Faq</p>
                      </a>
                  </li>
-
+                 @endcan
 
                  @endguest
 

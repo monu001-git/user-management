@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="pull-right">
-                        @can('user-create')
+                        @can('team-create')
                         <a class="btn btn-success mb-2" href="{{ route('teams.create') }}"><i class="fa fa-plus"></i> Create New Team</a>
                         @endcan
                     </div>

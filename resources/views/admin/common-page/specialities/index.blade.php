@@ -34,8 +34,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="pull-right">
-                        @can('user-create')
-                        <a class="btn btn-success mb-2" href="{{ route('specialities.create') }}"><i class="fa fa-plus"></i> Create New Team</a>
+                        @can('specialitie-create')
+                        <a class="btn btn-success mb-2" href="{{ route('specialities.create') }}"><i class="fa fa-plus"></i> Create New Specialitie</a>
                         @endcan
                     </div>
                 </div>

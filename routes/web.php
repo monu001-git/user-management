@@ -43,10 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
-
-    
 Route::get('send-mail', [MailController::class, 'index']);
-
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);
