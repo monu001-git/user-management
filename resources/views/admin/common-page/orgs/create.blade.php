@@ -5,9 +5,11 @@
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
+        <div class="text-danger">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </div>
     </ul>
 </div>
 @endif
@@ -198,7 +200,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>instagram:</strong>
-                                        <input type="text" name="instagram" placeholder="instagram" class="form-control">
+                                        <input type="text" name="instagram" minlength="3" maxlength="100" placeholder="instagram" class="form-control">
                                     </div>
                                 </div>
 
@@ -206,14 +208,14 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>instagram title :</strong>
-                                        <input type="text" name="instagram_title" placeholder="instagram title" class="form-control">
+                                        <input type="text" name="instagram_title" minlength="3" maxlength="100" placeholder="instagram title" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Facebook:</strong>
-                                        <input type="text" name="facebook" placeholder="Facebook" class="form-control">
+                                        <input type="text" name="facebook" minlength="3" maxlength="100" placeholder="Facebook" class="form-control">
                                     </div>
                                 </div>
 
@@ -221,30 +223,15 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Facebook title :</strong>
-                                        <input type="text" name="facebook_title" placeholder="Instagram title" class="form-control">
+                                        <input type="text" name="facebook_title" minlength="3" maxlength="100" placeholder="Instagram title" class="form-control">
                                     </div>
                                 </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>twitter:</strong>
-                                        <input type="text" name="twitter" placeholder="twitter" class="form-control">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Twitter title :</strong>
-                                        <input type="text" name="twitter_title" placeholder="twitter title" class="form-control">
-                                    </div>
-                                </div>
-
-
+                                
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Youtube:</strong>
-                                        <input type="text" name="youtube" placeholder="youtube" class="form-control">
+                                        <input type="text" name="youtube" minlength="3" maxlength="100" placeholder="youtube" class="form-control">
                                     </div>
                                 </div>
 
@@ -252,7 +239,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Youtube title :</strong>
-                                        <input type="text" name="youtube_title" placeholder="youtube title" class="form-control">
+                                        <input type="text" name="youtube_title" minlength="3" maxlength="100" placeholder="youtube title" class="form-control">
                                     </div>
                                 </div>
 
@@ -379,27 +366,23 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Specialities description 1 :</strong>
-                                        <textarea class="form-control" rows="4" name="Specialities_description1" class="form-control"></textarea>
+                                        <textarea class="form-control" rows="4" name="specialities_description1" class="form-control"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Specialities description 2 :</strong>
-                                        <textarea class="form-control" rows="4" name="Specialities_description2" class="form-control"></textarea>
+                                        <textarea class="form-control" rows="4" name="specialities_description2" class="form-control"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Specialities Phone:</strong>
-                                        <input type="text" name="Specialities_phone" placeholder="phone" class="form-control">
+                                        <input type="text" name="specialities_phone" placeholder="phone" class="form-control">
                                     </div>
                                 </div>
-
-
-
-
 
                                 <hr>
                                 <h3>Team</h3>
@@ -471,7 +454,7 @@
 
                                 <hr>
                                 <h3>WHAT MAKES US DIFFERENT?</h3>
-   
+
 
 
                                 <div class="col-xs-6 col-sm-6 col-md-6">

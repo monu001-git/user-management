@@ -3,12 +3,12 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="blog-section-title">
-                    <span>{{ $orgData->news_title ??"" }}</span>
-                    <h2>{{ $orgData->news_title  ??""  }}</h2>
+                    <span>{{ $orgData->news_title  ??'' }}</span>
+                    <h2>{{ $orgData->news_heading  ??''  }}</h2>
                     <p>
 
-                        @if(!empty($orgData->news_description1))
-                        {!! $orgData->news_description1 !!}
+                        @if(!empty($orgData->news_description))
+                        {!! $orgData->news_description !!}
                         @else
                         <p>No description available</p>
                         @endif

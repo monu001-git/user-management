@@ -59,7 +59,7 @@
 
 
                         </h6>
-                        <a href="{{  $orgData->team_title ??'' }}"><img src="{{ asset('front/assets/images/icon/call-btn1.svg') }}" alt=""></a>
+                        <a href="tel:{{ $orgData->team_phone ?? '' }}" ><img src="{{ asset('front/assets/images/icon/call-btn1.svg') }}" alt=""></a>
                     </div>
                 </div>
             </div>

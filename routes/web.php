@@ -16,13 +16,12 @@ use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\specialitiesController;
-
-
+use App\Http\Controllers\appointmentController;
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('banners', bannerController::class);
@@ -32,6 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('gallery', galleryController::class);
     Route::resource('teams', teamController::class);
     Route::resource('specialities',specialitiesController ::class);
+    Route::resource('appointments',appointmentController::class);
     Route::resource('faqs',faqController ::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
    
@@ -46,4 +46,5 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('send-mail', [MailController::class, 'index']);
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
+Route::get('/contact-us', [mainController::class, 'contactUs']);
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);

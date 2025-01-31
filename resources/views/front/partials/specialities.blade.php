@@ -4,18 +4,14 @@
           <div class="row justify-content-center">
               <div class="col-lg-8">
                   <div class="wpo-section-title">
-                      <span>{{ $orgData->specialities_title ??"" }}</span>
-                      <h2>{{ $orgData->specialities_heading ??'' }}</h2>
+                      <span>{{ $orgData->specialities_title ?? '' }}</span>
+                      <h2>{{ $orgData->specialities_heading ?? '' }}</h2>
                       <p>
-
-
-
-                          @if(!empty($orgData->Specialities_description1))
-                          {!! $orgData->Specialities_description1 !!}
+                          @if (!empty($orgData->specialities_description1))
+                          {!! $orgData->specialities_description1 !!}
                           @else
                           <p>No description available</p>
                           @endif
-
                       </p>
                   </div>
               </div>
@@ -24,7 +20,7 @@
           <div class="department-wrap">
               <div class="department-doctor-wrap mt-0 spty">
                   <div class="speciality-service-slider owl-carousel owl-theme">
-                      @if(isset($specialitieData) && count($specialitieData) > 0 )
+                      @if (isset($specialitieData) && count($specialitieData) > 0)
                       @foreach ($specialitieData as $specialitieDatas)
                       <div class="notice-block-two">
                           <div class="department-single">
@@ -38,29 +34,24 @@
                                       <path d="M168.919,135.831l11.332-.031c1.713.27,1.662,2.838-.428,3.13a70.188,70.188,0,0,1-10.516.008C167.563,138.663,167.431,136.171,168.919,135.831Z" transform="translate(-122.174 -98.703)" fill="#fff" />
                                   </svg>
                               </div>
-                              <span>{{ $specialitieDatas->title ??'' }}</span>
+                              <span>{{ $specialitieDatas->title ?? '' }}</span>
                               <p>
 
-                                  @if(!empty($specialitieDatas->description ))
-                                  {!! $specialitieDatas->description !!}
+                                  @if (!empty($specialitieDatas->description))
+
+                                  {!! substr_replace($specialitieDatas->description,'...',200)!!}
                                   @else
                                   <p>No description available</p>
                                   @endif
-
-
                               </p>
-                              <a href="laser-treatment.php">
+                              <a href="{{ $specialitieDatas->url ??'' }}">
                                   <i class="ti-arrow-right"></i>
                               </a>
                           </div>
                       </div>
-
                       @endforeach
-
                       @else
                       <p>No items available.</p>
-
-
                       @endif
                   </div>
               </div>
@@ -71,16 +62,13 @@
           <div class="row justify-content-center">
               <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
                   <h6>
-                      <p>
-
-                          @if(!empty($orgData->Specialities_description2))
-                          {!! $orgData->Specialities_description2 !!}
-                          @else
-                          <p>No description available</p>
-                          @endif
-                      </p>
+                      @if (!empty($orgData->specialities_description2))
+                      {!! $orgData->specialities_description2 !!}
+                      @else
+                      <p>No description available</p>
+                      @endif
                   </h6>
-                  <a href="{{ $orgData->Specialities_phone  ??'' }}"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}"></a>
+                  <a href="tel:{{ $orgData->specialities_phone ?? '' }}" ><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}"></a>
               </div>
           </div>
       </div>

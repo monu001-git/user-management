@@ -24,57 +24,57 @@ return new class extends Migration
             $table->string('favicon_title', 255)->nullable();
             $table->string('address', 255)->nullable();
             $table->text('about')->nullable();
-
-
-            $table->string('number_count1')->nullable();
-            $table->string('number_count2')->nullable();
-            $table->string('number_count3')->nullable();
-            $table->string('number_count4')->nullable();
-            $table->string('unit_count1')->nullable();
-            $table->string('unit_count2')->nullable();
-            $table->string('unit_count3')->nullable();
-            $table->string('unit_count4')->nullable();
-            $table->string('text_count1')->nullable();
-            $table->string('text_count2')->nullable();
-            $table->string('text_count3')->nullable();
-            $table->string('text_count4')->nullable();
-            $table->string('count_heading')->nullable();
-            $table->string('count_phone')->nullable();
-
-
-            $table->string('specialities_title')->nullable();
-            $table->string('specialities_heading')->nullable();
-            $table->string('specialities_description1')->nullable();
-            $table->string('specialities_description2')->nullable();
-            $table->string('specialities_phone')->nullable();
-
-
-            $table->string('team_title')->nullable();
-            $table->string('team_heading')->nullable();
-            $table->string('team_description1')->nullable();
-            $table->string('team_description2')->nullable();
-            $table->string('team_phone')->nullable();
-
-            $table->string('news_title')->nullable();
-            $table->string('news_heading')->nullable();
-            $table->string('news_description')->nullable();
-
-
-
-            $table->string('instagram', 255)->nullable();
-            $table->string('instagram_title', 255)->nullable();
-            $table->string('facebook', 255)->nullable();
-            $table->string('facebook_title', 255)->nullable();
-            $table->string('twitter', 255)->nullable();
-            $table->string('twitter_title', 255)->nullable();
-            $table->string('youtube', 255)->nullable();
-            $table->string('youtube_title', 255)->nullable();
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->text('meta_keyword')->nullable();
 
 
-            $table->string('some_point')->nullable();
+
+            $table->string('number_count1',)->nullable();
+            $table->string('number_count2', 255)->nullable();
+            $table->string('number_count3', 255)->nullable();
+            $table->string('number_count4', 255)->nullable();
+            $table->string('unit_count1', 255)->nullable();
+            $table->string('unit_count2', 255)->nullable();
+            $table->string('unit_count3', 255)->nullable();
+            $table->string('unit_count4', 255)->nullable();
+            $table->string('text_count1', 255)->nullable();
+            $table->string('text_count2', 255)->nullable();
+            $table->string('text_count3', 255)->nullable();
+            $table->string('text_count4', 255)->nullable();
+            $table->string('count_heading', 255)->nullable();
+            $table->string('count_phone', 255)->nullable();
+
+
+            $table->string('specialities_title', 255)->nullable();
+            $table->text('specialities_heading')->nullable();
+            $table->text('specialities_description1')->nullable();
+            $table->text('specialities_description2')->nullable();
+            $table->string('specialities_phone', 255)->nullable();
+
+
+            $table->string('team_title', 255)->nullable();
+            $table->string('team_heading', 255)->nullable();
+            $table->text('team_description1')->nullable();
+            $table->text('team_description2')->nullable();
+            $table->string('team_phone', 255)->nullable();
+
+            $table->string('news_title', 255)->nullable();
+            $table->string('news_heading', 255)->nullable();
+            $table->text('news_description')->nullable();
+
+
+//socal media
+            $table->string('instagram', 255)->nullable();
+            $table->string('instagram_title', 255)->nullable();
+            $table->string('facebook', 255)->nullable();
+            $table->string('facebook_title', 255)->nullable();
+          
+            $table->string('youtube', 255)->nullable();
+            $table->string('youtube_title', 255)->nullable();
+          
+
+            $table->text('some_point')->nullable();
             $table->string('middle_image', 255)->nullable();
 
 

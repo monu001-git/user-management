@@ -34,9 +34,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="pull-right">
+                          
                             @can('org-create')
                             <a class="btn btn-success mb-2" href="{{ route('orgs.create') }}"><i class="fa fa-plus"></i> Create New Org structure</a>
                             @endcan
+                    
                         </div>
                     </div>
                     <div class="card-body">
@@ -46,7 +48,7 @@
                                     <tr>
                                         <th width="100px">No</th>
                                         <th>Name</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th width="280px">Action</th>
                                     </tr>
                                 </thead>
@@ -55,7 +57,7 @@
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $orgs->name }}</td>
-                                        <td>
+                                        {{-- <td>
                                             @if($orgs->status != '0')
                                             <a href="{{ url('status-change/1/'.dEncrypt($orgs->id) . '/orgs') }}" style="color:green;">
                                                 <button class="btn btn-sm btn-success">Active</button>
@@ -64,7 +66,7 @@
                                             <a href="{{ url('status-change/0/'.dEncrypt($orgs->id) . '/orgs') }}" style="color:green;">
                                                 <button class="btn btn-sm btn-danger">Inactive</button>
                                             </a>
-                                            @endif</td>
+                                            @endif</td> --}}
                                         <td>
                                             {{-- <a class="btn btn-info btn-sm" href="{{ route('orgs.show',dEncrypt($orgs->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
                                             @can('role-edit')

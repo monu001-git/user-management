@@ -16,7 +16,8 @@ class orgController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:org-list|org-create|org-edit|org-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:org-list|org-create|org-edit|org-delete');
+        $this->middleware('permission:org-list', ['only' => ['index']]);
         $this->middleware('permission:org-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:org-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:org-delete', ['only' => ['destroy']]);
@@ -50,11 +51,17 @@ class orgController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
             $org = org::pluck('name', 'name')->all();
-            return view('admin.common-page.orgs.create', compact('org'));
+           
+            if (!isset($org) || empty($org)) {
+                return view('admin.common-page.orgs.create', compact('org'));
+            } else {
+                return redirect()->route('orgs.index')->with('success', 'You are allowed to create only one record.');
+            }
+           
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -77,7 +84,7 @@ class orgController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'name' => 'required',
+                'name' => 'required|unique:orgs,name',
                 'email' => 'required|email|unique:orgs,email',
                 'header_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'footer_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -139,18 +146,21 @@ class orgController extends Controller
             $data->number_count1 = $request->number_count1;
             $data->text_count1 = $request->text_count1;
             $data->unit_count1 = $request->unit_count1;
+            
             $data->number_count2 = $request->number_count2;
             $data->text_count2 = $request->text_count2;
-            $data->unit_count3 = $request->unit_count3;
+            $data->unit_count2 = $request->unit_count2;
+
             $data->number_count3 = $request->number_count3;
             $data->text_count3 = $request->text_count3;
             $data->unit_count3 = $request->unit_count3;
+
             $data->number_count4 = $request->number_count4;
             $data->text_count4 = $request->text_count4;
-            $data->unit_count4 = $request->unit_count4; 
+            $data->unit_count4 = $request->unit_count4;
+
             $data->count_phone = $request->count_phone; 
             $data->count_heading = $request->count_heading; 
-      
 
             $data->specialities_title = $request->specialities_title;
             $data->specialities_heading  = $request->specialities_heading ;
@@ -164,7 +174,7 @@ class orgController extends Controller
             $data->team_description2 = $request->team_description2;
             $data->team_phone = $request->team_phone;
 
-            $data->news_title = $request->team_title;
+            $data->news_title = $request->news_title;
             $data->news_heading  = $request->news_heading ;
             $data->news_description = $request->news_description;
 
@@ -253,7 +263,7 @@ class orgController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+        // try {
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -279,8 +289,6 @@ class orgController extends Controller
             $data->about = $request->about;
             $data->address = $request->address;
             $data->facebook_title = $request->facebook_title;
-            $data->twitter = $request->twitter;
-            $data->twitter_title = $request->twitter_title;
             $data->youtube = $request->youtube;
             $data->youtube_title = $request->youtube_title;
             $data->meta_title = $request->meta_title;
@@ -322,7 +330,7 @@ class orgController extends Controller
             
             $data->number_count2 = $request->number_count2;
             $data->text_count2 = $request->text_count2;
-            $data->unit_count3 = $request->unit_count3;
+            $data->unit_count2 = $request->unit_count2;
 
             $data->number_count3 = $request->number_count3;
             $data->text_count3 = $request->text_count3;
@@ -332,32 +340,52 @@ class orgController extends Controller
             $data->text_count4 = $request->text_count4;
             $data->unit_count4 = $request->unit_count4;
 
+            $data->count_phone = $request->count_phone; 
+            $data->count_heading = $request->count_heading; 
+
 
             $data->specialities_title = $request->specialities_title;
-            $data->Specialities_description1 = $request->Specialities_description1;
-            $data->Specialities_description2 = $request->Specialities_description2;
-            $data->Specialities_phone = $request->Specialities_phone;
+            $data->specialities_heading  = $request->specialities_heading ;
+            $data->specialities_description1 = $request->specialities_description1;
+            $data->specialities_description2 = $request->specialities_description2;
+            $data->specialities_phone = $request->specialities_phone;
 
             $data->team_title = $request->team_title;
+            $data->team_heading  = $request->team_heading;
             $data->team_description1 = $request->team_description1;
             $data->team_description2 = $request->team_description2;
             $data->team_phone = $request->team_phone;
+
+            $data->news_title = $request->news_title;
+            $data->news_heading  = $request->news_heading ;
+            $data->news_description = $request->news_description;
+
+     
+            $data->some_point = $request->some_point;
+            $path = public_path('uploads/middleimage');
+            if ($request->hasFile('middle_image')) {
+                $file = $request->file('middle_image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->middle_image = $newname;
+            }
+            
 
 
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure updated successfully');
       
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**

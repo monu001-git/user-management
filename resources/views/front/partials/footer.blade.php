@@ -19,15 +19,15 @@
                          <div class="social-widget">
                              <ul>
                                  @if(isset($orgData->facebook) && !empty($orgData->facebook) )
-                                 <li><a href="{{ $orgData->facebook }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->facebook ??''}}" title="{{  $orgData->facebook_title ??'' }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                  @endif
 
                                  @if(isset($orgData->instagram) && !empty($orgData->instagram) )
-                                 <li><a href="{{ $orgData->instagram ?? "" }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->instagram ?? "" }}" title="{{  $orgData->instagram_title ??'' }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                  @endif
 
                                  @if(isset($orgData->youtube) && !empty($orgData->youtube) )
-                                 <li><a href="{{ $orgData->youtube ??"" }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->youtube ??"" }}" title="{{  $orgData->youtube_title ??'' }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                                  @endif
 
                              </ul>

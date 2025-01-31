@@ -24,7 +24,9 @@ class HomeController extends Controller
     public function index()
     {
         try {
+      
             return view('admin.home');
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

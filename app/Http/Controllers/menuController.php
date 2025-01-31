@@ -17,7 +17,8 @@ class menuController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:menu-list|menu-create|menu-edit|menu-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:menu-list|menu-create|menu-edit|menu-delete');
+        $this->middleware('permission:menu-list', ['only' => ['index']]);
         $this->middleware('permission:menu-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:menu-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:menu-delete', ['only' => ['destroy']]);
@@ -57,7 +58,7 @@ class menuController extends Controller
             $menu = menu::pluck('name', 'name')->all();
             $parentId = menu::get();
             $contentId = content::get();
-            return view('admin.common-page.menus.create', compact('menu', 'parentId', 'contentId'));
+            return view('admin.common-page.menus.create', compact('menu','parentId','contentId'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -82,7 +83,7 @@ class menuController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'content_id' => 'required',
+                //'content_id' => 'required',
                 'order' => 'required',
                 'link_type' => 'required',
                 'menu_place' => 'required',
@@ -190,7 +191,7 @@ class menuController extends Controller
                 'order' => 'required',
                 'link_type' => 'required',
                 'menu_place' => 'required',
-                'content_id' => 'required',
+               // 'content_id' => 'required',
             ]);
 
           

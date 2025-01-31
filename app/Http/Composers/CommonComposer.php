@@ -106,9 +106,9 @@ class CommonComposer
                 ];
             }
 
-            $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+            $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order','ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
-            $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();   
+            $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order','ASC')->get();   
             $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
             $menus = DB::table('menus')->whereIn('menu_place', [1,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
             $specialitieData = DB::table('specialities')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();

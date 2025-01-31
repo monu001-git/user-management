@@ -55,9 +55,11 @@
 <div class="alert alert-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
+        <div class="text-danger">
         @foreach ($errors->all() as $error)
         <li>{{ $error }}</li>
         @endforeach
+        </div>
     </ul>
 </div>
 @endif
@@ -93,7 +95,11 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Title:</strong>
-                                        <input type="text" class="form-control" name="meta_title" placeholder="Please enter meta tittle, use for seo" value="{{ old('tittle') }}" class="form-control">
+                                        <input type="text" class="form-control" name="meta_title" placeholder="Please enter meta tittle, use for seo" value="{{ old('meta_title') }}" class="form-control">
+                                    
+                                        @error('meta_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -101,14 +107,22 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Description:</strong>
-                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{{ old('description') }}</textarea>
+                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{!! old('meta_description') !!}</textarea>
+                                    
+                                        @error('meta_description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
-                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea>
+                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{!! old('meta_keyword') !!}</textarea>
+                                   
+                                        @error('meta_keyword')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -116,7 +130,12 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content title:</strong>
-                                        <input type="text" name="title" placeholder="title" class="form-control">
+                                        <input type="text" name="title" placeholder="title" value="{{ old('title') }}" class="form-control">
+                                   
+                                        @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                   
                                     </div>
                                 </div>
 
@@ -126,6 +145,11 @@
                                     <div class="form-group">
                                         <strong>Content banner:</strong>
                                         <input type="file" name="banner" placeholder="content Image" class="form-control">
+                                   
+                                        @error('banner')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                   
                                     </div>
                                 </div>
 

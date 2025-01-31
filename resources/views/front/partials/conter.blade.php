@@ -45,7 +45,7 @@
                 <div class="row justify-content-center subtitle-white">
                     <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
                         <h6>{{ $orgData->count_heading ??'' }}</h6>
-                        <a href="{{ $orgData->count_phone ??'' }}"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
+                        <a href="tel:{{ $orgData->count_phone ?? '' }}" ><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
                     </div>
                 </div>
             </div>

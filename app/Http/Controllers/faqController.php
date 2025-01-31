@@ -11,7 +11,8 @@ class faqController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:faq-list|faq-create|faq-edit|faq-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:faq-list|faq-create|faq-edit|faq-delete');
+        $this->middleware('permission:faq-list', ['only' => ['index']]);
         $this->middleware('permission:faq-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:faq-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:faq-delete', ['only' => ['destroy']]);

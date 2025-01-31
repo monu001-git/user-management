@@ -10,7 +10,7 @@
                 <div class="wpo-breadcumb-wrap">
                     <h2>Login</h2>
                     <ol class="wpo-breadcumb-wrap">
-                        <li><a href="index.php">Home</a></li>
+                        <li><a href="{{ url('/') }}">Home</a></li>
                         <li>Login</li>
                     </ol>
                 </div>

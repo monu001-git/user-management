@@ -12,7 +12,8 @@ class specialitiesController extends Controller
    
     function __construct()
     {
-        $this->middleware('permission:specialitie-list|specialitie-create|specialitie-edit|specialitie-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:specialitie-list|specialitie-create|specialitie-edit|specialitie-delete');
+        $this->middleware('permission:specialitie-list', ['only' => ['index']]);
         $this->middleware('permission:specialitie-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:specialitie-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:specialitie-delete', ['only' => ['destroy']]);
@@ -87,9 +88,10 @@ class specialitiesController extends Controller
            
             $data = new specialitie;
             $data->title = ucwords($request->title);
-            $data->description  = $request->descriptions;
+            $data->description = $request->description;
             $data->order  = $request->order;
             $data->status  = $request->status;
+            $data->url  = $request->url;
 
             $path = public_path('uploads/specialitie');
             if ($request->hasFile('image')) {
@@ -189,6 +191,7 @@ class specialitiesController extends Controller
             $data->description  = $request->description;
             $data->order  = $request->order;
             $data->status  = $request->status;
+            $data->url  = $request->url;
 
             $path = public_path('uploads/specialitie');
             if ($request->hasFile('image')) {

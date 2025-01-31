@@ -16,7 +16,8 @@ class bannerController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:banner-list|banner-create|banner-edit|banner-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:banner-list|banner-create|banner-edit|banner-delete');
+        $this->middleware('permission:banner-list', ['only' => ['index']]);
         $this->middleware('permission:banner-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:banner-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:banner-delete', ['only' => ['destroy']]);

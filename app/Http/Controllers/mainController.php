@@ -13,7 +13,9 @@ class mainController extends Controller
     public function home()
     {
         try {
+      
             return view('front.home');
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -27,19 +29,31 @@ class mainController extends Controller
     }
 
 
+    public function contactUs(){
+        return view('front.common-page.contact-us');
+    }
+
     public function getAllPageContent(Request $request, $slug1 = null, $slug2 = null)
     {
         try {
 
         if ($slug1 != null && $slug2 != null) {
             $slug = $slug2;
+            $parent_menu = DB::table('menus')->where('url', $slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+            $menu = DB::table('menus')->where('url', $slug)->whereparent_id($parent_menu->id)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+       
         } elseif ($slug1 != null && $slug2 == null) {
             $slug = $slug1;
+            $parent_menu = null;
+            $menu = DB::table('menus')->where('url', $slug)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
         } else {
+
+            return view('front.common-page.master-page', [
+                'message' => 'common soon.........',
+                'menu' => $menu
+            ]);
         }
 
-        $menu = DB::table('menus')->where('url', $slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
-        // $menuParent = DB::table('menus')->where('url', $slug2)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
 
         if ($menu != null) {
             $contentData = DB::table('contents')
@@ -89,18 +103,19 @@ class mainController extends Controller
                 return view('front.common-page.master-page', [
                     'content' => $contentData,
                     'organizedData' => $organizedData,
-                    'menu' => $menu
+                    'menu' => $menu,
+                    'parent_menu'=>$parent_menu
                 ]);
             } else {
-                dd('content not null');
                 return view('front.common-page.master-page', [
-                    'message' => 'common soon',
-                    'menu' => $menu
+                    'message' => 'common soon.........',
+                    'menu' => $menu,
+                    'parent_menu'=>$parent_menu                    
                 ]);
             }
         } else {
 
-            dd('menu null ');
+            dd('menu not match ');
             return view('front.common-page.master-page', [
                 'message' => 'common soon'
             ]);

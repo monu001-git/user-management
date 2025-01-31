@@ -12,7 +12,8 @@ class contentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:content-list|content-create|content-edit|content-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:content-list|content-create|content-edit|content-delete');
+        $this->middleware('permission:content-list', ['only' => ['index']]);
         $this->middleware('permission:content-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:content-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:content-delete', ['only' => ['destroy']]);
@@ -81,8 +82,8 @@ class contentController extends Controller
             'meta_description' => 'required|string',
             'meta_keyword'     => 'required|string',
             'banner'           => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'image2'  => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'     => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image2'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -133,7 +134,7 @@ class contentController extends Controller
         }
         $content->save();
 
-        return redirect()->route('contents.index')->with('success', 'content created successfully');
+        return redirect()->route('contents.index')->with('success', 'Content created successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -181,9 +182,8 @@ class contentController extends Controller
         try {
 
             $content      = content::find(dDecrypt($id));
-            $imageContent = image_content::wherecontent_id(dDecrypt($id))->get();
 
-            return view('admin.common-page.contents.edit', compact('content', 'imageContent'));
+            return view('admin.common-page.contents.edit', compact('content'));
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -265,7 +265,7 @@ class contentController extends Controller
             }
             $content->save();
 
-            return redirect()->route('contents.index')->with('success', 'content updated successfully');
+            return redirect()->route('contents.index')->with('success', 'Content updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -289,7 +289,7 @@ class contentController extends Controller
         try {
 
         content::find(dDecrypt($id))->delete();
-        return redirect()->route('contents.index')->with('success', 'content deleted successfully');
+        return redirect()->route('contents.index')->with('success', 'Content deleted successfully');
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

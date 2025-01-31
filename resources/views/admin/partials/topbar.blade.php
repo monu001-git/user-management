@@ -33,7 +33,7 @@
                                  <div class="u-text">
                                      <h4> {{ auth()->user()->name ?? '' }}</h4>
                                      <p class="text-muted"> {{ auth()->user()->email ?? '' }}</p>
-                                     <a href="{{ route('home') }}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                     <a href="{{ route('dashboard') }}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                  </div>
                              </div>
                          </li>

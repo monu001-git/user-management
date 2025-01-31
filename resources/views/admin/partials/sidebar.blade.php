@@ -3,7 +3,7 @@
      <div class="sidebar-logo">
          <!-- Logo Header -->
          <div class="logo-header" data-background-color="dark">
-             <a href="{{ url('/home') }}" class="logo">
+             <a href="{{ url('/') }}" class="logo">
                  {{-- <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" /> --}}
              </a>
              <div class="nav-toggle">
@@ -40,16 +40,7 @@
 
                  @else
 
-
-
-                 <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-                     <a href="{{ route('home') }}">
-                         <i class="fas fa-home"></i>
-                         <p>Dashboard</p>
-                     </a>
-                 </li>
-
-                 @can('user-index')
+                 @can('user-list')
                  <li class="nav-item {{ request()->routeIs('users.index','users.create', 'users.edit') ? 'active' : '' }}">
                      <a href="{{ route('users.index') }}">
                          <i class="fas fa-user"></i>
@@ -58,7 +49,7 @@
                  </li>
                  @endcan
 
-                 @can('role-index')
+                 @can('role-list')
                  <li class="nav-item {{ request()->routeIs('roles.index', 'roles.create', 'roles.edit') ? 'active' : '' }}">
                      <a href="{{ route('roles.index') }}">
                          <i class="fas fa-id-card"></i>
@@ -68,7 +59,18 @@
                  @endcan
 
 
-                 @can('content-index')
+
+                 @can('org-list')
+                 <li class="nav-item {{ request()->routeIs('orgs.index', 'orgs.create', 'orgs.edit') ? 'active' : '' }}">
+                     <a href="{{ route('orgs.index') }}">
+                         <i class="fas fa-qrcode"></i>
+                         <p>Manage Organization </p>
+                     </a>
+                 </li>
+                 @endcan
+
+
+                 @can('content-list')
                  <li class="nav-item {{ request()->routeIs('contents.index', 'contents.create', 'contents.edit') ? 'active' : '' }}">
                      <a href="{{ route('contents.index') }}">
                          <i class="fas fa-id-card"></i>
@@ -78,7 +80,7 @@
                  @endcan
 
 
-                 @can('menu-index')
+                 @can('menu-list')
                  <li class="nav-item {{ request()->routeIs('menus.index', 'menus.create', 'menus.edit') ? 'active' : '' }}">
                      <a href="{{ route('menus.index') }}">
                          <i class="fas fa-money-check"></i>
@@ -88,7 +90,7 @@
                  @endcan
 
 
-                 @can('banner-index')
+                 @can('banner-list')
                  <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
                      <a href="{{ route('banners.index') }}">
                          <i class="fas fa-rss-square"></i>
@@ -97,16 +99,8 @@
                  </li>
                  @endcan
 
-                 @can('org-index')
-                 <li class="nav-item {{ request()->routeIs('orgs.index', 'orgs.create', 'orgs.edit') ? 'active' : '' }}">
-                     <a href="{{ route('orgs.index') }}">
-                         <i class="fas fa-qrcode"></i>
-                         <p>Manage Organization </p>
-                     </a>
-                 </li>
-                 @endcan
 
-                 @can('team-index')
+                 @can('team-list')
                  <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
                      <a href="{{ route('teams.index') }}">
                          <i class="fas fa-qrcode"></i>
@@ -115,7 +109,7 @@
                  </li>
                  @endcan
 
-                 @can('gallery-index')
+                 @can('gallery-list')
                  <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
                      <a href="{{ route('gallery.index') }}">
                          <i class="fas fa-image"></i>
@@ -124,7 +118,7 @@
                  </li>
                  @endcan
 
-                 @can('specialitie-index')
+                 @can('specialitie-list')
                  <li class="nav-item {{ request()->routeIs('specialities.index', 'specialities.create', 'specialities.edit') ? 'active' : '' }}">
                      <a href="{{ route('specialities.index') }}">
                          <i class="fas fa-image"></i>
@@ -132,7 +126,7 @@
                      </a>
                  </li>
                  @endcan
-                 @can('faq-index')
+                 @can('faq-list')
                  <li class="nav-item {{ request()->routeIs('faqs.index', 'faqs.create', 'faqs.edit') ? 'active' : '' }}">
                      <a href="{{ route('faqs.index') }}">
                          <i class="fas fa-image"></i>
@@ -141,26 +135,17 @@
                  </li>
                  @endcan
 
+                 @can('appointment-list')
+                 <li class="nav-item {{ request()->routeIs('appointments.index') ? 'active' : '' }}">
+                     <a href="{{ route('appointments.index') }}">
+                         <i class="fas fa-image"></i>
+                         <p>Manage Appointment </p>
+                     </a>
+                 </li>
+                 @endcan
+
                  @endguest
 
-
-
-                 {{-- <li class="nav-item active">
-                            <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
-                                <i class="fas fa-home"></i>
-                                <p>Dashboard</p>
-                                <span class="caret"></span>
-                            </a>
-                            <div class="collapse" id="dashboard">
-                                <ul class="nav nav-collapse">
-                                    <li>
-                                        <a href="../demo1/index.html">
-                                            <span class="sub-item">Dashboard 1</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li> --}}
              </ul>
          </div>
      </div>
