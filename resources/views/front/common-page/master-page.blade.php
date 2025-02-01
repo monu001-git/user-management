@@ -2,11 +2,6 @@
 
 @section('content')
 
-
-<!-- start wpo-page-title -->
-
-
-
 @if (isset($content->banner) && $content->image != null)
 <section class="wpo-page-title" style="background: url( {{ asset('front/assets/images/about-us/about-banner.jpg') }}) no-repeat center top/cover;">
     <div class="container">

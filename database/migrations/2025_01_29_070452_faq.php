@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->string('answer');
+            $table->text('question')->nullable();
+            $table->text('answer')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);
             $table->softDeletes();

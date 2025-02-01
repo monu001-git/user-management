@@ -49,7 +49,7 @@ class mainController extends Controller
         } else {
 
             return view('front.common-page.master-page', [
-                'message' => 'common soon.........',
+                'message' => 'page common soon.........',
                 'menu' => $menu
             ]);
         }
@@ -108,7 +108,7 @@ class mainController extends Controller
                 ]);
             } else {
                 return view('front.common-page.master-page', [
-                    'message' => 'common soon.........',
+                    'message' => 'page common soon.........',
                     'menu' => $menu,
                     'parent_menu'=>$parent_menu                    
                 ]);
@@ -117,7 +117,7 @@ class mainController extends Controller
 
             dd('menu not match ');
             return view('front.common-page.master-page', [
-                'message' => 'common soon'
+                'message' => 'not Found'
             ]);
         }
 
