@@ -46,7 +46,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Event Name:</strong>
-                                        <input type="text" name="name" placeholder="event name" value="{{ old('name') }}" class="form-control">
+                                        <input type="text" name="name" minlength="3"  maxlength="100" placeholder="event name" value="{{ old('name') }}" class="form-control preventnumeric">
 
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -91,7 +91,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Sort order:</strong>
-                                        <input type="text" minlenght="1" maxlenght="3" name="order" placeholder="sort order" value="{{ old('order') }}" class="form-control">
+                                        <input type="text" minlength="1"  maxlength="3"name="order" placeholder="sort order" value="{{ old('order') }}" class="form-control mobile_no">
 
                                         @error('order')
                                         <div class="text-danger">{{ $message }}</div>
@@ -112,12 +112,12 @@
 
 
                                         <div class="col-4" id="fileInputContainer" style="display: none;">
-                                            <input type="file" class="form-control" name="image1[]" id="fileInput" />
+                                            <input type="file" class="form-control image" name="image1[]" id="fileInput" />
                                         </div>
 
 
                                         <div class="col-4 urlInputContainer" style="display: none;">
-                                            <input type="file" class="form-control" name="image2[]" id="imageInput" />
+                                            <input type="file" class="form-control image" name="image2[]" id="imageInput" />
                                         </div>
 
                                         <div class="col-4 urlInputContainer" style="display: none;">

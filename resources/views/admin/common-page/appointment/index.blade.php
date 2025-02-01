@@ -11,7 +11,6 @@
 @endif
 
 
-
 <div class="page-inner">
     <div class="page-header">
         <h3 class="fw-bold mb-3">Appointment book Management</h3>

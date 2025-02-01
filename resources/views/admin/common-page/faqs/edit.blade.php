@@ -45,7 +45,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Question:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="question" value="{{ $faq->question ??"" }}" placeholder="question" class="form-control">
+                                    <input type="text" minlength="1" maxlength="200" name="question" value="{{ $faq->question ??"" }}" placeholder="question" class="form-control preventnumeric">
 
                                     @error('question')
                                     <div class="text-danger">{{ $message }}</div>
@@ -56,7 +56,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Answer:</strong>
-                                    <textarea name="answer" placeholder="answer" class="form-control">{{ $faq->answer  }}</textarea>
+                                    <textarea name="answer" placeholder="answer" class="form-control">{!! $faq->answer ??''  !!}</textarea>
                                 </div>
                             </div>
 
@@ -64,7 +64,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control" value="{{ $faq->order ??"" }}" minlength="1" maxlength="3">
+                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $faq->order ??"" }}">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -86,5 +86,10 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    CKEDITOR.replace('answer');
+   
+</script>
 
 @endsection

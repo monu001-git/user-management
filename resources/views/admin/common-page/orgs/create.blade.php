@@ -61,7 +61,8 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Description:</strong>
-                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{{ old('description') }}</textarea>
+
+                                        <textarea class="form-control" id="meta_description" rows="4" name="meta_description" placeholder="Please enter meta description, use for seo">{{ old('description') }}</textarea>
 
                                         @error('meta_description')
                                         <div class="text-danger">{{ $message }}</div>
@@ -73,7 +74,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
-                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea><br>
+                                        <textarea class="form-control"   id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ old('keyword') }}</textarea><br>
 
                                         @error('meta_keyword')
                                         <div class="text-danger">{{ $message }}</div>
@@ -85,7 +86,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
-                                        <input type="text" name="name" placeholder="Name" class="form-control">
+                                        <input type="text" name="name" minlength="3"  maxlength="30"   placeholder="Name" class="form-control preventnumeric">
 
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -108,7 +109,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>phone:</strong>
-                                        <input type="text" name="phone" placeholder="phone" class="form-control">
+                                        <input type="text" name="phone" minlength="3"  maxlength="30"  placeholder="phone" class="form-control  mobile_no">
 
                                         @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
@@ -149,14 +150,14 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Header logo:</strong>
-                                        <input type="file" name="header_logo" class="form-control">
+                                        <input type="file"   name="header_logo" class="form-control image">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Header logo title:</strong>
-                                        <input type="text" name="header_logo_title" class="form-control">
+                                        <input type="text" minlength="3" maxlength="30" name="header_logo_title" class="form-control preventnumeric">
 
                                     </div>
                                 </div>
@@ -165,14 +166,14 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Favicon :</strong>
-                                        <input type="file" name="favicon" class="form-control">
+                                        <input type="file" name="favicon" class="form-control image">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Favicon title:</strong>
-                                        <input type="text" name="favicon_title" class="form-control">
+                                        <input type="text" minlength="3" maxlength="30" name="favicon_title" class="form-control preventnumeric">
 
                                     </div>
                                 </div>
@@ -182,14 +183,14 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Footer logo:</strong>
-                                        <input type="file" name="footer_logo" class="form-control">
+                                        <input type="file"  name="footer_logo" class="form-control image">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Footer logo title:</strong>
-                                        <input type="text" name="footer_logo_title" class="form-control">
+                                        <input type="text" minlength="3" maxlength="30" name="footer_logo_title" class="form-control preventnumeric">
 
                                     </div>
                                 </div>
@@ -200,7 +201,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>instagram:</strong>
-                                        <input type="text" name="instagram" minlength="3" maxlength="100" placeholder="instagram" class="form-control">
+                                        <input type="url" name="instagram" minlength="3" maxlength="50" placeholder="instagram" class="form-control">
                                     </div>
                                 </div>
 
@@ -208,14 +209,14 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>instagram title :</strong>
-                                        <input type="text" name="instagram_title" minlength="3" maxlength="100" placeholder="instagram title" class="form-control">
+                                        <input type="text" name="instagram_title" minlength="3" maxlength="50" placeholder="instagram title" class="form-control preventnumeric">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Facebook:</strong>
-                                        <input type="text" name="facebook" minlength="3" maxlength="100" placeholder="Facebook" class="form-control">
+                                        <input type="text" name="facebook" minlength="3" maxlength="50" placeholder="Facebook" class="form-control">
                                     </div>
                                 </div>
 
@@ -223,7 +224,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Facebook title :</strong>
-                                        <input type="text" name="facebook_title" minlength="3" maxlength="100" placeholder="Instagram title" class="form-control">
+                                        <input type="text" name="facebook_title" minlength="3" maxlength="50" placeholder="Instagram title" class="form-control">
                                     </div>
                                 </div>
 
@@ -231,7 +232,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Youtube:</strong>
-                                        <input type="text" name="youtube" minlength="3" maxlength="100" placeholder="youtube" class="form-control">
+                                        <input type="text" name="youtube" minlength="3" maxlength="50" placeholder="youtube" class="form-control">
                                     </div>
                                 </div>
 
@@ -239,7 +240,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Youtube title :</strong>
-                                        <input type="text" name="youtube_title" minlength="3" maxlength="100" placeholder="youtube title" class="form-control">
+                                        <input type="text" name="youtube_title" minlength="3" maxlength="50" placeholder="youtube title" class="form-control">
                                     </div>
                                 </div>
 
@@ -380,7 +381,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Specialities Phone:</strong>
-                                        <input type="text" name="specialities_phone" placeholder="phone" class="form-control">
+                                        <input type="text" name="specialities_phone " placeholder="phone" class="form-control mobile_no">
                                     </div>
                                 </div>
 
@@ -391,14 +392,14 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Team title :</strong>
-                                        <input type="text" name="team_title" class="form-control">
+                                        <input type="text" name="team_title" minlength="3" maxlength="50" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Team Heading :</strong>
-                                        <input type="text" name="team_heading" class="form-control">
+                                        <input type="text" name="team_heading" minlength="3" maxlength="100" class="form-control">
                                     </div>
                                 </div>
 
@@ -419,7 +420,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Team Phone:</strong>
-                                        <input type="text" name="team_phone" placeholder="phone" class="form-control">
+                                        <input type="text" name="team_phone" placeholder="phone" class="form-control mobile_no">
                                     </div>
                                 </div>
 
@@ -432,14 +433,14 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>News title :</strong>
-                                        <input type="text" name="news_title" class="form-control">
+                                        <input type="text" name="news_title" minlength="3" maxlength="50" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>News Heading :</strong>
-                                        <input type="text" name="news_heading" class="form-control">
+                                        <input type="text" name="news_heading" minlength="3" maxlength="100" class="form-control">
                                     </div>
                                 </div>
 
@@ -460,7 +461,7 @@
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <div class="form-group">
                                         <strong>Middle Image:</strong>
-                                        <input type="file" name="middle_image" class="form-control">
+                                        <input type="file" name="middle_image" class="form-control image">
                                     </div>
                                 </div>
 
@@ -484,6 +485,20 @@
             </div>
         </div>
     </div>
+
+    
+    <script type="text/javascript">
+        CKEDITOR.replace('meta_description');
+        CKEDITOR.replace('meta_keyword');
+        CKEDITOR.replace('address');
+        CKEDITOR.replace('about');
+        CKEDITOR.replace('specialities_description1');
+        CKEDITOR.replace('specialities_description2');
+        CKEDITOR.replace('team_description1');
+        CKEDITOR.replace('team_description2');
+        CKEDITOR.replace('news_description');
+        CKEDITOR.replace('some_point');
+    </script>
 
 
     @endsection

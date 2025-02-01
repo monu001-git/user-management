@@ -45,7 +45,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Event Name:</strong>
-                                    <input type="text" name="name" placeholder="event name" value="{{ $gallery->name }}" class="form-control">
+                                    <input type="text" name="name" minlength="3" maxlength="100" placeholder="event name" value="{{ $gallery->name }}" class="form-control preventnumeric">
                                 </div>
                             </div>
 
@@ -83,7 +83,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort order:</strong>
-                                    <input type="text" minlenght="1" maxlenght="3" name="order" value="{{ $gallery->order }}" placeholder="sort order" class="form-control">
+                                    <input type="text" minlength="1"  maxlength="3" name="order" value="{{ $gallery->order }}" placeholder="sort order" class="form-control mobile_no">
                                 </div>
                             </div>
 
@@ -98,7 +98,7 @@
 
                                     <div class="col-4">
                                         <strong>Image title:</strong>
-                                        <input type="text" class="form-control" name="title[]" placeholder="Image title" value="{{ $gallerydetails->title ??"" }}" />
+                                        <input type="text" class="form-control preventnumeric" name="title[]" placeholder="Image title" value="{{ $gallerydetails->title ??"" }}" />
                                     </div>
 
 
@@ -115,7 +115,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image1[]" class="form-control" @if($gallerydetails->image) value="{{$gallerydetails->image}}" @endif>
+                                        <input type="file" name="image1[]" class="form-control image" @if($gallerydetails->image) value="{{$gallerydetails->image}}" @endif>
                                     </div>
                                     @else
 
@@ -128,7 +128,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image2[]" class="form-control" @if($gallerydetails->image) value="{{$gallerydetails->image }}" @endif>
+                                        <input type="file" name="image2[]" class="form-control image" @if($gallerydetails->image) value="{{$gallerydetails->image }}" @endif>
                                     </div>
 
 
@@ -188,17 +188,17 @@
         <div class="form-group row mb-3">
             <div class="col-3">
                 <strong>Image title:</strong>
-                <input type="text" class="form-control" name="title[]" placeholder="Image title" value="" />
+                <input type="text" minlenght="1" maxlenght="100"  class="form-control preventnumeric" name="title[]" placeholder="Image title" value="" />
             </div>
 
             <input type="hidden" class="form-control" name="id[]" value="" />
 
             <div class="col-3 fileInputContainer" style="display: none;">
-                <input type="file" class="form-control" name="image1[]" id="fileInput" />
+                <input type="file" class="form-control image" name="image1[]" id="fileInput" />
             </div>
 
             <div class="col-3 urlInputContainer" style="display: none;">
-                <input type="file" class="form-control" name="image2[]" id="imageInput" />
+                <input type="file" class="form-control image" name="image2[]" id="imageInput" />
             </div>
 
             <div class="col-3 urlInputContainer" style="display: none;">

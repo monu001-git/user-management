@@ -36,7 +36,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-             
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('specialities.update', dEncrypt($specialitie->id)) }}" enctype="multipart/form-data">
                         @csrf
@@ -45,7 +45,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Title:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="title" value="{{ $specialitie->title ??"" }}" placeholder="name" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="title" value="{{ $specialitie->title ??"" }}" placeholder="name" class="form-control preventnumeric">
 
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -65,7 +65,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="url" minlength="1" maxlength="100" name="url" placeholder="url" value="{{ $specialitie->url ??"" }}" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="url" placeholder="url" value="{{ $specialitie->url ??"" }}" class="form-control ">
 
                                     @error('url')
                                     <div class="text-danger">{{ $message }}</div>
@@ -83,7 +83,7 @@
                                         @endif
                                     </span>
 
-                                    <input type="file" name="image" class="form-control" @if($specialitie->image)
+                                    <input type="file" name="image" class="form-control image" @if($specialitie->image)
                                     value="{{$specialitie->image}}"
                                     @endif>
 
@@ -95,7 +95,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control" value="{{ $specialitie->order ??"" }}" minlength="1" maxlength="3">
+                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $specialitie->order ??"" }}">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -120,5 +120,11 @@
     </div>
 </div>
 
+
+
+<script type="text/javascript">
+    CKEDITOR.replace('description');
+
+</script>
 
 @endsection

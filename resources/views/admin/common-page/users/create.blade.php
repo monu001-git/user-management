@@ -41,7 +41,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" minlength="2" maxlength="38" placeholder="Name" value="{{ old('name') }}" class="form-control">
+                                    <input type="text" name="name" minlength="2" maxlength="100" class="form-control preventnumeric" placeholder="Name" value="{{ old('name') }}" >
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -59,7 +59,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Password:</strong>
-                                    <input type="password" name="password" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control">
+                                    <input type="password" name="password"  minlength="2" maxlength="30" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control">
                                     <button type="button" id="togglePassword">
                                         👁️
                                     </button>
@@ -71,7 +71,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Confirm Password:</strong>
-                                    <input type="password" name="confirm-password" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
+                                    <input type="password" name="confirm-password" minlength="2" maxlength="30" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
                                     <button type="button" id="ctogglePassword">
                                         👁️
                                     </button>
@@ -99,7 +99,7 @@
 
                             <div class="card-action">
                                 <button type="submit" class="btn btn-success">Submit</button>
-                                 <a class="btn btn-danger" href="{{ route('users.index') }}"> Back</a>
+                                <a class="btn btn-danger" href="{{ route('users.index') }}"> Back</a>
                             </div>
                         </div>
                     </form>

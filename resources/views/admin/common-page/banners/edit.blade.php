@@ -46,7 +46,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Title:</strong>
-                                    <input type="text" name="title" placeholder="title" class="form-control" value="{{ $banner->title }}">
+                                    <input type="text" name="title" placeholder="title" minlength="3"  maxlength="100" class="form-control preventnumeric" value="{{ $banner->title }}">
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -56,7 +56,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Description:</strong>
-                                    <textarea name="description" class="form-control">{{ $banner->description ??""}}</textarea>
+                                    <textarea name="description" class="form-control">{!! $banner->description ??"" !!}</textarea>
                                 </div>
                                 @error('description')
                                 <div class="text-danger">{{ $message }}</div>
@@ -66,7 +66,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="text" name="url" placeholder="url" value="{{ $banner->url  ??''}}" class="form-control">
+                                    <input type="text" name="url" placeholder="url" minlength="3"  maxlength="100" value="{{ $banner->url  ??''}}" class="form-control">
                                     @error('url')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -92,7 +92,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" value="{{ $banner->order }}" placeholder="Sort order" minlength="1" maxlength="3" class="form-control">
+                                    <input type="text" name="order" value="{{ $banner->order ??'' }}" placeholder="Sort order" minlength="1" maxlength="3" class="form-control mobile_no">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -110,7 +110,7 @@
                                         @endif
                                     </span>
 
-                                    <input type="file" name="image" class="form-control" @if($banner->image)
+                                    <input type="file" name="image" class="form-control image" @if($banner->image)
                                     value="{{$banner->image}}"
                                     @endif>
                                 </div>
@@ -131,5 +131,9 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    CKEDITOR.replace('description');
+</script>
 
 @endsection

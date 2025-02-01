@@ -43,7 +43,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Name:</strong>
-                                        <input type="text" name="name" placeholder="Name" minlength="2" maxlength="38" class="form-control" value="{{ $user->name ?? "" }}">
+                                        <input type="text" name="name" placeholder="Name" minlength="2" maxlength="100" class="form-control preventnumeric" value="{{ $user->name ?? "" }}">
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
                                         @enderror

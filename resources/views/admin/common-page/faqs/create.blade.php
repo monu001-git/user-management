@@ -41,7 +41,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Question :</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="question" placeholder="question" class="form-control">
+                                    <input type="text" minlength="1" maxlength="200" name="question" placeholder="question" class="form-control preventnumeric">
 
                                     @error('question')
                                     <div class="text-danger">{{ $message }}</div>
@@ -61,7 +61,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" minlength="1" maxlength="3" name="order" placeholder="Sort order" class="form-control" minlength="1" maxlength="3">
+                                    <input type="text" minlength="1" maxlength="3" name="order" placeholder="Sort order" class="form-control mobile_no" >
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -84,6 +84,13 @@
         </div>
     </div>
 </div>
+
+
+ 
+<script type="text/javascript">
+    CKEDITOR.replace('answer');
+   
+</script>
 
 
 @endsection

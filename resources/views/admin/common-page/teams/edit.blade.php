@@ -37,14 +37,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('teams.update', dEncrypt($team->id)) }}" enctype="multipart/form-data" >
+                    <form method="POST" action="{{ route('teams.update', dEncrypt($team->id)) }}" enctype="multipart/form-data">
                         @csrf
-                         @method('PUT')
+                        @method('PUT')
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" minlength="1" maxlength="25" placeholder="name" value="{{ $team->name }}" class="form-control">
+                                    <input type="text" name="name" minlength="1" maxlength="100" placeholder="name" value="{{ $team->name ??'' }}" class="form-control preventnumeric">
 
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -55,7 +55,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="text" name="email" minlength="1" maxlength="25" placeholder="email" value="{{ $team->email }}" class="form-control">
+                                    <input type="text" name="email" minlength="1" maxlength="100" placeholder="email" value="{{ $team->email  ??''}}" class="form-control preventnumeric">
 
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Specialization:</strong>
-                                    <input type="text" name="specialization" minlength="1" maxlength="25" placeholder="specialization" value="{{ $team->specialization }}" class="form-control">
+                                    <input type="text" name="specialization" minlength="1" maxlength="100" placeholder="specialization" value="{{ $team->specialization ??"" }}" class="form-control preventnumeric">
 
                                     @error('specialization')
                                     <div class="text-danger">{{ $message }}</div>
@@ -78,7 +78,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Qualification:</strong>
-                                    <input type="text" name="qualification" minlength="1" maxlength="25" placeholder="qualification" value="{{ $team->qualification }}" class="form-control">
+                                    <input type="text" name="qualification" minlength="1" maxlength="100" placeholder="qualification" value="{{ $team->qualification ??'' }}" class="form-control preventnumeric">
 
                                     @error('qualification')
                                     <div class="text-danger">{{ $message }}</div>
@@ -89,7 +89,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Designation:</strong>
-                                    <input type="text" name="designation" minlength="1" maxlength="25" placeholder="designation" value="{{ $team->designation }}" class="form-control">
+                                    <input type="text" name="designation" minlength="1" maxlength="100" placeholder="designation" value="{{ $team->designation  ??' '}}" class="form-control preventnumeric">
 
                                     @error('designation')
                                     <div class="text-danger">{{ $message }}</div>
@@ -101,7 +101,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control" value="{{ $team->order }}" minlength="1" maxlength="3">
+                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $team->order ??""}}">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -118,7 +118,7 @@
                                         @endif
                                     </span>
 
-                                    <input type="file" name="image" class="form-control" @if($team->image)
+                                    <input type="file" name="image" class="form-control image" @if($team->image)
                                     value="{{$team->image}}"
                                     @endif>
 

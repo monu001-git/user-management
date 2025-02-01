@@ -14,13 +14,15 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-   
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+
+
 
     <link rel="icon" href="{{ asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
@@ -56,6 +58,8 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
 
+    
+    <script src="{{url('admin/assets/ckeditor/ckeditor.js')}}"></script>
 </head>
 <body>
 
@@ -98,9 +102,11 @@
         @include('admin.partials.settings')
     </div>
 
+
+    
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
-        <script src="{{ asset('admin/assets/js/common.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/common.js') }}"></script>
     <script src="{{ asset('admin/assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/core/bootstrap.min.js') }}"></script>
 
@@ -164,7 +170,6 @@
         , });
 
     </script>
-
 
 
 </body>

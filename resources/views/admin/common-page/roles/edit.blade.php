@@ -44,7 +44,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" placeholder="Name" minlength="2" maxlength="38" class="form-control" value="{{ $role->name }}">
+                                    <input type="text" name="name" placeholder="Name" minlength="2" maxlength="30" class="form-control preventnumeric" value="{{ $role->name }}">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -70,6 +70,7 @@
         </div>
     </div>
 </div>
+
 
 
 @endsection

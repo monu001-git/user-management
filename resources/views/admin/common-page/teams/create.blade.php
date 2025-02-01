@@ -41,7 +41,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="name" placeholder="name" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="name" placeholder="name" class="form-control preventnumeric">
 
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -52,7 +52,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="email" placeholder="email" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="email" placeholder="email" class="form-control">
 
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>
@@ -64,7 +64,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Specialization:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="specialization" placeholder="specialization" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="specialization" placeholder="specialization" class="form-control preventnumeric">
 
                                     @error('specialization')
                                     <div class="text-danger">{{ $message }}</div>
@@ -75,7 +75,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Qualification:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="qualification" placeholder="qualification" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="qualification" placeholder="qualification" class="form-control preventnumeric">
 
                                     @error('qualification')
                                     <div class="text-danger">{{ $message }}</div>
@@ -86,7 +86,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Designation:</strong>
-                                    <input type="text" minlength="1" maxlength="25" name="designation" placeholder="designation" class="form-control">
+                                    <input type="text" minlength="1" maxlength="100" name="designation" placeholder="designation" class="form-control preventnumeric">
 
                                     @error('designation')
                                     <div class="text-danger">{{ $message }}</div>
@@ -98,7 +98,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" minlength="1" maxlength="3" name="order" placeholder="Sort order" class="form-control" minlength="1" maxlength="3">
+                                    <input type="text" minlength="1" maxlength="3" name="order" placeholder="Sort order" class="form-control mobile_no" >
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -109,7 +109,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Image</strong>
-                                    <input type="file" name="image" class="form-control">
+                                    <input type="file" name="image" class="form-control image">
                                     @error('image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror

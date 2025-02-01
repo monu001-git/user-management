@@ -42,7 +42,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" minlength="2" maxlength="38" placeholder="Name" class="form-control">
+                                    <input type="text" name="name" minlength="2" maxlength="30" placeholder="Name" class="form-control preventnumeric">
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
