@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\appoinment_book;
 use Illuminate\Support\Facades\Validator;
+use Mail;
+use App\Mail\appointmentDoctorMail;
+use App\Mail\appointmentPatientMail;
+
 
 class mainController extends Controller
 {
@@ -141,8 +145,13 @@ class mainController extends Controller
         try {
 
         $validator = Validator::make($request->all(), [
-            // 'name' => 'required|unique:banners,title',
-
+           'name' => 'required|string|max:255',
+           'email' => 'required|email|max:255|unique:appointment_books,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
+           'phone' => 'required|digits:10', 
+           'age' => 'required|integer|min:18',  
+           'gender' => 'required|in:male,female,other',  
+           'department' => 'required|string|max:255',
+           'date' => 'required|date',  
         ]);
 
         if ($validator->fails()) {
@@ -157,8 +166,24 @@ class mainController extends Controller
         $data->gender  = $request->gender;
         $data->department  = $request->department;
         $data->date  = $request->date;
-
         $data->save();
+
+
+        $doctorData = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp.'
+        ];
+
+        $patientData = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp.'
+        ];
+      
+        Mail::to('vinam2@yopmail.com')->send(new appointmentDoctorMail($doctorData));
+
+        Mail::to($request->email)->send(new appointmentPatientMail($patientData));
+             
+       
 
         return redirect('/')->with('success', 'Appoinment book created successfully');
 

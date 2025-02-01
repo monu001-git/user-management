@@ -9,18 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class appointmentBook extends Mailable
+class appointmentDoctorMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
+    public $patientData;
+
 
     /**
      * Create a new message instance.
      */
-    public function __construct($mailData)
+    public function __construct($patientData)
     {
-        $this->mailData = $mailData;
+        $this->patientData = $patientData;
     }
 
     /**
@@ -29,7 +30,7 @@ class appointmentBook extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Demo Mail',
+            subject: 'Appointment Doctor Mail',
         );
     }
 
@@ -39,14 +40,14 @@ class appointmentBook extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.appointment_book',
+            view: 'email.appointmentDoctorMail',
         );
     }
 
     /**
      * Get the attachments for the message.
      *
-     * @return array
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {

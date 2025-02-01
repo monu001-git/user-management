@@ -112,20 +112,7 @@
                     <div class="user-profile text-center">
                         <div class="name">{{ auth()->user()->name ?? '' }}</div>
                         <div class="job">{{ auth()->user()->email ?? '' }}</div>
-                        <div class="social-media">
-                            <a class="btn btn-info btn-twitter btn-sm btn-link" href="#">
-                                <span class="btn-label just-icon"><i class="icon-social-twitter"></i>
-                                </span>
-                            </a>
-                            <a class="btn btn-primary btn-sm btn-link" rel="publisher" href="#">
-                                <span class="btn-label just-icon"><i class="icon-social-facebook"></i>
-                                </span>
-                            </a>
-                            <a class="btn btn-danger btn-sm btn-link" rel="publisher" href="#">
-                                <span class="btn-label just-icon"><i class="icon-social-instagram"></i>
-                                </span>
-                            </a>
-                        </div>
+                        
 
                     </div>
                 </div>

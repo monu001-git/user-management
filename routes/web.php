@@ -14,7 +14,6 @@ use App\Http\Controllers\faqController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\specialitiesController;
 use App\Http\Controllers\appointmentController;
 
@@ -43,7 +42,6 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
-Route::get('send-mail', [MailController::class, 'index']);
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('/contact-us', [mainController::class, 'contactUs']);

@@ -81,7 +81,7 @@ class UserController extends Controller
             // Manual validation check
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|max:255|unique:users,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
                 'password' => 'required|same:confirm-password',
                 'roles' => 'required'
             ]);
@@ -175,8 +175,7 @@ class UserController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
-                'email' => 'required|email',
-                // 'password' => 'required|same:confirm-password',
+                'email' => 'required|email|max:255|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
                 'roles' => 'required',
             ]);
 

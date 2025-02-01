@@ -138,6 +138,9 @@
         </a>
     </div>
 
+    <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ asset('front/assets/js/common.js')}}"></script>
+
 
     <!-- All JavaScript files
          ================================================== -->

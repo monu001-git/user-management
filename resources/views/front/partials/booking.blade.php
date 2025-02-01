@@ -14,16 +14,35 @@
                             @csrf
                             <div class="row">
                                 <div class="form-field col-lg-6">
-                                    <input class="form-control-name " type="text" placeholder="Full Name" name="name" id="name" required >
+                                    <input class="form-control-name preventnumeric" minlength="2" maxlength="100"
+                                        type="text" placeholder="Full Name" name="name" id="name" required>
+
+                                    @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-field col-lg-6">
-                                    <input class="form-control-mail" type="email" placeholder="Email" name="email" id="email" required>
-                                </div> 
+                                    <input class="form-control-mail" type="email" minlength="2" maxlength="100"
+                                        placeholder="Email" name="email" id="email" required>
+
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                                 <div class="form-field col-lg-6">
-                                    <input class="form-controls form-control-number" name="phone" type="tel" placeholder="Phone No." required >
+                                    <input class="form-controls form-control-number mobile_no" minlength="10"
+                                        maxlength="10" name="phone" type="tel" placeholder="Phone No." required>
+
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-control-age form-field col-lg-3">
-                                    <input class="form-controls form-control-number" name="age" type="text" id="age" placeholder="Age"  required>
+                                    <input class="form-controls form-control-number mobile_no" name="age"
+                                        type="text" id="age" placeholder="Age" required>
+                                    @error('age')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-controls form-control-gender form-field col-lg-3">
                                     <select name="gender" class="form-control" required>
@@ -32,12 +51,16 @@
                                         <option value="Female">Female</option>
                                         <option value="Other">Other</option>
                                     </select>
+                                    @error('gender')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-control-age form-field col-lg-6">
                                     <div class="form-controls form-control-choose-department">
                                         <select name="department" class="form-control" required>
                                             <option value="0" disabled selected>Choose Department</option>
-                                            <option value="Robotic Laparoscopic Surgery">Robotic Laparoscopic Surgery</option>
+                                            <option value="Robotic Laparoscopic Surgery">Robotic Laparoscopic Surgery
+                                            </option>
                                             <option value="Laser Treatment">Laser Treatment</option>
                                             <option value="General Physician">General Physician</option>
                                             <option value="Aesthetics Surgeries">Aesthetics Surgeries</option>
@@ -47,10 +70,19 @@
                                             <option value="Pharmacy">Pharmacy</option>
                                             <option value="CSR BY DDF">CSR BY DDF</option>
                                         </select>
+
+                                        @error('department')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="form-control-age form-field col-lg-6">
-                                    <input class="form-control-mail" type="date" placeholder="Date" name="date" required >
+                                    <input class="form-control-mail" type="date" placeholder="Date" name="date"
+                                        required min="{{ \Carbon\Carbon::today()->toDateString() }}"
+                                        max="{{ \Carbon\Carbon::today()->addMonth()->toDateString() }}">
+                                    @error('date')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div class="col-xl-7 col-lg-12 col-12">

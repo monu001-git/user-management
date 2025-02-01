@@ -81,7 +81,6 @@ class galleryController extends Controller
             'name' => 'required',
             'file_type' => 'required',
             'order' => 'required'
-
         ]);
 
         if ($validator->fails()) {
