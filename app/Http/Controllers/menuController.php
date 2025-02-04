@@ -29,7 +29,7 @@ class menuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
             $menu = menu::orderBy('id', 'asc')->get();
@@ -52,7 +52,7 @@ class menuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
             $menu = menu::pluck('name', 'name')->all();
@@ -133,7 +133,7 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
+    public function show($id)
     {
         try {
             $menu = menu::find(dDecrypt($id));
@@ -156,7 +156,7 @@ class menuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id)
     {
         try {
             $menu = menu::find(dDecrypt($id));

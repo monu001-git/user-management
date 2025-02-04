@@ -169,8 +169,9 @@ class faqController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                //'title' => 'required',
-                //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'question' => 'required',
+                'answer' => 'required',
+                'order' => 'required',
             ]);
 
             if ($validator->fails()) {

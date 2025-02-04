@@ -28,7 +28,7 @@ class orgController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
 
@@ -107,8 +107,6 @@ class orgController extends Controller
             $data->about = $request->about;
             $data->address = $request->address;
             $data->facebook_title = $request->facebook_title;
-            $data->twitter = $request->twitter;
-            $data->twitter_title = $request->twitter_title;
             $data->youtube = $request->youtube;
             $data->youtube_title = $request->youtube_title;
             $data->meta_title = $request->meta_title;
@@ -178,6 +176,8 @@ class orgController extends Controller
             $data->news_heading  = $request->news_heading ;
             $data->news_description = $request->news_description;
 
+            
+            $data->map = $request->map;
      
             $data->some_point = $request->some_point;
             $path = public_path('uploads/middleimage');
@@ -188,8 +188,6 @@ class orgController extends Controller
                 $data->middle_image = $newname;
             }
             
-           
-
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure Created Successfully');
@@ -213,7 +211,7 @@ class orgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
+    public function show($id)
     {
         try {
             $org = org::find(dDecrypt($id));
@@ -236,7 +234,7 @@ class orgController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id)
     {
         try {
             $org = org::find(dDecrypt($id));
@@ -360,7 +358,9 @@ class orgController extends Controller
             $data->news_heading  = $request->news_heading ;
             $data->news_description = $request->news_description;
 
-     
+            $data->map = $request->map;
+
+
             $data->some_point = $request->some_point;
             $path = public_path('uploads/middleimage');
             if ($request->hasFile('middle_image')) {

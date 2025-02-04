@@ -77,31 +77,74 @@
                         content of a page when looking.</p>
                 </div>
                 <div class="wpo-contact-form-area">
-                    <form method="post" class="contact-validation-active" id="contact-form-main">
+
+                    @if(session('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                        <ul>
+                            <div class="text-danger">
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </div>
+                        </ul>
+                    </div>
+                    @endif
+
+
+                    <form method="post" action="{{ url('contact-us') }}" >
                         <div class="row">
+                            @csrf
                             <div class="col col-xl-4 col-lg-4 col-md-4 col-12">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Your Name*">
+                                <input type="text" minlength="3" maxlength="100" class="form-control preventnumeric" name="name" id="name" placeholder="Your Name*">
+                         
+                                @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                          
                             </div>
                             <div class="col col-xl-4 col-lg-4 col-md-4 col-12">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email*">
+                                <input type="email" minlength="3" maxlength="100" class="form-control" name="email" id="email" placeholder="Your Email*">
+                           
+                           
+                                @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col col-xl-4 col-lg-4 col-md-4 col-12">
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Phone">
+                                <input type="text" minlength="10" maxlength="10" class="form-control mobile_no" name="phone" id="phone" placeholder="Phone">
+                           
+                                @error('phone')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                           
                             </div>
 
                             <div class="col col-xl-12 col-lg-12 col-md-12 col-12 pt-4">
-                                <textarea class="form-control" name="note" id="note" placeholder="Message..."></textarea>
+                                <textarea class="form-control" name="message" id="note" placeholder="Message..."></textarea>
+                           
+                                @error('message')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                           
+                           
                             </div>
                             <div class="submit-area pt-4">
                                 <button type="submit" class="theme-btn-s4">Get in Touch</button>
-                                <div id="loader">
+                                {{-- <div id="loader">
                                     <i class="ti-reload"></i>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="clearfix error-handling-messages">
+                            {{-- <div class="clearfix error-handling-messages">
                                 <div id="success">Thank you for getting in touch! We appreciate you contacting us</div>
                                 <div id="error"> Error occurred while sending email. Please try again later. </div>
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -117,8 +160,10 @@
 <section class="wpo-contact-map-section">
     <h2 class="hidden">Contact map</h2>
     <div class="wpo-contact-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.7798136994193!2d77.34387777429114!3d28.576373886630876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5ce32055d37%3A0x7ee860aec40531b8!2sGUNJAN%20%22%20A%20BOUTIQUE%20HOSPITAL%22!5e0!3m2!1sen!2sin!4v1734230788857!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="{{ $orgData->map ?? "map not available" }}"></iframe>
     </div>
 </section>
 <!-- end wpo-contact-map -->
+
+
 @endsection

@@ -77,6 +77,7 @@ return new class extends Migration
             $table->text('some_point')->nullable();
             $table->string('middle_image', 255)->nullable();
 
+            $table->string('map', 500)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

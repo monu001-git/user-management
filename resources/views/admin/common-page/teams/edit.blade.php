@@ -88,10 +88,10 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Designation:</strong>
-                                    <input type="text" name="designation" minlength="1" maxlength="100" placeholder="designation" value="{{ $team->designation  ??' '}}" class="form-control preventnumeric">
+                                    <strong>Department:</strong>
+                                    <input type="text" name="department" minlength="1" maxlength="100" placeholder="department" value="{{ $team->department  ??' '}}" class="form-control preventnumeric">
 
-                                    @error('designation')
+                                    @error('department')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

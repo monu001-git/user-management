@@ -14,74 +14,70 @@
                             @csrf
                             <div class="row">
                                 <div class="form-field col-lg-6">
-                                    <input class="form-control-name preventnumeric" minlength="2" maxlength="100"
-                                        type="text" placeholder="Full Name" name="name" id="name" required>
+                                    <input class="form-control-name preventnumeric" minlength="2" maxlength="100" type="text" placeholder="Full Name" name="name" id="name" required>
 
                                     @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-field col-lg-6">
-                                    <input class="form-control-mail" type="email" minlength="2" maxlength="100"
-                                        placeholder="Email" name="email" id="email" required>
+                                    <input class="form-control-mail" type="email" minlength="2" maxlength="100" placeholder="Email" name="email" id="email" required>
 
                                     @error('email')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-field col-lg-6">
-                                    <input class="form-controls form-control-number mobile_no" minlength="10"
-                                        maxlength="10" name="phone" type="tel" placeholder="Phone No." required>
+                                    <input class="form-controls form-control-number mobile_no" minlength="10" maxlength="10" name="phone" type="tel" placeholder="Phone No." required>
 
                                     @error('phone')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-control-age form-field col-lg-3">
-                                    <input class="form-controls form-control-number mobile_no" name="age"
-                                        type="text" id="age" placeholder="Age" required>
+
+
+                                <div class="form-controls form-control-gender form-field col-lg-3">
+                                    <select name="age" class="form-control" required>
+                                        <option value="0" disabled selected>Age</option>
+                                        @for ($i = 1; $i <= 100; $i++) <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+
+                                    </select>
                                     @error('age')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+
                                 <div class="form-controls form-control-gender form-field col-lg-3">
                                     <select name="gender" class="form-control" required>
                                         <option value="0" disabled selected>Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
                                     </select>
                                     @error('gender')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-control-age form-field col-lg-6">
                                     <div class="form-controls form-control-choose-department">
                                         <select name="department" class="form-control" required>
-                                            <option value="0" disabled selected>Choose Department</option>
-                                            <option value="Robotic Laparoscopic Surgery">Robotic Laparoscopic Surgery
-                                            </option>
-                                            <option value="Laser Treatment">Laser Treatment</option>
-                                            <option value="General Physician">General Physician</option>
-                                            <option value="Aesthetics Surgeries">Aesthetics Surgeries</option>
-                                            <option value="Life style">Life style</option>
-                                            <option value="Gynaecology & Obstetrics">Gynaecology & Obstetrics</option>
-                                            <option value="Healthy Food">Healthy Food</option>
-                                            <option value="Pharmacy">Pharmacy</option>
-                                            <option value="CSR BY DDF">CSR BY DDF</option>
+                                            <option value="" disabled selected>Choose Department</option>
+                                            @foreach ($bookapp as $bookapps)
+                                            <option value="{{ $bookapps->id ??'' }}">{{ $bookapps->department ??'' }}</option>
+                                            @endforeach
                                         </select>
 
                                         @error('department')
-                                            <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="form-control-age form-field col-lg-6">
-                                    <input class="form-control-mail" type="date" placeholder="Date" name="date"
-                                        required min="{{ \Carbon\Carbon::today()->toDateString() }}"
-                                        max="{{ \Carbon\Carbon::today()->addMonth()->toDateString() }}">
+                                    <input class="form-control-mail" type="date" placeholder="Date" name="date" required min="{{ \Carbon\Carbon::today()->toDateString() }}" max="{{ \Carbon\Carbon::today()->addMonth()->toDateString() }}">
                                     @error('date')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 

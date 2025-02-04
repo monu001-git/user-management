@@ -47,6 +47,7 @@
                                     <th width="100px">No</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Department</th>
                                     <th>Status</th>
                                     <th width="280px">Action</th>
                                 </tr>
@@ -55,9 +56,12 @@
                             <tbody>
                                 @foreach ($team as $key => $teams)
                                 <tr>
+                                  
+                        
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $teams->name }}</td>
-                                     <td>{{ $teams->email }}</td>
+                                    <td>{{ $teams->name  ??""}}</td>
+                                     <td>{{ $teams->email  ??''}}</td>
+                                     <td>{{ $teams->department ??"" }}</td>
                                     <td>
                                         @if($teams->status != '0')
                                         <a href="{{ url('status-change/1/'.dEncrypt($teams->id) . '/teams') }}" style="color:green;">

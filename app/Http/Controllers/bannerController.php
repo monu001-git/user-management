@@ -28,7 +28,7 @@ class bannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         try {
             $banner = banner::orderBy('id', 'asc')->get();
@@ -50,7 +50,7 @@ class bannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): View
+    public function create()
     {
         try {
             $banner = banner::pluck('title', 'title')->all();
@@ -126,7 +126,7 @@ class bannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): View
+    public function show($id)
     {
         try {
             $banner = banner::find(dDecrypt($id));
@@ -149,7 +149,7 @@ class bannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id): View
+    public function edit($id)
     {
         try {
             $banner = banner::find(dDecrypt($id));

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('email', 255)->unique();
             $table->string('specialization', 255)->nullable();
             $table->string('qualification', 255)->nullable();
-            $table->string('designation', 100)->nullable();
             $table->text('image')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);

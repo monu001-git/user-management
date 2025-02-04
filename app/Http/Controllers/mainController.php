@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\appoinment_book;
+use App\Models\countact;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use App\Mail\appointmentDoctorMail;
@@ -118,9 +119,7 @@ class mainController extends Controller
                 ]);
             }
         } else {
-
-            dd('menu not match ');
-            return view('front.common-page.master-page', [
+            return view('error', [
                 'message' => 'not Found'
             ]);
         }
@@ -140,15 +139,16 @@ class mainController extends Controller
 
 
     public function appoinment_book(Request $request)
-    {
+    {    
+       try {
 
-        try {
+        DB::beginTransaction();
 
         $validator = Validator::make($request->all(), [
            'name' => 'required|string|max:255',
            'email' => 'required|email|max:255|unique:appointment_books,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
            'phone' => 'required|digits:10', 
-           'age' => 'required|integer|min:18',  
+           'age' => 'required|integer',  
            'gender' => 'required|in:male,female,other',  
            'department' => 'required|string|max:255',
            'date' => 'required|date',  
@@ -168,34 +168,83 @@ class mainController extends Controller
         $data->date  = $request->date;
         $data->save();
 
+        $bookapp = DB::table('teams')
+            ->join('departments', 'teams.id', '=', 'departments.team_id')
+            ->whereNull('teams.deleted_at') 
+            ->whereNull('departments.deleted_at') 
+            ->where('teams.status', 1)
+            ->where('departments.team_id', $request->department)
+            ->select('teams.*', 'departments.*')
+            ->first();
 
         $doctorData = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp.'
+            'title' => 'Mail from Doctor',
+            'body' => 'This is for testing email.'
         ];
 
         $patientData = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp.'
+            'title' => 'Mail from Patient',
+            'body' => 'This is for testing email.'
         ];
       
-        Mail::to('vinam2@yopmail.com')->send(new appointmentDoctorMail($doctorData));
+        Mail::to($bookapp->email)->send(new appointmentDoctorMail($doctorData));
 
         Mail::to($request->email)->send(new appointmentPatientMail($patientData));
              
        
+        DB::commit();
 
         return redirect('/')->with('success', 'Appoinment book created successfully');
 
         } catch (\Exception $e) {
+            DB::rollBack();
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
         } catch (\PDOException $e) {
             \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
         } catch (\Throwable $e) {
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
+
+    }
+
+
+    public function contactUsPost(Request $request){
+        try {
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required|email|max:255|unique:teams,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
+                'phone' => 'required',
+                'message' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $data = new countact;
+            $data->name = ucwords($request->name);
+            $data->email  = $request->email;
+            $data->phone  = $request->phone;
+            $data->message  = $request->message;
+            $data->save();
+
+          return back()->with('success', 'Contact Us Form Saved Successfully');
+
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
 
     }

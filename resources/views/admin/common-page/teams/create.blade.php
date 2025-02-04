@@ -85,10 +85,10 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Designation:</strong>
-                                    <input type="text" minlength="1" maxlength="100" name="designation" placeholder="designation" class="form-control preventnumeric">
+                                    <strong>Department:</strong>
+                                    <input type="text" minlength="1" maxlength="100" name="department" placeholder="department" class="form-control preventnumeric">
 
-                                    @error('designation')
+                                    @error('department')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

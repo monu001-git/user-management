@@ -10,4 +10,6 @@ class appoinment_book extends Model
 {
 
     use HasFactory,SoftDeletes;
+
+    protected $table = 'appointment_books';
 }

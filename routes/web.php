@@ -44,5 +44,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
-Route::get('/contact-us', [mainController::class, 'contactUs']);
+Route::get('contact-us', [mainController::class, 'contactUs']);
+Route::post('contact-us', [mainController::class, 'contactUsPost']);
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);

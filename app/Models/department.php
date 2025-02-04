@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class team extends Model
+class department extends Model
 {
 
     use HasFactory,SoftDeletes;
 
-    public function department()
+    public function teams()
     {
-        return $this->belongsTo(Department::class);
+        return $this->hasMany(Team::class);
     }
 }

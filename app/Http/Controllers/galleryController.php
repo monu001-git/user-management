@@ -282,6 +282,11 @@ class galleryController extends Controller
 
 
         return redirect()->route('gallery.index')->with('success', 'gallery created successfully');
+
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

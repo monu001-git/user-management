@@ -13,15 +13,15 @@ class appointmentDoctorMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $patientData;
+    public $doctorData;
 
 
     /**
      * Create a new message instance.
      */
-    public function __construct($patientData)
+    public function __construct($doctorData)
     {
-        $this->patientData = $patientData;
+        $this->doctorData = $doctorData;
     }
 
     /**

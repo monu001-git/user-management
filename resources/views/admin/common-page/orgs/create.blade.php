@@ -195,6 +195,14 @@
                                     </div>
                                 </div>
 
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Map:</strong>
+                                        <input type="text" minlength="3" maxlength="400" name="map" class="form-control">
+
+                                    </div>
+                                </div>
+
                                 <hr>
                                 <h3>Social media</h3>
 
