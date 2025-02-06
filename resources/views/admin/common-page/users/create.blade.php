@@ -50,7 +50,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="email" name="email" minlength="2" maxlength="100" autocomplete="off" placeholder="Email" value="{{ old('email') }}" class="form-control">
+                                    <input type="email" name="email" minlength="2" maxlength="100" autocomplete="off" placeholder="Email" value="{{ old('email') }}" class="form-control" autocomplete="email">
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -59,7 +59,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Password:</strong>
-                                    <input type="password" name="password"  minlength="2" maxlength="30" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control">
+                                    <input type="password" name="password"  minlength="2" maxlength="30" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control" autocomplete="password">
                                     <button type="button" id="togglePassword">
                                         👁️
                                     </button>

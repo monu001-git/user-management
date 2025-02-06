@@ -2,7 +2,7 @@
 
 @section('content')
     @if (count($errors) > 0)
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
@@ -44,7 +44,8 @@
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" placeholder="Name" minlength="2"
-                                            maxlength="100" class="form-control preventnumeric" value="{{ $role->name ??'' }}">
+                                            maxlength="100" class="form-control preventnumeric"
+                                            value="{{ $role->name ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -55,8 +56,9 @@
                                             <label><input type="checkbox" name="permission[{{ $value->id }}]"
                                                     value="{{ $value->id }}" class="name"
                                                     {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}>
-                                                {{ $value->name }}</label>
+                                                    {{ $value->name }}</label>
                                             <br />
+                                    
                                         @endforeach
                                     </div>
                                 </div>

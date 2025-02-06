@@ -28,7 +28,7 @@ $('.image').on('change', function () {
     console.log(doc_file3);
     var doc_file3_ext = doc_file3.split('.').pop()
         .toLowerCase();
-    if (doc_file3_ext == 'png' || doc_file3_ext == 'jpg' || doc_file3_ext == 'jpeg') {
+    if (doc_file3_ext == 'png' || doc_file3_ext == 'jpg' || doc_file3_ext == 'jpeg' || doc_file3_ext == 'svg') {
     } else {
         alert("Only PNG, JPG, and JPEG files are allowed");
         $('.image').val("");

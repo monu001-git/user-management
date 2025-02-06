@@ -96,7 +96,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Title:</strong>
-                                        <input type="text" class="form-control" name="meta_title" placeholder="Please enter meta tittle, use for seo" value="{{ $content->meta_title }}" class="form-control">
+                                        <input type="text" class="form-control" name="meta_title" minlength="3" maxlength="100" placeholder="Please enter meta tittle, use for seo" value="{{ $content->meta_title ??'' }}" class="form-control preventnumeric">
 
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>

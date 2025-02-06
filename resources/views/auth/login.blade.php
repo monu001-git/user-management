@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input id="password" type="password" id="togglePassword" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" id="togglePassword" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
                                 <button type="button" id="togglePassword">
                                     👁️
                                 </button>

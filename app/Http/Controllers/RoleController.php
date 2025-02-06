@@ -1,5 +1,5 @@
 <?php
-
+    
 namespace App\Http\Controllers;
 
 
@@ -8,9 +8,8 @@ use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
-
+    
 class RoleController extends Controller
 {
     /**
@@ -25,18 +24,16 @@ class RoleController extends Controller
         $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    }
+    } 
+    
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        try {
-            $roles = Role::orderBy('id', 'DESC')->paginate(5);
-            return view('admin.common-page.roles.index', compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+        try{
+
+           $roles = Role::orderBy('id','DESC')->paginate(5);
+           return view('admin.common-page.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
+ 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -47,18 +44,17 @@ class RoleController extends Controller
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
+  
     }
+    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        try {
+        try{
+
             $permission = Permission::get();
-            return view('admin.common-page.roles.create', compact('permission'));
+            return view('admin.common-page.roles.create',compact('permission'));
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -70,38 +66,33 @@ class RoleController extends Controller
             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
+ 
     public function store(Request $request)
     {
-        try {
+        try{
 
             $validator = Validator::make($request->all(), [
-                'name' => 'required|unique:roles,name',
-                'permission' => 'required',
-            ]);
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
 
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
 
             $permissionsID = array_map(
-                function ($value) {
-                    return (int)$value;
-                },
+                function($value) { return (int)$value; },
                 $request->input('permission')
             );
-
+        
             $role = Role::create(['name' => $request->input('name')]);
             $role->syncPermissions($permissionsID);
+        
+            return redirect()->route('roles.index')->with('success','Role created successfully');
 
-            return redirect()->route('roles.index')
-                ->with('success', 'Role created successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -112,131 +103,114 @@ class RoleController extends Controller
             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
+
+
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        try {
-            $role = Role::find(dDecrypt($id));
-            $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-                ->where("role_has_permissions.role_id", dDecrypt($id))
-                ->get();
+        try{
+        $role = Role::find(dDecrypt($id));
+        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
+            ->where("role_has_permissions.role_id",dDecrypt($id))
+            ->get();
+    
+        return view('admin.common-page.roles.show',compact('role','rolePermissions'));
 
-            return view('admin.common-page.roles.show', compact('role', 'rolePermissions'));
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+    } catch (\Exception $e) {
+        \Log::error('An exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+    } catch (\PDOException $e) {
+        \Log::error('A PDOException occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+    } catch (\Throwable $e) {
+        \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    }
+    
+ 
     public function edit($id)
     {
-        try {
-            $role = Role::find(dDecrypt($id));
-            $permission = Permission::get();
-            $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
-                ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-                ->all();
+        try{
+        $role = Role::find(dDecrypt($id));
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",dDecrypt($id))
+            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            ->all();
+    
+        return view('admin.common-page.roles.edit',compact('role','permission','rolePermissions'));
 
-            return view('admin.common-page.roles.edit', compact('role', 'permission', 'rolePermissions'));
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+    } catch (\Exception $e) {
+        \Log::error('An exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+    } catch (\PDOException $e) {
+        \Log::error('A PDOException occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+    } catch (\Throwable $e) {
+        \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    }
+    
+  
     public function update(Request $request, $id)
     {
-        try {
+    try{
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
 
-            $validator = Validator::make($request->all(), [
-                'name' => 'required',
-                'permission' => 'required',
-
-            ]);
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-
-            $role = Role::find(dDecrypt($id));
-            $role->name = $request->input('name');
-            $role->save();
-
-            $permissionsID = array_map(
-                function ($value) {
-                    return (int)$value;
-                },
-                $request->input('permission')
-            );
-
-            $role->syncPermissions($permissionsID);
-
-            return redirect()->route('roles.index')
-                ->with('success', 'Role updated successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+    
+        $role = Role::find(dDecrypt($id));
+        $role->name = $request->input('name');
+        $role->save();
+
+        $permissionsID = array_map(
+            function($value) { return (int)$value; },
+            $request->input('permission')
+        );
+    
+        $role->syncPermissions($permissionsID);
+    
+        return redirect()->route('roles.index')->with('success','Role updated successfully');
+
+
+    } catch (\Exception $e) {
+        \Log::error('An exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+    } catch (\PDOException $e) {
+        \Log::error('A PDOException occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+    } catch (\Throwable $e) {
+        \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    }
+ 
+
     public function destroy($id)
     {
-        try {
-            DB::table("roles")->where('id', dDecrypt($id))->delete();
-            return redirect()->route('roles.index')
-                ->with('success', 'Role deleted successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+    try{
+
+        DB::table("roles")->where('id',dDecrypt($id))->delete();
+        return redirect()->route('roles.index')->with('success','Role deleted successfully');
+   
+    } catch (\Exception $e) {
+        \Log::error('An exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+    } catch (\PDOException $e) {
+        \Log::error('A PDOException occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+    } catch (\Throwable $e) {
+        \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+    }
     }
 }
