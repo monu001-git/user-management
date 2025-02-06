@@ -7,7 +7,8 @@ $('#togglePassword').click(function () {
 });
 
 $('#ctogglePassword').click(function () {
-    var passwordField = $('#confirm-password');
+ 
+    var passwordField = $('.confirm-password');
     var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
     passwordField.attr('type', type);
     $(this).text(type === 'password' ? '👁️' : '🙈');
