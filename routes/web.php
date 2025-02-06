@@ -16,6 +16,8 @@ use App\Http\Controllers\mainController;
 use App\Http\Controllers\teamController;
 use App\Http\Controllers\specialitiesController;
 use App\Http\Controllers\appointmentController;
+use App\Http\Controllers\testimonialController;
+use App\Http\Controllers\departmentController;
 
 Auth::routes();
 
@@ -29,7 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('contents', contentController::class);
     Route::resource('gallery', galleryController::class);
     Route::resource('teams', teamController::class);
+    Route::resource('departments', departmentController::class);
     Route::resource('specialities',specialitiesController ::class);
+    Route::resource('testimonials',testimonialController ::class);
     Route::resource('appointments',appointmentController::class);
     Route::resource('faqs',faqController ::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
@@ -45,5 +49,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('contact-us', [mainController::class, 'contactUs']);
-Route::post('contact-us', [mainController::class, 'contactUsPost']);
+Route::post('contact-us',[mainController::class, 'contactUsPost']);
+Route::get('doctor-list',[mainController::class,'doctorList']);
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);

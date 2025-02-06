@@ -39,13 +39,13 @@
                                               </svg></span></a>
                                       <ul class="sub-menu">
                                           @foreach ($headerMenu->children as $subMenu)
-                                          <li><a @if ($subMenu->link_type != '0') href="{{ url($headerMenu->url.'/'.$subMenu->url ?? '') }}" @else onclick="return confirm('This link will take you to an external web site.')" target="_blank" href="{{ $subMenu->url ?? '' }}" @endif>{{  $subMenu->name ?? '' }}</a>
+                                          <li><a @if ($subMenu->link_type != '0') href="{{ url($headerMenu->url.'/'.$subMenu->url ?? '') }}" @else onclick="return confirm('This link will take you to an external web site.')" target="_blank" href="{{ $subMenu->url ?? '' }}" @endif>{{ $subMenu->name ?? '' }}</a>
                                           </li>
                                           @endforeach
                                       </ul>
                                   </li>
                                   @else
-                             
+
                                   <li>
                                       <a @if ($headerMenu->link_type != '0') href="{{ url($headerMenu->url ?? '') }}" @else onclick="return confirm('This link will take you to an external web site.')" target="_blank" href="{{ $headerMenu->url ?? '' }}" @endif>{{ $headerMenu->name ?? '' }}</a>
                                   </li>
@@ -81,8 +81,10 @@
                           <div class="header-right">
                               <div class="header-search-form-wrapper">
                                   <div class="cart-search-contact">
-                                      <a href="https://wa.me/919711010235?text=Hello" target="_blank" class="search-toggle-btn"><img src="{{ asset('front/assets/images/icon/whataApp.svg') }}"></a>
 
+                                      @if (isset($orgData->whatsapp))
+                                      <a href="{{ $orgData->whatsapp  ??''}}" target="_blank" class="search-toggle-btn"><img src="{{ asset('front/assets/images/icon/whataApp.svg') }}"></a>
+                                      @endif
 
                                       <a class="search-toggle-btn story" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="{{ asset('front/assets/images/icon/subtraction.svg') }}"></a>
 

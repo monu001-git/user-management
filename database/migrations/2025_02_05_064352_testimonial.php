@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointment_books', function (Blueprint $table) {
+        Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->string('email',255)->unique();
-            $table->string('phone',100)->nullable();
-            $table->string('age',255)->nullable();
-            $table->string('gender',255)->nullable();
-            $table->string('department',255)->nullable();
-            $table->string('doctor',255)->nullable();
-            $table->text('date')->nullable();
+            $table->string('sender',255)->nullable();
+            $table->text('description')->nullable();
+            $table->integer('order')->nullable()->default(0);
+            $table->boolean('status')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointment_books');
+        Schema::dropIfExists('testimonials');
     }
 };

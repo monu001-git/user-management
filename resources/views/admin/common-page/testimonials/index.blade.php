@@ -13,7 +13,7 @@
 
 <div class="page-inner">
     <div class="page-header">
-        <h3 class="fw-bold mb-3">Team Management</h3>
+        <h3 class="fw-bold mb-3">Testimonial Management</h3>
         <ul class="breadcrumbs mb-3">
             <li class="nav-home">
                 <a >
@@ -25,7 +25,7 @@
             </li>
           
             <li class="nav-item">
-                <a >Team Table</a>
+                <a >Testimonial Table</a>
             </li>
         </ul>
     </div>
@@ -34,17 +34,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="pull-right">
-
-
-                        @can('department-list')
-                        <a class="btn btn-warning mb-2" href="{{ route('departments.index') }}"><i class="fa fa-plus"></i>Manage Department</a>
+                        @can('testimonial-create')
+                        <a class="btn btn-success mb-2" href="{{ route('testimonials.create') }}"><i class="fa fa-plus"></i> Create New Testimonial</a>
                         @endcan
-
-                        @can('team-create')
-                        <a class="btn btn-success mb-2" href="{{ route('teams.create') }}"><i class="fa fa-plus"></i> Create New Team</a>
-                        @endcan
-
-                      
                     </div>
                 </div>
                 <div class="card-body">
@@ -54,38 +46,38 @@
                                 <tr>
                                     <th width="100px">No</th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                    <th>Description</th>
                                     <th>Status</th>
                                     <th width="280px">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach ($team as $key => $teams)
+                                @foreach ($testimonial as $key => $testimonials)
                                 <tr>
                                   
                         
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $teams->name  ??""}}</td>
-                                     <td>{{ $teams->email  ??''}}</td>
+                                    <td>{{ $testimonials->name  ??""}}</td>
+                                     <td>{{ $testimonials->description ??"" }}</td>
                                     <td>
-                                        @if($teams->status != '0')
-                                        <a href="{{ url('status-change/1/'.dEncrypt($teams->id) . '/teams') }}" style="color:green;">
+                                        @if($testimonials->status != '0')
+                                        <a href="{{ url('status-change/1/'.dEncrypt($testimonials->id) . '/testimonials') }}" style="color:green;">
                                             <button class="btn btn-sm btn-success">Active</button>
                                         </a>
                                         @else
-                                        <a href="{{ url('status-change/0/'.dEncrypt($teams->id) . '/teams') }}" style="color:green;">
+                                        <a href="{{ url('status-change/0/'.dEncrypt($testimonials->id) . '/testimonials') }}" style="color:green;">
                                             <button class="btn btn-sm btn-danger">Inactive</button>
                                         </a>
                                         @endif</td>
                                     <td>
                                         {{-- <a class="btn btn-info btn-sm" href="{{ route('teams.show',dEncrypt($teams->id)) }}"><i class="fa-solid fa-list"></i> Show</a> --}}
-                                        @can('team-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('teams.edit',dEncrypt($teams->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                        @can('testimonial-edit')
+                                        <a class="btn btn-primary btn-sm" href="{{ route('testimonials.edit',dEncrypt($testimonials->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                         @endcan
 
-                                        @can('team-delete')
-                                        <form method="POST" action="{{ route('teams.destroy', dEncrypt($teams->id)) }}" style="display:inline">
+                                        @can('testimonial-delete')
+                                        <form method="POST" action="{{ route('testimonials.destroy', dEncrypt($testimonials->id)) }}" style="display:inline">
                                             @csrf
                                             @method('DELETE')
 

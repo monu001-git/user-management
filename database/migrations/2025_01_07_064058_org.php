@@ -28,9 +28,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->text('meta_keyword')->nullable();
 
-
-
-            $table->string('number_count1',)->nullable();
+            $table->string('number_count1',255)->nullable();
             $table->string('number_count2', 255)->nullable();
             $table->string('number_count3', 255)->nullable();
             $table->string('number_count4', 255)->nullable();
@@ -47,7 +45,7 @@ return new class extends Migration
 
 
             $table->string('specialities_title', 255)->nullable();
-            $table->text('specialities_heading')->nullable();
+            $table->text('specialities_heading',255)->nullable();
             $table->text('specialities_description1')->nullable();
             $table->text('specialities_description2')->nullable();
             $table->string('specialities_phone', 255)->nullable();
@@ -64,7 +62,7 @@ return new class extends Migration
             $table->text('news_description')->nullable();
 
 
-//socal media
+        //socal media
             $table->string('instagram', 255)->nullable();
             $table->string('instagram_title', 255)->nullable();
             $table->string('facebook', 255)->nullable();
@@ -78,6 +76,14 @@ return new class extends Migration
             $table->string('middle_image', 255)->nullable();
 
             $table->string('map', 500)->nullable();
+            $table->string('whatsApp', 500)->nullable();
+
+        // Testimonial
+
+            $table->string('testimonial_title', 255)->nullable();
+            $table->string('testimonial_number', 255)->nullable();
+            $table->string('testimonial_heading', 255)->nullable();
+            
 
             $table->softDeletes();
             $table->timestamps();

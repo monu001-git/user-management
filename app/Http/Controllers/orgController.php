@@ -88,7 +88,9 @@ class orgController extends Controller
                 'email' => 'required|email|max:255|unique:orgs,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
                 'header_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'footer_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'meta_title' => 'required',
+                "middle_image"=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                "favicon"=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'meta_title' => 'required|max:255',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
             ]);
@@ -187,6 +189,13 @@ class orgController extends Controller
                 $file->move($path, $newname);
                 $data->middle_image = $newname;
             }
+
+
+            $data->testimonial_number = $request->testimonial_number;
+            $data->testimonial_title = $request->testimonial_title;
+            $data->testimonial_heading = $request->testimonial_heading;
+
+            $data->whatsapp = $request->whatsapp;
             
             $data->save();
 
@@ -268,6 +277,8 @@ class orgController extends Controller
                 'email' => 'required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
                 'header_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'footer_logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                "middle_image"=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                "favicon"=> 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'meta_title' => 'required',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
@@ -370,7 +381,12 @@ class orgController extends Controller
                 $data->middle_image = $newname;
             }
             
+            $data->testimonial_number = $request->testimonial_number;
+            $data->testimonial_title = $request->testimonial_title;
+            $data->testimonial_heading = $request->testimonial_heading;
 
+            $data->whatsapp = $request->whatsapp;
+            
 
             $data->save();
 

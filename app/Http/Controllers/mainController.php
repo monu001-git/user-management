@@ -140,7 +140,7 @@ class mainController extends Controller
 
     public function appoinment_book(Request $request)
     {    
-       try {
+    //    try {
 
         DB::beginTransaction();
 
@@ -151,7 +151,8 @@ class mainController extends Controller
            'age' => 'required|integer',  
            'gender' => 'required|in:male,female,other',  
            'department' => 'required|string|max:255',
-           'date' => 'required|date',  
+           'date' => 'required|date', 
+           'doctor'=>'required' 
         ]);
 
         if ($validator->fails()) {
@@ -165,17 +166,14 @@ class mainController extends Controller
         $data->age  = $request->age;
         $data->gender  = $request->gender;
         $data->department  = $request->department;
+        $data->doctor  = $request->doctor;
         $data->date  = $request->date;
         $data->save();
 
-        $bookapp = DB::table('teams')
-            ->join('departments', 'teams.id', '=', 'departments.team_id')
-            ->whereNull('teams.deleted_at') 
-            ->whereNull('departments.deleted_at') 
-            ->where('teams.status', 1)
-            ->where('departments.team_id', $request->department)
-            ->select('teams.*', 'departments.*')
-            ->first();
+        $doctor = DB::table('teams')->where('id',$request->doctor)->whereNull('deleted_at')->where('status', 1)->first('email');
+   
+    
+        $emaildoctor = $doctor->email;
 
         $doctorData = [
             'title' => 'Mail from Doctor',
@@ -187,7 +185,7 @@ class mainController extends Controller
             'body' => 'This is for testing email.'
         ];
       
-        Mail::to($bookapp->email)->send(new appointmentDoctorMail($doctorData));
+        Mail::to($emaildoctor)->send(new appointmentDoctorMail($doctorData));
 
         Mail::to($request->email)->send(new appointmentPatientMail($patientData));
              
@@ -196,19 +194,19 @@ class mainController extends Controller
 
         return redirect('/')->with('success', 'Appoinment book created successfully');
 
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
 
     }
 
@@ -248,4 +246,31 @@ class mainController extends Controller
         }
 
     }
+
+
+    public function doctorList(Request $request)
+    {
+        try {
+
+          $doctor = DB::table('teams')->where('department',$request->id)->whereNull('deleted_at')->where('status', 1)->get();
+   
+          return response()->json([
+            'message' => 'Doctor Value Fetch  Successfully',
+            'doctor' => $doctor 
+          ], 200);
+
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return response()->json(['error' => 'A database error occurred: ' . $e->getMessage()], 500);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return response()->json(['error' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
+        }
+    }
+
+
+
 }

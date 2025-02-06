@@ -64,16 +64,7 @@
                             </div>
 
 
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Specialization:</strong>
-                                    <input type="text" name="specialization" minlength="1" maxlength="100" placeholder="specialization" value="{{ $team->specialization ??"" }}" class="form-control preventnumeric">
-
-                                    @error('specialization')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                           
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
@@ -86,16 +77,20 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Department:</strong>
-                                    <input type="text" name="department" minlength="1" maxlength="100" placeholder="department" value="{{ $team->department  ??' '}}" class="form-control preventnumeric">
-
-                                    @error('department')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Department:</strong>
+                                        <select name="department" class="form-control">
+                                            <option value="">Select value</option>
+                                            @foreach ($department as $departments)
+                                                <option value="{{ $departments->id ??'' }}" {{ old('department', $departments->id) == $team->department ? 'selected' : '' }} >{{ $departments->department ??'' }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('department')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
 
 
                             <div class="col-xs-12 col-sm-12 col-md-12">

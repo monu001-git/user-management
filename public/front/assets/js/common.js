@@ -27,13 +27,38 @@ $('.image').on('change', function () {
     doc_file3 = $(".image").val();
     console.log(doc_file3);
     var doc_file3_ext = doc_file3.split('.').pop()
-        .toLowerCase(); 
+        .toLowerCase();
     if (doc_file3_ext == 'png' || doc_file3_ext == 'jpg' || doc_file3_ext == 'jpeg') {
     } else {
         alert("Only PNG, JPG, and JPEG files are allowed");
-        $('.image').val(""); 
+        $('.image').val("");
     }
 });
 
 
-// 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'
+
+
+$(".department").change(function (e) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var data = $(".department").val();
+
+    $.ajax({
+        url: 'doctor-list',
+        type: "get",
+        data: { id: data },
+        success: function (data) {
+            var resdata = data.doctor
+            var formoption = "<option value=''>Please doctor</option>";
+            for (i = 0; i < resdata.length; i++) {
+                formoption += "<option value='" + resdata[i].id + "'>" + resdata[i].name + "</option>";
+            }
+            $('#doctor_value').html(formoption);
+
+        }
+    });
+
+});

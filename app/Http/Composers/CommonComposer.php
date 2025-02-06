@@ -34,9 +34,7 @@ class CommonComposer
      */
     public function compose(View $view)
     {
-        try {
-
-          
+        // try {
             $galleryDatarecord1 = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->where('status', 1)->first();
            
             if ($galleryDatarecord1 != null) {
@@ -107,25 +105,18 @@ class CommonComposer
             }
 
 
-            $bookapp = DB::table('teams')
-                 ->join('departments', 'teams.id', '=', 'departments.team_id')
-                 ->whereNull('teams.deleted_at') 
-                 ->whereNull('departments.deleted_at') 
-                 ->where('teams.status', 1)
-                 ->orderBy('teams.id', 'asc')
-                 ->select('teams.*', 'departments.*')
-                 ->get();
-    
-
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order','ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order','ASC')->get();   
             $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
             $menus = DB::table('menus')->whereIn('menu_place', [1,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $specialitieData = DB::table('specialities')->whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
-
+            $specialitieData = DB::table('specialities')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'desc')->get();
+            $testimonialData = DB::table('testimonials')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'desc')->get();
 
             $headerMenu = $this->getMenuTree($menus, 0);
+
+            $bookapp = DB::table('departments')->whereNull('deleted_at')->get();
+
 
             $view->with([
                 'bannerData' => $bannerData,
@@ -137,19 +128,20 @@ class CommonComposer
                 'galleryDataNews' => $galleryDataNews,
                 'galleryDataTopImage'=>$galleryDataTopImage,
                 'specialitieData'=>$specialitieData,
-                'bookapp'=>$bookapp
+                'bookapp'=>$bookapp,
+                'testimonialData'=>$testimonialData
             ]);
 
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     function getMenuTree($menus, $parentId)

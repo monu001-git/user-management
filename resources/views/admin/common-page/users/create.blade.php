@@ -50,7 +50,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="email" name="email" autocomplete="off" placeholder="Email" value="{{ old('email') }}" class="form-control">
+                                    <input type="email" name="email" minlength="2" maxlength="100" autocomplete="off" placeholder="Email" value="{{ old('email') }}" class="form-control">
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -71,7 +71,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Confirm Password:</strong>
-                                    <input type="password" name="confirm-password" minlength="2" maxlength="30" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
+                                    <input type="password" name="confirm-password" minlength="2" maxlength="30" autocomplete="off" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
                                     <button type="button" id="ctogglePassword">
                                         👁️
                                     </button>

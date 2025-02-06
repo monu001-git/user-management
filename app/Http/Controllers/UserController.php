@@ -32,9 +32,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         try {
+         
             $data = User::orderBy('id', 'asc')->get();
-            return view('admin.common-page.users.index', compact('data'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
+            return view('admin.common-page.users.index', compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
+     
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -55,8 +56,10 @@ class UserController extends Controller
     public function create()
     {
         try {
+        
             $roles = Role::pluck('name', 'name')->all();
             return view('admin.common-page.users.create', compact('roles'));
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -78,7 +81,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            // Manual validation check
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'email' => 'required|email|max:255|unique:users,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
@@ -97,7 +99,7 @@ class UserController extends Controller
             $user = User::create($input);
             $user->assignRole($request->input('roles'));
 
-            return redirect()->route('users.index')->with('success', 'User created successfully');
+            return redirect()->route('users.index')->with('success', 'User Created successfully');
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -121,9 +123,10 @@ class UserController extends Controller
     public function show($id)
     {
         try {
+       
             $user = User::find(dDecrypt($id));
-
             return view('admin.common-page.users.show', compact('user'));
+       
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -198,7 +201,7 @@ class UserController extends Controller
 
             $user->assignRole($request->input('roles'));
 
-            return redirect()->route('users.index')->with('success', 'User updated successfully');
+            return redirect()->route('users.index')->with('success', 'User Updated successfully');
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

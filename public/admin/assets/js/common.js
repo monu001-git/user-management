@@ -30,35 +30,32 @@ $(document).ready(function () {
                             );
                         });
                 });
-        }
-        ,
+        },
     });
 
-    // Add Row
-    $("#add-row").DataTable({
-        pageLength: 5
-        ,
-    });
+ 
+    // // Add Row
+    // $("#add-row").DataTable({
+    //     pageLength: 5
+    //     ,
+    // });
 
-    var action =
-        '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+    // var action =
+    //     '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
-    $("#addRowButton").click(function () {
-        $("#add-row")
-            .dataTable()
-            .fnAddData([
-                $("#addName").val()
-                , $("#addPosition").val()
-                , $("#addOffice").val()
-                , action
-                ,]);
-        $("#addRowModal").modal("hide");
-    });
+    // $("#addRowButton").click(function () {
+    //     $("#add-row")
+    //         .dataTable()
+    //         .fnAddData([
+    //             $("#addName").val()
+    //             , $("#addPosition").val()
+    //             , $("#addOffice").val()
+    //             , action
+    //             ,]);
+    //     $("#addRowModal").modal("hide");
+    // });
+
 });
-
-
-
-
 //jqery validation
 
 
@@ -90,11 +87,11 @@ $('.image').on('change', function () {
     doc_file3 = $(".image").val();
     console.log(doc_file3);
     var doc_file3_ext = doc_file3.split('.').pop()
-        .toLowerCase(); 
+        .toLowerCase();
     if (doc_file3_ext == 'png' || doc_file3_ext == 'jpg' || doc_file3_ext == 'jpeg') {
     } else {
         alert("Only PNG, JPG, and JPEG files are allowed");
-        $('.image').val(""); 
+        $('.image').val("");
     }
 });
 

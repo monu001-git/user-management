@@ -43,7 +43,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Gender</th>
-                                    <th>Department</th>
+                                    <th>Date</th>
                 
                                     <th width="280px">Action</th>
                                 </tr>
@@ -51,13 +51,15 @@
 
                             <tbody>
                                 @foreach ($appointment as $key => $appointments)
+
+                               
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $appointments->name }}</td>
                                     <td>{{ $appointments->email }}</td>
                                     <td>{{ $appointments->phone }}</td>
                                     <td>{{ $appointments->gender }}</td>
-                                    <td>{{ $appointments->department }}</td>
+                                    <td>{{ $appointments->date }}</td>
                                 
                                     <td>
                                 

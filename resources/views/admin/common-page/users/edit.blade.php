@@ -52,7 +52,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Email:</strong>
-                                        <input type="email" name="email" placeholder="Email" class="form-control" value='{{ $user->email ?? '' }}'>
+                                        <input type="email" name="email" placeholder="Email" minlength="2" maxlength="100" class="form-control" value='{{ $user->email ?? '' }}'>
 
                                         @error('email')
                                         <div class="text-danger">{{ $message }}</div>
@@ -63,58 +63,58 @@
                                     <div class="form-group">
                                         <strong>Password:</strong>
                                         <input type="password" name="password" id="password" placeholder="Password" value="{{ $user->password ??'' }}" class="form-control">
-                                        <button type="button" id="togglePassword">
-                                            👁️
-                                        </button>
-                                        @error('password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                <button type="button" id="togglePassword">
+                                    👁️
+                                </button>
+                                @error('password')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                    </div> --}}
+                    {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <input type="password" name="confirm-password" id="confirm-password" value="{{ $user->password }}" placeholder="Confirm Password" class="form-control">
-                                        <button type="button" id="ctogglePassword">
-                                            👁️
-                                        </button>
-                                    </div>
-                                </div> --}}
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Role:</strong>
-                                        <select name="roles[]" class="form-control" multiple="multiple" {{ auth()->user()->id != 1 ? 'disabled' : '' }}>
-                                            @foreach ($roles as $value => $label)
-                                            <option value="{{ $value }}" {{ isset($userRole[$value]) ? 'selected' : '' }}>
-                                                {{ $label }}
-                                            </option>
-                                            @endforeach
-                                        </select>
+                    <button type="button" id="ctogglePassword">
+                        👁️
+                    </button>
+                </div>
+            </div> --}}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Role:</strong>
+                    <select name="roles[]" class="form-control" multiple="multiple" {{ auth()->user()->id != 1 ? 'disabled' : '' }}>
+                        @foreach ($roles as $value => $label)
+                        <option value="{{ $value }}" {{ isset($userRole[$value]) ? 'selected' : '' }}>
+                            {{ $label }}
+                        </option>
+                        @endforeach
+                    </select>
 
-                                        @if(auth()->user()->id != 1)
-                                        @foreach ($userRole as $value => $role)
-                                        <input type="hidden" name="roles[]" value="{{ $value }}">
-                                        @endforeach
-                                        @endif
+                    @if(auth()->user()->id != 1)
+                    @foreach ($userRole as $value => $role)
+                    <input type="hidden" name="roles[]" value="{{ $value }}">
+                    @endforeach
+                    @endif
 
-                                        @error('roles')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="card-action">
-                                    <button type="submit" class="btn btn-success">Submit</button>
-                                    <a class="btn btn-danger" href="{{ route('users.index') }}"> Back</a>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
+                    @error('roles')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
+
+            <div class="card-action">
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a class="btn btn-danger" href="{{ route('users.index') }}"> Back</a>
+            </div>
         </div>
+        </form>
+
     </div>
+</div>
+</div>
+</div>
+</div>
 
 
 
-    @endsection
+@endsection
