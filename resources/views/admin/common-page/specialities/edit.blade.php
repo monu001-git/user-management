@@ -76,6 +76,18 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
+                                    <strong>Sort Order:</strong>
+                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $specialitie->order ??"" }}">
+                                    @error('order')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
                                     <strong>Image:</strong>
                                     <span style="color:green;font-size:12px;">
                                         @if($specialitie->image)
@@ -89,20 +101,6 @@
 
                                 </div>
                             </div>
-
-
-
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Sort Order:</strong>
-                                    <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $specialitie->order ??"" }}">
-                                    @error('order')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
 
 
                             <input type="hidden" name="status" value="{{ $specialitie->status }}" class="form-control">

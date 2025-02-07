@@ -55,7 +55,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Email:</strong>
-                                    <input type="text" name="email" minlength="1" maxlength="100" placeholder="email" value="{{ $team->email  ??''}}" class="form-control preventnumeric">
+                                    <input type="text" name="email" minlength="1" maxlength="100" placeholder="email" value="{{ $team->email  ??''}}" class="form-control">
 
                                     @error('email')
                                     <div class="text-danger">{{ $message }}</div>

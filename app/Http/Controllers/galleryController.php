@@ -80,7 +80,8 @@ class galleryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'file_type' => 'required',
-            'order' => 'required'
+            'order' => 'required',
+            'section'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -207,8 +208,8 @@ class galleryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'file_type' => 'required',
-            'order' => 'required'
-
+            'order' => 'required',
+            'section'=>'required'
         ]);
 
         if ($validator->fails()) {

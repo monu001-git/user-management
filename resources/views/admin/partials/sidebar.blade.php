@@ -57,7 +57,15 @@
                      </a>
                  </li>
                  @endcan
-
+                 
+                 @can('banner-list')
+                 <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
+                     <a href="{{ route('banners.index') }}">
+                         <i class="fas fa-rss-square"></i>
+                         <p>Manage Banner</p>
+                     </a>
+                 </li>
+                 @endcan
 
 
                  @can('org-list')
@@ -90,11 +98,11 @@
                  @endcan
 
 
-                 @can('banner-list')
-                 <li class="nav-item {{ request()->routeIs('banners.index', 'banners.create', 'banners.edit') ? 'active' : '' }}">
-                     <a href="{{ route('banners.index') }}">
-                         <i class="fas fa-rss-square"></i>
-                         <p>Manage Banner</p>
+                 @can('gallery-list')
+                 <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
+                     <a href="{{ route('gallery.index') }}">
+                         <i class="fas fa-image"></i>
+                         <p>Manage Gallery</p>
                      </a>
                  </li>
                  @endcan
@@ -109,11 +117,11 @@
                  </li>
                  @endcan
 
-                 @can('gallery-list')
-                 <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
-                     <a href="{{ route('gallery.index') }}">
+                 @can('testimonial-list')
+                 <li class="nav-item {{ request()->routeIs('testimonials.index', 'testimonials.create', 'testimonials.edit') ? 'active' : '' }}">
+                     <a href="{{ route('testimonials.index') }}">
                          <i class="fas fa-image"></i>
-                         <p>Manage Gallery</p>
+                         <p>Manage Testimonial</p>
                      </a>
                  </li>
                  @endcan
@@ -144,18 +152,7 @@
                  </li>
                  @endcan
 
-                 @can('testimonial-list')
-                 <li class="nav-item {{ request()->routeIs('testimonials.index', 'testimonials.create', 'testimonials.edit') ? 'active' : '' }}">
-                     <a href="{{ route('testimonials.index') }}">
-                         <i class="fas fa-image"></i>
-                         <p>Manage Testimonial</p>
-                     </a>
-                 </li>
-                 @endcan
-
-
-                 
-
+            
                  @endguest
 
              </ul>

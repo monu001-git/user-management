@@ -98,7 +98,7 @@
 
                                     <div class="col-4">
                                         <strong>Image title:</strong>
-                                        <input type="text" class="form-control preventnumeric" name="title[]" placeholder="Image title" value="{{ $gallerydetails->title ??"" }}" />
+                                        <input type="text" class="form-control preventnumeric" minlength="3" maxlength="100"  name="title[]" placeholder="Image title" value="{{ $gallerydetails->title ??"" }}" />
                                     </div>
 
 
@@ -134,7 +134,7 @@
 
 
                                     <div class="col-3">
-                                        <input type="url" class="form-control" name="url[]" value="{{ $gallerydetails->file ??"" }}" id="urlInput" placeholder="Enter Video URL" />
+                                        <input type="text" class="form-control" minlength="3" maxlength="100" name="url[]" value="{{ $gallerydetails->file ??"" }}" id="urlInput" placeholder="Enter Video URL" />
                                     </div>
 
                                     @endif
@@ -202,7 +202,7 @@
             </div>
 
             <div class="col-3 urlInputContainer" style="display: none;">
-                <input type="url" class="form-control" name="url[]" id="urlInput" placeholder="Enter Video URL" />
+                <input type="text" minlength="3" maxlength="100" class="form-control" name="url[]" id="urlInput" placeholder="Enter Video URL" />
             </div>
 
             <div class="col-3">

@@ -60,8 +60,8 @@
                                         <br />
                                         <select name="file_type" class="form-control" id="fileTypeSelect">
                                             <option value="">Select File type</option>
-                                            <option value="i">Image</option>
-                                            <option value="v">Video</option>
+                                            <option value="i" {{ old('file_type') == 'i' ? 'selected' : '' }}>Image</option>
+                                            <option value="v" {{ old('file_type') == 'v' ? 'selected' : '' }}>Video</option>
                                         </select>
 
                                         @error('file_type')
@@ -76,10 +76,10 @@
                                         <br />
                                         <select name="section" class="form-control" id="section">
                                             <option value="">Select Option </option>
-                                            <option value="1">Certificates</option>
-                                            <option value="2">News</option>
-                                            <option value="4">Model Image</option>
-                                            <option value="3">Image</option>
+                                            <option value="1" {{ old('section') == '1' ? 'selected' : '' }}>Certificates</option>
+                                            <option value="2" {{ old('section') == '2' ? 'selected' : '' }}>News</option>
+                                            {{-- <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Image</option> --}}
+                                            <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model Image</option>
                                         </select>
 
                                         @error('section')
@@ -107,12 +107,12 @@
                                 <div id="imageItemsContainer">
                                     <div class="form-group row mb-3">
                                         <div class="col-4">
-                                            <input type="text" class="form-control" name="title[]" placeholder="title" />
+                                            <input type="text" minlength="3" maxlength="100" class="form-control preventnumeric" name="title[]" placeholder="title" />
                                         </div>
 
 
                                         <div class="col-4" id="fileInputContainer" style="display: none;">
-                                            <input type="file" class="form-control image" name="image1[]" id="fileInput" />
+                                            <input type="file" minlength="3" maxlength="100" class="form-control image" name="image1[]" id="fileInput" />
                                         </div>
 
 
@@ -121,7 +121,7 @@
                                         </div>
 
                                         <div class="col-4 urlInputContainer" style="display: none;">
-                                            <input type="url" class="form-control" name="url[]" id="urlInput" placeholder="Enter Video URL" />
+                                            <input type="text" class="form-control" minlength="3" maxlength="100" name="url[]" id="urlInput" placeholder="Enter Video URL" />
                                         </div>
 
 

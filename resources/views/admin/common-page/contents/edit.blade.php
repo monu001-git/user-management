@@ -96,7 +96,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Title:</strong>
-                                        <input type="text" class="form-control" name="meta_title" minlength="3" maxlength="100" placeholder="Please enter meta tittle, use for seo" value="{{ $content->meta_title ??'' }}" class="form-control preventnumeric">
+                                        <input type="text" class="form-control preventnumeric" name="meta_title" minlength="3" maxlength="100" placeholder="Please enter meta tittle, use for seo" value="{{ $content->meta_title ??'' }}" >
 
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -109,7 +109,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta Description:</strong>
-                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{{ $content->meta_description }}</textarea>
+                                        <textarea class="form-control" rows="4" name="meta_description" class="form-control" placeholder="Please enter meta description, use for seo">{!! $content->meta_description ??'' !!}</textarea>
 
 
                                         @error('name')
@@ -122,7 +122,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Meta keyword:</strong>
-                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{{ $content->meta_keyword }}</textarea>
+                                        <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword" placeholder="Please enter meta keywords, use for seo">{!! $content->meta_keyword ??'' !!}</textarea>
 
 
                                         @error('name')
@@ -135,7 +135,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content title:</strong>
-                                        <input type="text" name="title" placeholder="title" value="{{ $content->title }}" class="form-control">
+                                        <input type="text" name="title" placeholder="title" class="form-control preventnumeric" minlength="3" maxlength="100" value="{{ $content->title ??'' }}" >
 
                                         @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -154,7 +154,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="banner" class="form-control" @if ($content->banner) value="{{ $content->banner }}" @endif>
+                                        <input type="file" name="banner" class="form-control image" @if ($content->banner) value="{{ $content->banner  ??''}}" @endif>
 
 
                                         @error('name')
@@ -171,18 +171,17 @@
                                     <div class="form-group">
                                         <strong>Count:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="count" @if ($content->count = 'on') checked @endif>
+                                            <input type="checkbox" name="count" @if ($content->count =='on') checked @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
                                 </div>
 
-
                                 <div class="col-xs-3 col-sm-3 col-md-3">
                                     <div class="form-group">
                                         <strong>Team:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="team" @if ($content->team = 'on') checked @endif>
+                                            <input type="checkbox" name="team" @if ($content->team == 'on') checked @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -191,7 +190,7 @@
                                     <div class="form-group">
                                         <strong>Certificate:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="certificate" @if ($content->certificate = 'on') checked @endif>
+                                            <input type="checkbox" name="certificate" @if ($content->certificate == 'on') checked @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -200,7 +199,7 @@
                                     <div class="form-group">
                                         <strong>Image:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="image_content" @if ($content->image_content = 'on') checked @endif>
+                                            <input type="checkbox" name="image_content" @if ($content->image_content == 'on') checked @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -209,7 +208,7 @@
                                     <div class="form-group">
                                         <strong>FAQ:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="faq" @if ($content->faq = 'on') checked @endif>
+                                            <input type="checkbox" name="faq" @if ($content->faq == 'on') checked @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -225,7 +224,7 @@
                                     <div class="form-group">
                                         <strong>Content left and image right:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleLayout" name="left_right" @if ($content->left_right = 'on') checked @endif>
+                                            <input type="checkbox" id="toggleLayout" name="left_right" @if ($content->left_right == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -235,7 +234,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentDescription" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Description:</strong>
-                                        <textarea name="descriptions" placeholder="description" class="form-control">{!! $content->descriptions !!}</textarea>
+                                        <textarea name="descriptions" placeholder="description" class="form-control">{!! $content->descriptions ??'' !!}</textarea>
                                     </div>
                                 </div>
 
@@ -250,7 +249,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image" class="form-control" @if ($content->image) value="{{ $content->image }}" @endif>
+                                        <input type="file" name="image" class="form-control image" @if ($content->image) value="{{ $content->image ??'' }}" @endif>
                                     </div>
                                 </div>
 
@@ -263,7 +262,7 @@
                                     <div class="form-group">
                                         <strong>Content right and image left:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleRightLeft" name="right_left" @if ($content->right_left = 'on') checked @endif>
+                                            <input type="checkbox" id="toggleRightLeft" name="right_left" @if ($content->right_left == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -273,7 +272,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentDescription2" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Description:</strong>
-                                        <textarea name="descriptions2" placeholder="description" class="form-control">{!! $content->descriptions2 !!}</textarea>
+                                        <textarea name="descriptions2" placeholder="description" class="form-control">{!! $content->descriptions2 ??"" !!}</textarea>
                                     </div>
                                 </div>
 
@@ -289,7 +288,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image2" class="form-control" @if ($content->image2) value="{{ $content->image2 }}" @endif>
+                                        <input type="file" name="image2" class="form-control image" @if ($content->image2) value="{{ $content->image2  ??''}}" @endif>
                                     </div>
                                 </div>
 
@@ -302,7 +301,7 @@
                                     <div class="form-group">
                                         <strong>Center Content:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="center_content" id="toggleButton" @if ($content->center_content = 'on') checked @endif>
+                                            <input type="checkbox" name="center_content" id="toggleButton"  @if($content->center_content == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -311,7 +310,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentToShow" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Description:</strong>
-                                        <textarea name="descriptions3" placeholder="description3" class="form-control">{!! $content->descriptions3 !!}</textarea>
+                                        <textarea name="descriptions3" placeholder="description3" class="form-control">{!! $content->descriptions3 ??'' !!}</textarea>
                                     </div>
                                 </div>
                                 {{-- center content end --}}
@@ -331,21 +330,28 @@
         </div>
     </div>
 
-
+    <script type="text/javascript">
+        CKEDITOR.replace('meta_description');
+        CKEDITOR.replace('meta_keyword');
+        CKEDITOR.replace('descriptions');
+        CKEDITOR.replace('descriptions2');
+        CKEDITOR.replace('descriptions3');
+    </script>
 
     <script>
         $(document).ready(function() {
-
-
             var selectedValue1 = $('#toggleButton').val();
             var selectedValue2 = $('#toggleLayout').val();
             var selectedValue3 = $('#toggleRightLeft').val();
 
+            console.log('selectedValue1',selectedValue1)
+            console.log('selectedValue2',selectedValue2)
+            console.log('selectedValue3',selectedValue3)
+        
 
             if (selectedValue1 = 'on') {
                 $(" #contentToShow").show();
             }
-
 
             if (selectedValue2 = 'on') {
                 $("#contentDescription, #contentImage").show();
