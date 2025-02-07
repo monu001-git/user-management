@@ -140,59 +140,54 @@ class mainController extends Controller
 
     public function appoinment_book(Request $request)
     {    
-    //    try {
-
-        DB::beginTransaction();
-
-        $validator = Validator::make($request->all(), [
-           'name' => 'required|string|max:255',
-           'email' => 'required|email|max:255|unique:appointment_books,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
-           'phone' => 'required|digits:10', 
-           'age' => 'required|integer',  
-           'gender' => 'required|in:male,female,other',  
-           'department' => 'required|string|max:255',
-           'date' => 'required|date', 
-           'doctor'=>'required' 
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $data = new appoinment_book;
-        $data->name = ucwords($request->name);
-        $data->email  = $request->email;
-        $data->phone  = $request->phone;
-        $data->age  = $request->age;
-        $data->gender  = $request->gender;
-        $data->department  = $request->department;
-        $data->doctor  = $request->doctor;
-        $data->date  = $request->date;
-        $data->save();
-
-        $doctor = DB::table('teams')->where('id',$request->doctor)->whereNull('deleted_at')->where('status', 1)->first('email');
-   
-    
-        $emaildoctor = $doctor->email;
-
-        $doctorData = [
-            'title' => 'Mail from Doctor',
-            'body' => 'This is for testing email.'
-        ];
-
-        $patientData = [
-            'title' => 'Mail from Patient',
-            'body' => 'This is for testing email.'
-        ];
-      
-        Mail::to($emaildoctor)->send(new appointmentDoctorMail($doctorData));
-
-        Mail::to($request->email)->send(new appointmentPatientMail($patientData));
-             
+         DB::beginTransaction();
        
-        DB::commit();
+        // try {
+            $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:appointment_books,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
+            'phone' => 'required|digits:10', 
+            'age' => 'required|integer',  
+            'gender' => 'required|in:male,female,other',  
+            'department' => 'required|string|max:255',
+            'date' => 'required|date', 
+            'doctor'=>'required' 
+            ]);
 
-        return redirect('/')->with('success', 'Appoinment book created successfully');
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $doctor = DB::table('teams')->where('id',$request->doctor)->whereNull('deleted_at')->where('status', 1)->first('email');
+            $emaildoctor = $doctor->email;
+
+            $data = new appoinment_book;
+            $data->name = ucwords($request->name);
+            $data->email  = $request->email;
+            $data->phone  = $request->phone;
+            $data->age  = $request->age;
+            $data->gender  = $request->gender;
+            $data->department  = $request->department;
+            $data->doctor  = $request->doctor;
+            $data->doctor_email  = $emaildoctor;
+            $data->date  = $request->date;
+            $data->save();
+
+
+            $doctorData = [
+                'title' => 'Mail from Doctor',
+                'body' => 'This is for testing email.'
+            ];
+            $patientData = [
+                'title' => 'Mail from Patient',
+                'body' => 'This is for testing email.'
+            ];
+            Mail::to($emaildoctor)->send(new appointmentDoctorMail($doctorData));
+            Mail::to($request->email)->send(new appointmentPatientMail($patientData));
+             
+            DB::commit();
+
+           return redirect('/')->with('success', 'Appoinment book created successfully');
 
         // } catch (\Exception $e) {
         //     DB::rollBack();
