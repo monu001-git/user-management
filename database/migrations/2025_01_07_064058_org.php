@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('footer_logo_title', 255)->nullable();
             $table->string('favicon', 255)->nullable();
             $table->string('favicon_title', 255)->nullable();
-            $table->string('address', 255)->nullable();
+            $table->text('address')->nullable();
             $table->text('about')->nullable();
             $table->text('meta_title')->nullable();
             $table->text('meta_description')->nullable();
@@ -79,7 +79,6 @@ return new class extends Migration
             $table->string('whatsApp', 500)->nullable();
 
         // Testimonial
-
             $table->string('testimonial_title', 255)->nullable();
             $table->string('testimonial_number', 255)->nullable();
             $table->string('testimonial_heading', 255)->nullable();

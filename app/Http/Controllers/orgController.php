@@ -270,7 +270,7 @@ class orgController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+        // try {
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -392,16 +392,16 @@ class orgController extends Controller
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure updated successfully');
       
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
