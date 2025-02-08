@@ -165,7 +165,6 @@
                                                     onclick="removeItem(this)">Delete</button>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="col-4">
                                         <button type="button" class="btn btn-primary me-2 btn-sm" id="addButton"

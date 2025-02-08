@@ -152,7 +152,33 @@
 
                                 <input type="hidden" name="status" value="0" class="form-control">
 
+                                <h5 style="text-align:center;">Team Static</h5>
+                                    <div id="imageItemsContainer">
+                                        <div class="form-group row mb-3">
+                                            <div class="col-4">
+                                                <input type="text" minlength="3" maxlength="100"
+                                                    class="form-control preventnumeric" name="number[]"
+                                                    placeholder="number" />
+                                            </div>
 
+                                            <div class="col-4">
+                                                <input type="text" minlength="3" maxlength="100"
+                                                    class="form-control preventnumeric" name="text[]"
+                                                    placeholder="text" />
+                                            </div>
+
+                                            <div class="col-3">
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="removeItem(this)">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="button" class="btn btn-primary me-2 btn-sm" id="addButton"
+                                            onclick="addItem()">Add Input</button>
+                                    </div>
+                                    <br><br>
+                             
                                 <div class="card-action">
                                     <button type="submit" class="btn btn-success">Submit</button>
                                     <a class="btn btn-danger" href="{{ route('teams.index') }}"> Back</a>
@@ -170,5 +196,22 @@
     <script type="text/javascript">
         CKEDITOR.replace('description');
     </script>
+
+<script>
+  
+
+    function addItem() {
+        const container = $('#imageItemsContainer');
+        const firstRow = container.find('.form-group').first();
+        const newRow = firstRow.clone();
+        newRow.find('input').val('');
+        newRow.find('.btn-danger').prop('disabled', false);
+        container.append(newRow);
+    }
+
+    function removeItem(button) {
+        $(button).closest('.form-group').remove();
+    }
+</script>
 
 @endsection

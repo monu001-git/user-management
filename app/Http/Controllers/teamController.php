@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\team;
 use App\Models\department;
+use App\Models\team_static;
 use DB;
 use Illuminate\Support\Str;
 use Hash;
@@ -167,8 +168,9 @@ class teamController extends Controller
         
             $team = team::find(dDecrypt($id));
             $department = department::get();
-         
-            return view('admin.common-page.teams.edit', compact('team','department'));
+            $teamStatic = team_statics::get();
+
+            return view('admin.common-page.teams.edit', compact('team','department','teamStatic'));
       
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
