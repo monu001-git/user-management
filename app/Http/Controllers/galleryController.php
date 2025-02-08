@@ -55,7 +55,8 @@ class galleryController extends Controller
         try {
 
             $gallery = gallery::pluck('name', 'name')->all();
-            return view('admin.common-page.gallery.create', compact('gallery'));
+            $doctor = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+            return view('admin.common-page.gallery.create', compact('gallery','doctor'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -94,6 +95,7 @@ class galleryController extends Controller
             $data->name = ucwords($request->name);
             $data->file_type = $request->file_type;
             $data->order = $request->order;
+            $data->doctor = $request->doctor;
             $data->status = $request->status;
             $data->section = $request->section;
 
@@ -182,8 +184,9 @@ class galleryController extends Controller
 
             $gallery = gallery::find(dDecrypt($id));
             $gallerydetail = galleryEntry::wheregallery_id(dDecrypt($id))->get();
+            $doctor = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
 
-            return view('admin.common-page.gallery.edit', compact('gallery', 'gallerydetail'));
+            return view('admin.common-page.gallery.edit', compact('gallery', 'gallerydetail','doctor'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -222,6 +225,7 @@ class galleryController extends Controller
         $data->name = ucwords($request->name);
         $data->file_type = $request->file_type;
         $data->order = $request->order;
+        $data->doctor = $request->doctor;
         $data->status = $request->status;
         $data->section = $request->section;
 

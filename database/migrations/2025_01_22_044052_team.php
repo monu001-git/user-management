@@ -16,8 +16,13 @@ return new class extends Migration
             $table->string('name', 255);
             $table->string('email', 255)->unique();
             $table->string('qualification', 255)->nullable();
+            $table->string('slug', 255)->nullable();
+            $table->string('department_name', 255)->nullable();
             $table->integer('department')->nullable()->default(0);
             $table->text('image')->nullable();
+            $table->text('description')->nullable();
+            $table->string('experience',255)->nullable();
+            $table->string('designation',255)->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);
             $table->softDeletes();

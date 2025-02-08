@@ -40,7 +40,7 @@ class mainController extends Controller
 
     public function getAllPageContent(Request $request, $slug1 = null, $slug2 = null)
     {
-        try {
+      try {
 
         if ($slug1 != null && $slug2 != null) {
             $slug = $slug2;
@@ -51,6 +51,7 @@ class mainController extends Controller
             $slug = $slug1;
             $parent_menu = null;
             $menu = DB::table('menus')->where('url', $slug)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+       
         } else {
 
             return view('front.common-page.master-page', [
@@ -60,6 +61,9 @@ class mainController extends Controller
         }
 
 
+        $teamDataProfile = DB::table('teams')->where('slug',$slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
+       
+    
         if ($menu != null) {
             $contentData = DB::table('contents')
                 ->where('id', $menu->content_id)
@@ -118,7 +122,35 @@ class mainController extends Controller
                     'parent_menu'=>$parent_menu                    
                 ]);
             }
-        } else {
+        
+        
+        }else if($teamDataProfile != null){
+
+
+            $galleryDatarecord5 = DB::table('galleries')->where('section','3')->where('doctor',$teamDataProfile->id)->whereNull('deleted_at')->where('status', 1)->first();
+    
+            if ($galleryDatarecord5 != null) {
+                $gallerydetailData = DB::table('gallery_entries')
+                    ->where('gallery_id', $galleryDatarecord5->id)
+                    ->whereNull('deleted_at')
+                    ->get();
+    
+                $galleryDataDoctor = [
+                    'galleryData' => $galleryDatarecord5,
+                    'gallerydetailData' => $gallerydetailData,
+                ];
+            } else {
+                $galleryDataDoctor = [
+                    
+                ];
+            }
+
+
+            return view('front.common-page.profile', [
+                'teamDataProfile'=>$teamDataProfile,
+                'galleryDataDoctor'=>$galleryDataDoctor
+            ]);
+        }else {
             return view('error', [
                 'message' => 'not Found'
             ]);
@@ -142,7 +174,7 @@ class mainController extends Controller
     {    
          DB::beginTransaction();
        
-        // try {
+        try {
             $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:appointment_books,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
@@ -189,19 +221,19 @@ class mainController extends Controller
 
            return redirect('/')->with('success', 'Appoinment book created successfully');
 
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
 
     }
 
@@ -265,7 +297,5 @@ class mainController extends Controller
             return response()->json(['error' => 'An unexpected error occurred: ' . $e->getMessage()], 500);
         }
     }
-
-
 
 }

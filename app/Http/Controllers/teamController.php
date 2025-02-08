@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\team;
 use App\Models\department;
 use DB;
+use Illuminate\Support\Str;
 use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
@@ -92,13 +93,21 @@ class teamController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-    
         try {
+
+
+               $departmentName = department::where('id',$request->department)->first();
+
                 $team = new Team;
                 $team->name = ucwords($request->name);
                 $team->email = $request->email;
+                $team->slug    = Str::slug($request->name, "-");
                 $team->qualification = $request->qualification;
                 $team->department = $request->department;
+                $team->department_name = $departmentName->department;
+                $team->description = $request->description;
+                $team->experience = $request->experience;
+                $team->designation = $request->designation;
                 $team->order = $request->order;
                 $team->status = $request->status;
 
@@ -196,11 +205,19 @@ class teamController extends Controller
     
     
         try {
+
+               $departmentName = department::where('id',$request->department)->first();
+
+
                 $team = Team::find(dDecrypt($id));
                 $team->name = ucwords($request->name);
                 $team->email = $request->email;
+                $team->slug    = Str::slug($request->name, "-");
                 $team->department = $request->department;
                 $team->qualification = $request->qualification;
+                $team->department_name = $departmentName->department;
+                $team->experience = $request->experience;
+                $team->description = $request->description;
                 $team->order = $request->order;
                 $team->status = $request->status;
                 

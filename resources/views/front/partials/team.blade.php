@@ -9,7 +9,8 @@
                             <p>
 
                                 @if(!empty($orgData->team_description1))
-                                {!! $orgData->team_description1 !!}
+                              
+                                {!! substr_replace($orgData->team_description1, '...', 500) !!}
                                 @else
                                 <p>No description available</p>
                                 @endif
@@ -22,27 +23,27 @@
                 <div class="department-wrap">
                     <div class="department-doctor-wrap mt-0 spty team">
                         <div class="team-slider owl-carousel owl-theme">
-                            @if(isset($teamData) && count($teamData) > 0) @foreach ($teamData as $teams) <div class="notice-block-two">
-                                <div class="team-single">
-                                    <div class="team-boder-shapes-1">
-                                        <div class="team-single-img">
-                                            <img src="{{ asset('team/image'.'/'.$teams->image ) }}" alt="">
-                                        </div>
-                                        <div class="team-single-text">
-                                            <h2><a href="dr-v-p-singh.php">{{ $teams->name ?? " " }}</a></h2>
-                                            <span>{{ $teams->specialization ?? " " }}</span>
-                                            <p>{{ $teams->qualification ?? " " }}</p>
-                                            <p>{{ $teams->designation ?? " " }}</p>
+                            @if(isset($teamData) && count($teamData) > 0) 
+                               @foreach ($teamData as $teams) 
+                                <div class="notice-block-two">
+                                    <div class="team-single">
+                                        <div class="team-boder-shapes-1">
+                                            <div class="team-single-img">
+                                                <img src="{{ asset('team/image'.'/'.$teams->image ) }}" alt="">
+                                            </div>
+                                            <div class="team-single-text">
+                                                <h2><a @if(!empty($teams->slug)) href='{{ url($teams->slug) }}' @endif>{{ $teams->name ?? " " }}</a></h2>
+                                                <span>{{ $teams->department_name ?? "" }}</span>
+                                                <p>{{ $teams->qualification ?? "" }}</p>
+                                                <p>{{ $teams->designation ?? "" }}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            @endforeach
-
+                               @endforeach
                             @else
                             <p>No Doctor Detail available.</p>
                             @endif
-
                         </div>
                     </div>
                 </div>
@@ -52,7 +53,8 @@
 
 
                             @if(!empty($orgData->team_description2))
-                            {!! $orgData->team_description2 !!}
+
+                            {!! substr_replace($orgData->team_description2, '...', 500) !!}
                             @else
                             <p>No description available</p>
                             @endif

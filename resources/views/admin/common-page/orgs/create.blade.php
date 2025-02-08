@@ -47,7 +47,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta Title:</strong>
+                                            <strong>Meta Title *:</strong>
                                             <input type="text" class="form-control preventnumeric" name="meta_title"
                                                 minlength="3" maxlength="100"
                                                 placeholder="Please enter meta tittle, use for seo"
@@ -63,7 +63,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta Description:</strong>
+                                            <strong>Meta Description *:</strong>
 
                                             <textarea class="form-control" id="meta_description" rows="4" name="meta_description"
                                                 placeholder="Please enter meta description, use for seo">{!! old('meta_description') !!}</textarea>
@@ -77,7 +77,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta keyword:</strong>
+                                            <strong>Meta keyword *:</strong>
                                             <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword"
                                                 placeholder="Please enter meta keywords, use for seo">{!! old('meta_keyword') !!}</textarea><br>
 
@@ -90,7 +90,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Name:</strong>
+                                            <strong>Name *:</strong>
                                             <input type="text" name="name" minlength="3" maxlength="100"
                                                 value="{{ old('name') }}" placeholder="Name"
                                                 class="form-control preventnumeric">
@@ -104,7 +104,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Email:</strong>
+                                            <strong>Email *:</strong>
                                             <input type="email" name="email" minlength="3" maxlength="100"
                                                 value="{{ old('email') }}" placeholder="email" class="form-control">
 
@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>phone:</strong>
+                                            <strong>phone :</strong>
                                             <input type="text" name="phone" minlength="10" maxlength="50"
                                                 value="{{ old('phone') }}" placeholder="phone"
                                                 class="form-control  mobile_no">
@@ -173,6 +173,9 @@
                                             <strong>Header logo:</strong>
                                             <input type="file" name="header_logo" class="form-control image">
 
+                                            @error('header_logo')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -183,6 +186,9 @@
                                                 value="{{ old('header_logo_title') }}" placeholder="enter logo title"
                                                 name="header_logo_title" class="form-control preventnumeric">
 
+                                            @error('header_logo_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -191,6 +197,10 @@
                                         <div class="form-group">
                                             <strong>Favicon :</strong>
                                             <input type="file" name="favicon" class="form-control image">
+
+                                            @error('favicon')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -200,6 +210,9 @@
                                             <input type="text" minlength="3" maxlength="30"
                                                 placeholder="enter favicon title" name="favicon_title"
                                                 value="{{ old('favicon_title') }}" class="form-control preventnumeric">
+                                            @error('favicon_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
 
                                         </div>
                                     </div>
@@ -210,6 +223,10 @@
                                         <div class="form-group">
                                             <strong>Footer logo:</strong>
                                             <input type="file" name="footer_logo" class="form-control image">
+
+                                            @error('footer_logo')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -219,15 +236,17 @@
                                             <input type="text" minlength="3" maxlength="30" name="footer_logo_title"
                                                 value="{{ old('footer_logo_title') }}"
                                                 class="form-control preventnumeric">
-
+                                            @error('footer_logo_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Map:</strong>
-                                            <input type="text" minlength="3" maxlength="400" name="map" value="{{ old('map') }}"
-                                                class="form-control">
+                                            <input type="text" minlength="3" maxlength="400" name="map"
+                                                value="{{ old('map') }}" class="form-control">
 
                                         </div>
                                     </div>
@@ -390,8 +409,8 @@
                                             <strong>Count Number 4 :</strong>
                                             <input type="text" name="number_count4"
                                                 value="{{ old('number_count4') }}"
-                                                placeholder="Enter Fourth count Number" 
-                                                minlength="1" maxlength="3" class="form-control moblie_no">
+                                                placeholder="Enter Fourth count Number" minlength="1" maxlength="3"
+                                                class="form-control moblie_no">
                                         </div>
                                     </div>
 
@@ -474,8 +493,9 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <strong>Specialities Phone:</strong>
-                                            <input type="text" name="specialities_phone" minlength="10" value="{{ old('specialities_phone') }}"
-                                                maxlength="10" placeholder="phone" class="form-control mobile_no">
+                                            <input type="text" name="specialities_phone" minlength="10"
+                                                value="{{ old('specialities_phone') }}" maxlength="10"
+                                                placeholder="phone" class="form-control mobile_no">
                                         </div>
                                     </div>
 
@@ -516,8 +536,9 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <strong>Team Phone:</strong>
-                                            <input type="text" name="team_phone" placeholder="phone" minlength="10" value="{{ old('team_phone') }}"
-                                                maxlength="10" class="form-control mobile_no">
+                                            <input type="text" name="team_phone" placeholder="phone" minlength="10"
+                                                value="{{ old('team_phone') }}" maxlength="10"
+                                                class="form-control mobile_no">
                                         </div>
                                     </div>
 
@@ -531,7 +552,7 @@
                                         <div class="form-group">
                                             <strong>News title :</strong>
                                             <input type="text" name="news_title" minlength="3" maxlength="30"
-                                            placeholder="Enter news title" value="{{ old('news_title') }}"
+                                                placeholder="Enter news title" value="{{ old('news_title') }}"
                                                 class="form-control preventnumeric">
                                         </div>
                                     </div>
@@ -540,7 +561,7 @@
                                         <div class="form-group">
                                             <strong>News Heading :</strong>
                                             <input type="text" name="news_heading" minlength="3" maxlength="100"
-                                            placeholder="Enter news heading" value="{{ old('news_heading') }}"
+                                                placeholder="Enter news heading" value="{{ old('news_heading') }}"
                                                 class="form-control preventnumeric">
                                         </div>
                                     </div>
@@ -560,7 +581,7 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <strong>Middle Image:</strong>
-                                            <input type="file" name="middle_image" class="form-control image">
+                                            <input type="file" name="middle_image" class="form-control">
                                         </div>
                                     </div>
 
@@ -592,7 +613,7 @@
                                             </strong>
                                             <input type="text" name="testimonial_number"
                                                 placeholder="Enter testimonial number"
-                                                value="{{ old('testimonial_number') }}" minlength="10" maxlength="10"
+                                                value="{{ old('testimonial_number') }}" minlength="1" maxlength="10"
                                                 class="form-control mobile_no">
                                         </div>
                                     </div>

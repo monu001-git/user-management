@@ -19,5 +19,7 @@
 
             <!-- INFO-6 IMAGE -->
             <div class="info-6-img text-center"></div>
+{{-- 
+            <img src="{{ asset('uploads/middleimage'.'/'.$orgData->middle_image) }}" > --}}
 
         </section>

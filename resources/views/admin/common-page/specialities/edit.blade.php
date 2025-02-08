@@ -4,7 +4,7 @@
 
 
 @if (count($errors) > 0)
-<div class="alert alert-danger">
+<div class="alert alert-danger text-danger">
     <strong>Whoops!</strong> There were some problems with your input.<br><br>
     <ul>
         @foreach ($errors->all() as $error)
@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Title:</strong>
+                                    <strong>Title *:</strong>
                                     <input type="text" minlength="1" maxlength="100" name="title" value="{{ $specialitie->title ??"" }}" placeholder="name" class="form-control preventnumeric">
 
                                     @error('title')
@@ -76,7 +76,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Sort Order:</strong>
+                                    <strong>Sort Order *:</strong>
                                     <input type="text" name="order" minlength="1" maxlength="3" placeholder="Sort order" class="form-control mobile_no" value="{{ $specialitie->order ??"" }}">
                                     @error('order')
                                     <div class="text-danger">{{ $message }}</div>
@@ -88,7 +88,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Image:</strong>
+                                    <strong>Image *:</strong>
                                     <span style="color:green;font-size:12px;">
                                         @if($specialitie->image)
                                         [{{$specialitie->image}}]

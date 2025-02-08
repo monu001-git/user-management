@@ -51,7 +51,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta Title:</strong>
+                                            <strong>Meta Title *:</strong>
                                             <input type="text" class="form-control preventnumeric" name="meta_title"
                                                 minlength="3" maxlength="100"
                                                 placeholder="Please enter meta tittle, use for seo"
@@ -67,7 +67,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta Description:</strong>
+                                            <strong>Meta Description *:</strong>
                                             <textarea class="form-control" rows="4" name="meta_description" class="form-control"
                                                 placeholder="Please enter meta description, use for seo">{!! $org->meta_description ?? '' !!}</textarea>
 
@@ -80,7 +80,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Meta keyword:</strong>
+                                            <strong>Meta keyword *:</strong>
                                             <textarea class="form-control" id="keyword" rows="4" class="form-control" name="meta_keyword"
                                                 placeholder="Please enter meta keywords, use for seo">{!! $org->meta_keyword ?? '' !!}</textarea><br>
 
@@ -94,7 +94,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>Name:</strong>
+                                            <strong>Name *:</strong>
                                             <input type="text" name="name" minlength="3" maxlength="100"
                                                 placeholder="Name" value="{{ $org->name ?? '' }}"
                                                 class="form-control  preventnumeric">
@@ -108,7 +108,7 @@
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>email:</strong>
+                                            <strong>Email *:</strong>
                                             <input type="email" name="email" minlength="3" maxlength="100"
                                                 placeholder="email" value="{{ $org->email ?? '' }}" class="form-control">
 
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
-                                            <strong>phone:</strong>
+                                            <strong>Phone:</strong>
                                             <input type="text" name="phone" minlength="10" maxlength="50"
                                                 placeholder="phone" value="{{ $org->phone ?? '' }}"
                                                 class="form-control mobile_no">
@@ -591,7 +591,7 @@
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="middle_image" class="form-control image"
+                                            <input type="file" name="middle_image" class="form-control "
                                             @if ($org->middle_image) value="{{ $org->middle_image ?? '' }}" @endif >
                                         </div>
                                     </div>
@@ -623,7 +623,7 @@
                                             </strong>
                                             <input type="text" name="testimonial_number"
                                                 placeholder="Enter testimonial number"
-                                                value="{{ $org->testimonial_number ?? '' }}" minlength="10"
+                                                value="{{ $org->testimonial_number ?? '' }}" minlength="1"
                                                 maxlength="10" class="form-control mobile_no">
                                         </div>
                                     </div>

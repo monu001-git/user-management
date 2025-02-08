@@ -2,7 +2,7 @@
 
 @section('content')
     @if (count($errors) > 0)
-        <div class="alert alert-danger">
+        <div class="alert alert-danger text-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
@@ -39,9 +39,9 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Name:</strong>
+                                        <strong>Name *:</strong>
                                         <input type="text" minlength="1" maxlength="100" name="name"
-                                            placeholder="name" class="form-control preventnumeric">
+                                            placeholder="name"  class="form-control preventnumeric">
 
                                         @error('name')
                                             <div class="text-danger">{{ $message }}</div>
@@ -51,7 +51,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Email:</strong>
+                                        <strong>Email *:</strong>
                                         <input type="text" minlength="1" maxlength="100" name="email"
                                             placeholder="email" class="form-control">
 
@@ -61,12 +61,9 @@
                                     </div>
                                 </div>
 
-
-
-
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Qualification:</strong>
+                                        <strong>Education:</strong>
                                         <input type="text" minlength="1" maxlength="100" name="qualification"
                                             placeholder="qualification" class="form-control preventnumeric">
 
@@ -78,7 +75,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Department:</strong>
+                                        <strong>Department *:</strong>
                                         <select name="department" class="form-control">
                                             <option value="">Select value</option>
                                             @foreach ($department as $departments)
@@ -91,6 +88,45 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Experience:</strong>
+                                        <input type="text" minlength="1" maxlength="3" name="experience"
+                                            placeholder="experience" class="form-control mobile_no">
+
+                                        @error('experience')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Designation:</strong>
+                                        <input type="text" minlength="1" maxlength="100" name="designation"
+                                            placeholder="designation" class="form-control preventnumeric">
+
+                                        @error('designation')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <strong>Description :</strong>
+                                        <textarea class="form-control" id="description" rows="4" name="description"
+                                            placeholder="Please enter meta description">{!! old('description') !!}</textarea>
+
+                                        @error('description')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
+                                    </div>
+                                </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
@@ -128,4 +164,11 @@
             </div>
         </div>
     </div>
+
+
+
+    <script type="text/javascript">
+        CKEDITOR.replace('description');
+    </script>
+
 @endsection

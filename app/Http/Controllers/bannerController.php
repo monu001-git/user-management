@@ -80,6 +80,7 @@ class bannerController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'title' => 'required|unique:banners,title',
+                'order' => 'required',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
@@ -179,6 +180,7 @@ class bannerController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
+                'order' => 'required',
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('file_type')->nullable();
-            $table->string('section')->nullable();
+            $table->string('name',255);
+            $table->string('file_type',255)->nullable();
+            $table->string('section',255)->nullable();
+            $table->string('doctor',255)->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);
             $table->softDeletes();
