@@ -82,7 +82,9 @@ return new class extends Migration
             $table->string('testimonial_title', 255)->nullable();
             $table->string('testimonial_number', 255)->nullable();
             $table->string('testimonial_heading', 255)->nullable();
-            
+
+        //report download    
+           $table->string('report_download', 255)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

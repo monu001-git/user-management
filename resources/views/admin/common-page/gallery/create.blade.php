@@ -79,14 +79,11 @@
                                             <br />
                                             <select name="section" class="form-control" id="section">
                                                 <option value="">Select Option</option>
-                                                <option value="1" {{ old('section') == '1' ? 'selected' : '' }}>
-                                                    Certificates</option>
-                                                <option value="2" {{ old('section') == '2' ? 'selected' : '' }}>News
-                                                </option>
-                                                <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Doctor
-                                                </option>
-                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model
-                                                    Image</option>
+                                                <option value="1" {{ old('section') == '1' ? 'selected' : '' }}> Certificates</option>
+                                                <option value="2" {{ old('section') == '2' ? 'selected' : '' }}>News Section</option>
+                                                <option value="5" {{ old('section') == '5' ? 'selected' : '' }}>Image Section</option>
+                                                <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Doctor</option>
+                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model Image</option>
                                             </select>
 
                                             @error('section')
@@ -145,12 +142,12 @@
 
                                             <div class="col-4" id="fileInputContainer" style="display: none;">
                                                 <input type="file" minlength="3" maxlength="100"
-                                                    class="form-control image" name="image1[]" id="fileInput" />
+                                                    class="form-control " name="image1[]" id="fileInput" />
                                             </div>
 
 
                                             <div class="col-4 urlInputContainer" style="display: none;">
-                                                <input type="file" class="form-control image" name="image2[]"
+                                                <input type="file" class="form-control " name="image2[]"
                                                     id="imageInput" />
                                             </div>
 

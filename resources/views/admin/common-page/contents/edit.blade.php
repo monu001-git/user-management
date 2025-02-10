@@ -249,7 +249,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image" class="form-control image" @if ($content->image) value="{{ $content->image ??'' }}" @endif>
+                                        <input type="file" name="image" class="form-control " @if ($content->image) value="{{ $content->image ??'' }}" @endif>
                                     </div>
                                 </div>
 
@@ -288,7 +288,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image2" class="form-control image" @if ($content->image2) value="{{ $content->image2  ??''}}" @endif>
+                                        <input type="file" name="image2" class="form-control " @if ($content->image2) value="{{ $content->image2  ??''}}" @endif>
                                     </div>
                                 </div>
 

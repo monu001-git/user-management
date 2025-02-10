@@ -93,6 +93,7 @@ class orgController extends Controller
                 'meta_title' => 'required|max:255',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
+               // "report_download" => 'mimes:pdf|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -196,6 +197,15 @@ class orgController extends Controller
             $data->testimonial_heading = $request->testimonial_heading;
 
             $data->whatsapp = $request->whatsapp;
+         
+            $path = public_path('uploads/report_download');
+            if ($request->hasFile('report_download')) {
+                $file = $request->file('report_download');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->report_download = $newname;
+            }
+
             
             $data->save();
 
@@ -270,7 +280,7 @@ class orgController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // try {
+        try {
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -282,6 +292,7 @@ class orgController extends Controller
                 'meta_title' => 'required',
                 'meta_description' => 'required',
                 'meta_keyword' => 'required',
+               // "report_download" => 'mimes:pdf|max:2048',
             ]);
 
             if ($validator->fails()) {
@@ -386,22 +397,29 @@ class orgController extends Controller
             $data->testimonial_heading = $request->testimonial_heading;
 
             $data->whatsapp = $request->whatsapp;
-            
 
+            $path = public_path('uploads/report_download');
+            if ($request->hasFile('report_download')) {
+                $file = $request->file('report_download');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->report_download = $newname;
+            }
+        
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure updated successfully');
       
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     /**

@@ -77,9 +77,8 @@ class galleryController extends Controller
      */
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:galleries,name',
             'file_type' => 'required',
             'order' => 'required',
             'section'=>'required'
@@ -90,7 +89,9 @@ class galleryController extends Controller
         }
 
         DB::beginTransaction();
+
         try {
+
             $data = new gallery;
             $data->name = ucwords($request->name);
             $data->file_type = $request->file_type;
@@ -133,6 +134,7 @@ class galleryController extends Controller
             DB::commit();
 
             return redirect()->route('gallery.index')->with('success', 'gallery created successfully');
+        
         } catch (\Exception $e) {
             DB::rollBack();
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

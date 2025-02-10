@@ -168,6 +168,11 @@
                                     @foreach ($teamStatic as $i => $teamStatics)
                                         <div class="form-group row mb-3">
 
+                                            
+                                            <input type="hidden" class="form-control" name="id[]"
+                                                value="{{ $teamStatics->id ?? '' }}" />
+
+
                                             <div class="col-4">
                                                 <input type="text" minlength="3" maxlength="100"
                                                     class="form-control preventnumeric" name="number[]"
@@ -225,12 +230,13 @@
                 <div class="col-4">
                     <input type="text" minlength="3" maxlength="100"
                         class="form-control preventnumeric" name="number[]"
-                        value="{{ $teamStatics->number ?? '' }}" placeholder="number" />
+                      placeholder="number" />
                 </div>
+                   <input type="hidden" class="form-control" name="id[]" value="" />
                 <div class="col-4">
                     <input type="text" minlength="3" maxlength="100"
                         class="form-control preventnumeric" name="text[]"
-                        value="{{ $teamStatics->text ?? '' }}" placeholder="text" />
+                        placeholder="text" />
                 </div>
                 <div class="col-3">
                     <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>

@@ -46,16 +46,14 @@
 <!-- end page-title -->
 
 
+@if (isset($message))
+<h1> {{ $message ?? '' }}</h1>
+@endif
 
-<!-- start of wpo-about-section -->
+{{-- content right and center start --}}
+@if((isset($content->left_right) && $content->left_right == 'on') || (isset($content->center_content) && $content->center_content == 'on')  )
 <section class="wpo-about-section section-padding">
     <div class="container">
-
-        @if (isset($message))
-        <h1> {{ $message ?? '' }}</h1>
-        @endif
-
-
         @if (isset($content->left_right) && $content->left_right == 'on')
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12 col-12">
@@ -96,94 +94,12 @@
         @endif
     </div>
 </section>
-
-<!-- end of wpo-about-section -->
-
-@if (isset($content->count) && $content->count == 'on')
-<section class="wpo-fun-fact-section section-padding pt-0 counter-box-sec">
-    <div class="container new-width">
-        <div class="row">
-            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div class="counter-box">
-                    <div class="info">
-                        <h3>
-                            <span class="odometer number" data-count="{{ $orgData->number_count1 ?? '' }}">00</span>{{ $orgData->unit_count1 ?? '' }}
-                        </h3>
-                        <p>{{ $orgData->text_count1 ?? '' }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div class="counter-box">
-                    <div class="info">
-                        <h3>
-                            <span class="odometer number" data-count="{{ $orgData->number_count2 ?? '' }}">00</span>{{ $orgData->unit_count2 ?? '' }}
-                        </h3>
-                        <p>{{ $orgData->text_count2 ?? '' }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div class="counter-box">
-                    <div class="info">
-                        <h3>
-                            <span class="odometer number" data-count="{{ $orgData->number_count3 ?? '' }}">00</span>{{ $orgData->unit_count3 ?? '' }}
-                        </h3>
-                        <p>{{ $orgData->text_count3 ?? '' }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
-                <div class="counter-box">
-                    <div class="info">
-                        <h3>
-                            <span class="odometer number" data-count="{{ $orgData->number_count4 ?? '' }}">00</span>{{ $orgData->unit_count4 ?? '' }}
-                        </h3>
-                        <p>{{ $orgData->text_count4 ?? '' }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center subtitle-white">
-            <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
-                <h6>{{ $orgData->count_heading ?? '' }}</h6>
-                <a href="{{ $orgData->count_phone ?? '' }}"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
-            </div>
-        </div>
-    </div>
-</section>
 @endif
-
-@if (isset($content->certificate) && $content->certificate == 'on')
-@if (isset($organizedData['certificate']) && count($organizedData['certificate']) > 0)
-<section class="certificate pb-100">
-    <div class="container">
-        <div class="wpo-contact-area ex-wiget ">
-            <div class="certificate-slider owl-carousel owl-theme">
-                @foreach ($organizedData['certificate'] as $k => $galleryCar)
-                <div class="notice-block-two">
-                    <div class="certificate-img">
-                        <div class="img-holder">
-                            <a href="{{ asset('uploads/content/image' . '/' . $galleryCar->image) ?? '' }}" class="fancybox" data-fancybox-group="gall-1">
-                                <img src="{{ asset('uploads/content/image' . '/' . $galleryCar->image) ?? '' }}" alt class="img img-responsive">
-                                <div class="hover-content">
-                                    <i class="ti-plus"></i>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-@else
-<p>No certificate available</p>
-@endif
-@endif
+{{-- content right and center end --}}
 
 
+
+{{-- content left start --}}
 <div class="wpo-service-single-area section-padding">
     <div class="container">
         <div class="row">
@@ -251,13 +167,103 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
+{{-- content left end --}}
 
-<!-- wpo-service-single-area start -->
+{{-- count start --}}
+@if (isset($content->count) && $content->count == 'on')
+<section class="wpo-fun-fact-section section-padding pt-0 counter-box-sec">
+    <div class="container new-width">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="counter-box">
+                    <div class="info">
+                        <h3>
+                            <span class="odometer number" data-count="{{ $orgData->number_count1 ?? '' }}">00</span>{{ $orgData->unit_count1 ?? '' }}
+                        </h3>
+                        <p>{{ $orgData->text_count1 ?? '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="counter-box">
+                    <div class="info">
+                        <h3>
+                            <span class="odometer number" data-count="{{ $orgData->number_count2 ?? '' }}">00</span>{{ $orgData->unit_count2 ?? '' }}
+                        </h3>
+                        <p>{{ $orgData->text_count2 ?? '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="counter-box">
+                    <div class="info">
+                        <h3>
+                            <span class="odometer number" data-count="{{ $orgData->number_count3 ?? '' }}">00</span>{{ $orgData->unit_count3 ?? '' }}
+                        </h3>
+                        <p>{{ $orgData->text_count3 ?? '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-6">
+                <div class="counter-box">
+                    <div class="info">
+                        <h3>
+                            <span class="odometer number" data-count="{{ $orgData->number_count4 ?? '' }}">00</span>{{ $orgData->unit_count4 ?? '' }}
+                        </h3>
+                        <p>{{ $orgData->text_count4 ?? '' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center subtitle-white">
+            <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
+                <h6>{{ $orgData->count_heading ?? '' }}</h6>
+                <a href="tel:{{ $orgData->count_phone ?? '' }}"><img src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+{{-- count end --}}
+
+
+@if (isset($content->certificate) && $content->certificate == 'on')
+@if (isset($organizedData['certificate']) && count($organizedData['certificate']) > 0)
+<section class="certificate pb-100">
+    <div class="container">
+        <h3>Certificate</h3>
+        <div class="wpo-contact-area ex-wiget ">
+            <div class="certificate-slider owl-carousel owl-theme">
+                @foreach ($organizedData['certificate'] as $k => $galleryCar)
+                <div class="notice-block-two">
+                    <div class="certificate-img">
+                        <div class="img-holder">
+                            <a href="{{ asset('uploads/content/image' . '/' . $galleryCar->image) ?? '' }}" class="fancybox" data-fancybox-group="gall-1">
+                                <img src="{{ asset('uploads/content/image' . '/' . $galleryCar->image) ?? '' }}" alt class="img img-responsive">
+                                <div class="hover-content">
+                                    <i class="ti-plus"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</section>
+@else
+<p>No certificate available</p>
+@endif
+@endif
+
+{{-- image start --}}
 @if (isset($content->image_content) && $content->image_content == 'on')
 @if (isset($organizedData['image']) && count($organizedData['image']) > 0)
 <div class="wpo-service-single-area section-padding">
     <div class="container">
+        <h3>Image</h3>
         <div class="gallery-masonry-block">
             <div class="gallery-masonry-item-wrap gallery-masonry">
                 @foreach ($organizedData['image'] as $imageContent)
@@ -273,6 +279,7 @@
 <p>No image available.</p>
 @endif
 @endif
+{{-- image end --}}
 
 {{-- team start --}}
 @if (isset($content->team) && $content->team == 'on')
@@ -281,17 +288,19 @@
     <div class="container">
         <div class="department-wrap">
             <div class="team-department-section-s2 p-0 team">
+                <h3>Team</h3>
                 <div class="row">
+                   
                     @foreach ($organizedData['team'] as $teams)
                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="notice-block-two">
                             <div class="team-single">
                                 <div class="team-boder-shapes-1">
                                     <div class="team-single-img">
-                                        <a href="dr-v-p-singh.php"> <img src="{{ asset('team/image' . '/' . $teams->image) }}" title="{{ $teams->name ?? '' }}"></a>
+                                        <a @if(!empty($teams->slug)) href='{{ url($teams->slug) }}' @endif> <img src="{{ asset('team/image' . '/' . $teams->image) }}" title="{{ $teams->name ?? '' }}"></a>
                                     </div>
                                     <div class="team-single-text">
-                                        <h2><a href="dr-v-p-singh.php">{{ $teams->name ?? '' }}</a></h2>
+                                        <h2><a @if(!empty($teams->slug)) href='{{ url($teams->slug) }}' @endif>{{ $teams->name ?? '' }}</a></h2>
                                         <span>{{ $teams->specialization ?? ' ' }}</span>
                                         <p>{{ $teams->qualification ?? ' ' }}</p>
                                         <p>{{ $teams->designation ?? ' ' }}</p>

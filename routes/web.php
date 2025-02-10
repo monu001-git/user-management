@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('appointments',appointmentController::class);
     Route::resource('faqs',faqController ::class);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
-   
+    Route::get('team-static', [teamController::class, 'deleteTeamStatic'])->name('delete-team');
     Route::controller(commonController::class)->group(function () {
         Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
     });

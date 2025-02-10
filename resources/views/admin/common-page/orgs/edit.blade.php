@@ -141,6 +141,21 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Report download:</strong>
+                                            <span style="color:green;font-size:12px;">
+                                                @if ($org->report_download)
+                                                    [{{ $org->report_download }}]
+                                                @endif
+                                            </span>
+
+                                            <input type="file" name="report_download" class="form-control imagefile"
+                                            @if ($org->report_download) value="{{ $org->report_download ?? '' }}" @endif >
+                                        </div>
+                                    </div>
+
+
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
@@ -594,7 +609,7 @@
                                             <input type="file" name="middle_image" class="form-control "
                                             @if ($org->middle_image) value="{{ $org->middle_image ?? '' }}" @endif >
                                         </div>
-                                    </div>
+                                    </div>report_download
 
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">

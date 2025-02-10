@@ -35,7 +35,7 @@ class CommonComposer
     public function compose(View $view)
     {
         // try {
-            $galleryDatarecord1 = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->where('status', 1)->first();
+            $galleryDatarecord1 = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->orderBy('order', 'ASC')->where('status', 1)->first();
            
             if ($galleryDatarecord1 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
@@ -53,7 +53,7 @@ class CommonComposer
             }
      
 
-            $galleryDatarecord2 = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->where('status', 1)->first();
+            $galleryDatarecord2 = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->orderBy('order', 'ASC')->where('status', 1)->first();
             if ($galleryDatarecord2 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord2->id)
@@ -70,7 +70,7 @@ class CommonComposer
                 ];
             }
 
-            $galleryDatarecord3 = DB::table('galleries')->where('section', '3')->whereNull('deleted_at')->where('status', 1)->first();
+            $galleryDatarecord3 = DB::table('galleries')->where('section', '3')->whereNull('deleted_at')->orderBy('order', 'ASC')->where('status', 1)->first();
             if ($galleryDatarecord3 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord3->id)
@@ -87,7 +87,7 @@ class CommonComposer
                 ];
             }
 
-            $galleryDatarecord4 = DB::table('galleries')->where('section','4')->whereNull('deleted_at')->where('status', 1)->first();
+            $galleryDatarecord4 = DB::table('galleries')->where('section','4')->whereNull('deleted_at')->orderBy('order', 'ASC')->where('status', 1)->first();
             if ($galleryDatarecord4 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord4->id)
@@ -108,10 +108,10 @@ class CommonComposer
             $bannerData = DB::table('banners')->whereNull('deleted_at')->where('status', 1)->orderBy('order','ASC')->get();
             $teamData = DB::table('teams')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
             $footerMenu = DB::table('menus')->whereIn('menu_place', [2,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order','ASC')->get();   
-            $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'desc') ->first();
+            $orgData = DB::table('orgs')->whereNull('deleted_at')->orderBy('created_at', 'ASC') ->first();
             $menus = DB::table('menus')->whereIn('menu_place', [1,3])->where('status', 1)->whereNull('deleted_at')->orderBy('order', 'ASC')->get();
-            $specialitieData = DB::table('specialities')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'desc')->get();
-            $testimonialData = DB::table('testimonials')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'desc')->get();
+            $specialitieData = DB::table('specialities')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
+            $testimonialData = DB::table('testimonials')->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->get();
 
             $headerMenu = $this->getMenuTree($menus, 0);
 

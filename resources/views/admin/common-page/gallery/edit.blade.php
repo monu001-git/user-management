@@ -78,8 +78,10 @@
                                                 {{ old('section', $gallery->section) == '1' ? 'selected' : '' }}>
                                                 Certificates</option>
                                             <option value="2"
-                                                {{ old('section', $gallery->section) == '2' ? 'selected' : '' }}>News
+                                                {{ old('section', $gallery->section) == '2' ? 'selected' : '' }}>News Section
                                             </option>
+
+                                            <option value="5"  {{ old('section', $gallery->section) == '5' ? 'selected' : '' }}>Image Section</option>
                                             <option value="3"
                                                 {{ old('section', $gallery->section) == '3' ? 'selected' : '' }}>Doctor
                                             </option>

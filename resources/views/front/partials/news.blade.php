@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="blog-sec-btnn text-center ">
-            <a href="news-and-media.php" class="link custom-buttomm">View All News &amp; Updates <img src="{{ asset('front/assets/images/icon/arrow-btn1.svg') }}"></a>
+            <a href="{{ url('news-and-media') }}" class="link custom-buttomm">View All News &amp; Updates <img src="{{ asset('front/assets/images/icon/arrow-btn1.svg') }}"></a>
         </div>
     </div>
 </section>

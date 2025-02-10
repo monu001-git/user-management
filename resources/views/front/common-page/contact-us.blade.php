@@ -11,7 +11,7 @@
                 <div class="wpo-breadcumb-wrap">
                     <h2>Contact Us</h2>
                     <ol class="wpo-breadcumb-wrap">
-                        <li><a href="index.php">Home</a></li>
+                        <li><a href="{{ url('/') }}">Home</a></li>
                         <li>Contact</li>
                     </ol>
                 </div>

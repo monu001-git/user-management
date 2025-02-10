@@ -93,11 +93,10 @@ class teamController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+            DB::beginTransaction();
 
-        try {
-
-
-               $departmentName = department::where('id',$request->department)->first();
+        // try {
+                $departmentName = department::where('id',$request->department)->first();
 
                 $team = new Team;
                 $team->name = ucwords($request->name);
@@ -120,20 +119,39 @@ class teamController extends Controller
                     $team->image = $newname;
                 }
                 $team->save();
-
+    
+                $numbers =$request->number ?? [];
+                $texts = $request->text ?? [];
+              
+                foreach ($numbers as $index => $number) {
+                    if ($number) {
+                        $teamStatic = new team_static();
+                        $teamStatic->team_id = $team->id;
+                        $teamStatic->number = $numbers[$index] ?? null;
+                        $teamStatic->text = $texts[$index] ?? null;
+                        $teamStatic->save();
+                    }
+                }
+    
+            DB::commit();
+ 
             return redirect()->route('teams.index')->with('success', 'Team created successfully');
-
+    
+            // } catch (\Exception $e) {
+            //     DB::rollBack();
+            //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            // } catch (\Exception $e) {
+            //     \Log::error('An exception occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            // } catch (\PDOException $e) {
+            //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            // } catch (\Throwable $e) {
+            //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            // }
        
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+      
     }
 
 
@@ -167,9 +185,9 @@ class teamController extends Controller
         try {
         
             $team = team::find(dDecrypt($id));
+            $teamStatic = team_static::whereteam_id(dDecrypt($id))->get();
             $department = department::get();
-            $teamStatic = team_statics::get();
-
+         
             return view('admin.common-page.teams.edit', compact('team','department','teamStatic'));
       
         } catch (\Exception $e) {
@@ -205,35 +223,66 @@ class teamController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
-    
+            DB::beginTransaction();
+
         try {
-
-               $departmentName = department::where('id',$request->department)->first();
-
-
-                $team = Team::find(dDecrypt($id));
-                $team->name = ucwords($request->name);
-                $team->email = $request->email;
-                $team->slug    = Str::slug($request->name, "-");
-                $team->department = $request->department;
-                $team->qualification = $request->qualification;
-                $team->department_name = $departmentName->department;
-                $team->experience = $request->experience;
-                $team->description = $request->description;
-                $team->order = $request->order;
-                $team->status = $request->status;
-                
-                // Handle Image Upload
-                if ($request->hasFile('image')) {
-                    $file = $request->file('image');
-                    $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                    $path = public_path('team/image');
-                    $file->move($path, $newname);
-                    $team->image = $newname;
+                   
+            $departmentName = department::where('id', $request->department)->first();
+            $team = Team::find(dDecrypt($id));
+            $team->name = ucwords($request->name);
+            $team->email = $request->email;
+            $team->slug = Str::slug($request->name, "-");
+            $team->department = $request->department;
+            $team->qualification = $request->qualification;
+            $team->department_name = $departmentName->department;
+            $team->experience = $request->experience;
+            $team->description = $request->description;
+            $team->order = $request->order;
+            $team->status = $request->status;
+            
+            // Handle Image Upload
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $path = public_path('team/image');
+                $file->move($path, $newname);
+                $team->image = $newname;
+            }
+            
+            $team->save();
+            
+            $numbers = $request->number ?? [];
+            $texts = $request->text ?? [];
+            $ids = $request->id ?? [];
+            
+            foreach ($ids as $index => $id) {
+                if ($id) {
+                   
+                    $teamStatic = team_static::find($id);
+                    if ($teamStatic) {  // Ensure the team_static record exists before updating
+                        $teamStatic->team_id = $team->id;
+                        $teamStatic->number = $numbers[$index] ?? null;
+                        $teamStatic->text = $texts[$index] ?? null;
+                        $teamStatic->save();
+                    } else {
+                        // If teamStatic is not found, skip or handle the error appropriately
+                        return redirect()->back()->with('error', 'Team Static record not found for ID: ' . $id);
+                    }
+                } else {
+                    // Create a new team_static record when $id is not provided
+                  
+                    $teamStatic = new team_static();
+                    $teamStatic->team_id = $team->id;
+                    $teamStatic->number = $numbers[$index] ?? null;
+                    $teamStatic->text = $texts[$index] ?? null;
+                    $teamStatic->save();
                 }
-                $team->save(); 
-    
-                return redirect()->route('teams.index')->with('success', 'Team Update successfully');
+            }
+            
+            DB::commit();
+            
+            return redirect()->route('teams.index')->with('success', 'Team Updated successfully');
+            
         
         } catch (\Exception $e) {
             DB::rollBack();
@@ -277,4 +326,29 @@ class teamController extends Controller
             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
         }
     }
+
+    public function deleteTeamStatic(Request $request)
+    {
+        try {
+            $request->validate([
+                'id' => 'required|exists:team_statics,id',
+            ]);
+
+            $item = team_static::find($request->id);
+            $item->delete();
+            return response()->json(['message' => 'Item deleted successfully', 'status' => 200]);
+     
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
+    }
+
+
 }

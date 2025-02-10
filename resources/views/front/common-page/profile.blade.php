@@ -54,18 +54,25 @@
 
                             <div class="at-progress">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
-                                        <div class="progress yellow">
-                                            <span class="progress-left">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <div class="progress-value">25+</div>
-                                            <div class="progress-name"><span>Awards Winning</span></div>
-                                        </div>
-                                    </div>
+
+                                    @if (isset($teamDataStatic) && count($teamDataStatic) > 0)
+                                        @foreach ($teamDataStatic as $teamDataStatics)
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
+                                                <div class="progress yellow">
+                                                    <span class="progress-left">
+                                                        <span class="progress-bar"></span>
+                                                    </span>
+                                                    <span class="progress-right">
+                                                        <span class="progress-bar"></span>
+                                                    </span>
+                                                    <div class="progress-value">{{ $teamDataStatics->number ??'' }}+</div>
+                                                    <div class="progress-name"><span>{{ $teamDataStatics->text ??"" }}</span></div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+
+
                                     {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
                                         <div class="progress blue">
                                             <span class="progress-left">

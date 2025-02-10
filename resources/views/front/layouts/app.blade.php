@@ -57,7 +57,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
@@ -82,13 +82,46 @@
 
             </div>
         </div>
+    </div> --}}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                 <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
+                <div class="modal-body p-0">
+                   <div data-slide="slide" class="slide">
+                    <div class="slide-items">
+                        <img src="assets/images/story/story-01.jpg" alt="story">							
+                    </div>
+                    <div class="slide-items">							
+                        <img src="assets/images/story/story-02.jpg" alt="story">
+                    </div>
+                    <div class="slide-items">
+                        <img src="assets/images/story/story-03.jpg" alt="story">
+                    </div>
+                    <!--div class="slide-items">
+                         <video class="videostory" autoplay muted>
+                             <source src="https://cdn.pixabay.com/video/2024/03/14/204214-923594173_large.mp4" type="video/mp4">
+                         </video>
+                    </div -->
+                    <nav class="slide-nav">
+                        <div class="slide-thumbs"></div>
+                        <button class="slide-prev">Previous</button>
+                        <button class="slide-next">Next</button>
+                    </nav>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
     </div>
+
     <!-- Modal end -->
 
 
     <!-- end of page-wrapper -->
     <div class="three-button">
-        <a href="tel:9711010235">
+        <a href="tel:{{ $orgData->phone ?? "" }}">
             <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 34 34">
                     <g transform="translate(-1637 96)">
                         <path d="M17,0A17,17,0,1,1,0,17,17,17,0,0,1,17,0Z" transform="translate(1637 -96)" fill="#02aa7e" />
@@ -105,7 +138,7 @@
             </div>
             <div class="btn-text"><span>Book an Appointment</span> +91 9711010235</div>
         </a>
-        <a href="#">
+        <a @if($orgData->report_download) href="{{ asset('uploads/report_download/'.$orgData->report_download) }}" @endif download>
             <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 34 34">
                     <g transform="translate(-909 -955)">
                         <circle cx="17" cy="17" r="17" transform="translate(909 955)" fill="#02aa7e" />
@@ -122,7 +155,7 @@
                 </svg></div>
             <div class="btn-report">Download Reports</div>
         </a>
-        <a href="https://wa.me/919711010235?text=Hello" target="_blank">
+        <a href="{{ $orgData->whatsapp ??'' }}" target="_blank">
             <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 34 34">
                     <g transform="translate(-1071 -955)">
                         <circle cx="17" cy="17" r="17" transform="translate(1071 955)" fill="#02aa7e" />

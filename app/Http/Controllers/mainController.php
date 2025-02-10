@@ -62,7 +62,7 @@ class mainController extends Controller
 
 
         $teamDataProfile = DB::table('teams')->where('slug',$slug1)->whereNull('deleted_at')->where('status', 1)->orderBy('order', 'ASC')->first();
-       
+   
     
         if ($menu != null) {
             $contentData = DB::table('contents')
@@ -78,13 +78,17 @@ class mainController extends Controller
                     $image = DB::table('galleries')
                        ->select('galleries.*', 'gallery_entries.*')
                        ->join('gallery_entries', 'galleries.id', '=', 'gallery_entries.gallery_id')
-                       ->where('galleries.section', 3)
+                       ->where('galleries.section', 5)
                        ->whereNull('galleries.deleted_at')
                        ->whereNull('gallery_entries.deleted_at')
+                       ->orderBy('galleries.order', 'asc')
+                        ->where('galleries.status', 1)
                        ->get();
-
+                    
                     $team = DB::table('teams')
                         ->whereNull('deleted_at')
+                        ->orderBy('order', 'asc')
+                        ->where('status', 1)
                         ->get();
 
                     $certificate = DB::table('galleries')
@@ -93,14 +97,18 @@ class mainController extends Controller
                         ->where('galleries.section', 1)
                         ->whereNull('galleries.deleted_at')
                         ->whereNull('gallery_entries.deleted_at')
+                        ->orderBy('galleries.order', 'asc')
+                        ->orWhere('galleries.status', 1)
                         ->get();
 
 
                     $faq = DB::table('faqs')
                         ->whereNull('deleted_at')
+                        ->orderBy('order', 'asc')
+                        ->where('status', 1)
                         ->get();
 
-
+                     
                     $organizedData = [
                         'image' => $image,
                         'team' => $team,
@@ -125,10 +133,7 @@ class mainController extends Controller
         
         
         }else if($teamDataProfile != null){
-
-
-            $galleryDatarecord5 = DB::table('galleries')->where('section','3')->where('doctor',$teamDataProfile->id)->whereNull('deleted_at')->where('status', 1)->first();
-    
+            $galleryDatarecord5 = DB::table('galleries')->where('section','3')->where('doctor',$teamDataProfile->id)->whereNull('deleted_at')->where('status', 1)->first();    
             if ($galleryDatarecord5 != null) {
                 $gallerydetailData = DB::table('gallery_entries')
                     ->where('gallery_id', $galleryDatarecord5->id)
@@ -145,11 +150,39 @@ class mainController extends Controller
                 ];
             }
 
+            $teamDataStatic = DB::table('team_statics')->where('team_id',$teamDataProfile->id)->whereNull('deleted_at')->get();
+       
 
             return view('front.common-page.profile', [
                 'teamDataProfile'=>$teamDataProfile,
-                'galleryDataDoctor'=>$galleryDataDoctor
+                'galleryDataDoctor'=>$galleryDataDoctor,
+                'teamDataStatic'=>$teamDataStatic
             ]);
+        
+        
+        }else if($slug == "news-and-media"){
+        
+            $galleryDatarecord2 = DB::table('galleries')->where('section','2')->whereNull('deleted_at')->orderBy('order', 'desc')->where('status', 1)->first();
+            if ($galleryDatarecord2 != null) {
+                $gallerydetailData = DB::table('gallery_entries')
+                    ->where('gallery_id', $galleryDatarecord2->id)
+                    ->whereNull('deleted_at')
+                    ->get();
+
+                $galleryDataNews = [
+                    'galleryData' => $galleryDatarecord2,
+                    'gallerydetailData' => $gallerydetailData,
+                ];
+            } else {
+                $galleryDataNews = [
+                    
+                ];
+            }
+
+            return view('front.common-page.news-and-media', [
+                'galleryDataNews' => $galleryDataNews
+            ]);
+        
         }else {
             return view('error', [
                 'message' => 'not Found'

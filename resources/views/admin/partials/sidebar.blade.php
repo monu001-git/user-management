@@ -97,6 +97,14 @@
                  </li>
                  @endcan
 
+                 @can('team-list')
+                 <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
+                     <a href="{{ route('teams.index') }}">
+                         <i class="fas fa-qrcode"></i>
+                         <p>Manage Team </p>
+                     </a>
+                 </li>
+                 @endcan
 
                  @can('gallery-list')
                  <li class="nav-item {{ request()->routeIs('gallery.index', 'gallery.create', 'gallery.edit') ? 'active' : '' }}">
@@ -108,23 +116,6 @@
                  @endcan
 
 
-                 @can('team-list')
-                 <li class="nav-item {{ request()->routeIs('teams.index', 'teams.create', 'teams.edit') ? 'active' : '' }}">
-                     <a href="{{ route('teams.index') }}">
-                         <i class="fas fa-qrcode"></i>
-                         <p>Manage Team </p>
-                     </a>
-                 </li>
-                 @endcan
-
-                 @can('testimonial-list')
-                 <li class="nav-item {{ request()->routeIs('testimonials.index', 'testimonials.create', 'testimonials.edit') ? 'active' : '' }}">
-                     <a href="{{ route('testimonials.index') }}">
-                         <i class="fas fa-image"></i>
-                         <p>Manage Testimonial</p>
-                     </a>
-                 </li>
-                 @endcan
 
                  @can('specialitie-list')
                  <li class="nav-item {{ request()->routeIs('specialities.index', 'specialities.create', 'specialities.edit') ? 'active' : '' }}">
@@ -139,6 +130,15 @@
                      <a href="{{ route('faqs.index') }}">
                          <i class="fas fa-image"></i>
                          <p>Manage Faq</p>
+                     </a>
+                 </li>
+                 @endcan
+
+                 @can('testimonial-list')
+                 <li class="nav-item {{ request()->routeIs('testimonials.index', 'testimonials.create', 'testimonials.edit') ? 'active' : '' }}">
+                     <a href="{{ route('testimonials.index') }}">
+                         <i class="fas fa-image"></i>
+                         <p>Manage Testimonial</p>
                      </a>
                  </li>
                  @endcan
