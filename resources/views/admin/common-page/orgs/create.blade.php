@@ -142,13 +142,14 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Report download:</strong>
-                                            <input type="file" name="report_download" 
-                                                value="{{ old('report_download') }}"  class="form-control imagefile">
+                                            <input type="text" name="report_download" minlength="3" maxlength="100"
+                                                placeholder="report download" value="{{ old('report_download') }}"
+                                                class="form-control ">
                                         </div>
                                     </div>
 
 
-                                    
+
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
@@ -259,6 +260,33 @@
 
                                         </div>
                                     </div>
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Head Script:</strong>
+                                            <textarea class="form-control" id="head_script" rows="4" class="form-control" name="head_script">{!! old('head_script') !!}</textarea><br>
+
+                                            @error('head_script')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Body Script:</strong>
+                                            <textarea class="form-control" id="body_script" rows="4" class="form-control" name="body_script">{!! old('body_script') !!}</textarea><br>
+
+                                            @error('body_script')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
 
                                     <hr>
                                     <h3>Social media</h3>
@@ -663,5 +691,7 @@
             CKEDITOR.replace('team_description2');
             CKEDITOR.replace('news_description');
             CKEDITOR.replace('some_point');
+            CKEDITOR.replace('head_script');
+            CKEDITOR.replace('body_script');
         </script>
     @endsection

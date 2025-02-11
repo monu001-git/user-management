@@ -14,7 +14,7 @@
                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
                      <div class="widget about-widget">
 
-                         <p>{{ $orgData->about ?? 'About not available' }}</p>
+                         <p>{!! $orgData->about ?? 'About not available' !!}</p>
 
                          <div class="social-widget">
                              <ul>
@@ -79,7 +79,7 @@
                          </div>
                          <div class="contact-ft">
                              <ul>
-                                 <li><i class="fi flaticon-placeholder"></i>{{ $orgData->address ??"Address not available" }}</li>
+                                 <li><i class="fi flaticon-placeholder"></i>{!! $orgData->address ??"Address not available" !!}</li>
                                  <li><i class="fi flaticon-phone-call"></i>{{ $orgData->phone ?? "Phone not available" }}</li>
                                  <li><i class="fi flaticon-email"></i>{{ $orgData->email ?? "Email not available" }}</li>
                              </ul>

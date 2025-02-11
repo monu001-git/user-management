@@ -197,16 +197,12 @@ class orgController extends Controller
             $data->testimonial_heading = $request->testimonial_heading;
 
             $data->whatsapp = $request->whatsapp;
+            $data->report_download = $request->report_download;
          
-            $path = public_path('uploads/report_download');
-            if ($request->hasFile('report_download')) {
-                $file = $request->file('report_download');
-                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                $file->move($path, $newname);
-                $data->report_download = $newname;
-            }
-
-            
+            $data->head_script = $request->head_script;
+            $data->body_script = $request->body_script;
+         
+   
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure Created Successfully');
@@ -397,15 +393,11 @@ class orgController extends Controller
             $data->testimonial_heading = $request->testimonial_heading;
 
             $data->whatsapp = $request->whatsapp;
+            $data->report_download = $request->report_download;
 
-            $path = public_path('uploads/report_download');
-            if ($request->hasFile('report_download')) {
-                $file = $request->file('report_download');
-                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
-                $file->move($path, $newname);
-                $data->report_download = $newname;
-            }
-        
+            $data->head_script = $request->head_script;
+            $data->body_script = $request->body_script;
+         
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure updated successfully');

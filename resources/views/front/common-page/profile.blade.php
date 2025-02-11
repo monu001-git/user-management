@@ -65,8 +65,9 @@
                                                     <span class="progress-right">
                                                         <span class="progress-bar"></span>
                                                     </span>
-                                                    <div class="progress-value">{{ $teamDataStatics->number ??'' }}+</div>
-                                                    <div class="progress-name"><span>{{ $teamDataStatics->text ??"" }}</span></div>
+                                                    <div class="progress-value">{{ $teamDataStatics->number ?? '' }}+</div>
+                                                    <div class="progress-name">
+                                                        <span>{{ $teamDataStatics->text ?? '' }}</span></div>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -113,13 +114,13 @@
                             </div>
                         </div>
 
+                        @if (isset($galleryDataDoctor) && count($galleryDataDoctor) > 0)
+                            @foreach ($galleryDataDoctor['gallerydetailData'] as $galleryDoctor)
+                                <div class="wpo-contact-area ex-wiget certificate pb-0">
+                                    <h2>Certificates</h2>
+                                    <div class="row certificatee">
 
-                        <div class="wpo-contact-area ex-wiget certificate pb-0">
-                            <h2>Certificates</h2>
-                            <div class="row certificatee">
 
-                                @if (isset($galleryDataDoctor) && count($galleryDataDoctor) > 0)
-                                    @foreach ($galleryDataDoctor['gallerydetailData'] as $galleryDoctor)
                                         <div class="col-lg-3 col-md-6 col-12">
                                             <div class="certificate-img">
                                                 <div class="img-holder">
@@ -134,10 +135,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

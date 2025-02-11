@@ -141,17 +141,13 @@
                                         </div>
                                     </div>
 
+                                  
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Report download:</strong>
-                                            <span style="color:green;font-size:12px;">
-                                                @if ($org->report_download)
-                                                    [{{ $org->report_download }}]
-                                                @endif
-                                            </span>
-
-                                            <input type="file" name="report_download" class="form-control imagefile"
-                                            @if ($org->report_download) value="{{ $org->report_download ?? '' }}" @endif >
+                                            <input  type="text" name="report_download" minlength="3" maxlength="100"
+                                            value="{{ $org->report_download ?? '' }}" placeholder="report download"
+                                            class="form-control ">
                                         </div>
                                     </div>
 
@@ -269,6 +265,37 @@
                                                 value="{{ $org->map ?? '' }}" class="form-control">
                                         </div>
                                     </div>
+
+
+
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Head Script Tag:</strong>
+                                            <textarea class="form-control" id="head_script" rows="4" class="form-control" name="head_script">{!!  $org->head_script !!}</textarea><br>
+
+                                            @error('head_script')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Body Script Tag:</strong>
+                                            <textarea class="form-control" id="body_script" rows="4" class="form-control" name="body_script">{!!  $org->body_script !!}</textarea><br>
+
+                                            @error('body_script')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
+
 
                                     <hr>
                                     <h3>Social media</h3>
@@ -573,8 +600,8 @@
                                         <div class="form-group">
                                             <strong>News title :</strong>
                                             <input type="text" name="news_title" minlength="3" maxlength="30"
-                                            placeholder="Enter news title"
-                                                value="{{ $org->news_title ?? '' }}" class="form-control preventnumeric">
+                                                placeholder="Enter news title" value="{{ $org->news_title ?? '' }}"
+                                                class="form-control preventnumeric">
                                         </div>
                                     </div>
 
@@ -582,8 +609,7 @@
                                         <div class="form-group">
                                             <strong>News Heading :</strong>
                                             <input type="text" name="news_heading" minlength="3" maxlength="100"
-                                               placeholder="Enter news heading"
-                                                value="{{ $org->news_heading ?? '' }}"
+                                                placeholder="Enter news heading" value="{{ $org->news_heading ?? '' }}"
                                                 class="form-control preventnumeric">
                                         </div>
                                     </div>
@@ -607,9 +633,9 @@
                                             </span>
 
                                             <input type="file" name="middle_image" class="form-control "
-                                            @if ($org->middle_image) value="{{ $org->middle_image ?? '' }}" @endif >
+                                                @if ($org->middle_image) value="{{ $org->middle_image ?? '' }}" @endif>
                                         </div>
-                                    </div>report_download
+                                    </div>
 
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
@@ -626,8 +652,8 @@
                                             <strong>Testimonial title :</strong>
                                             <input type="text" name="testimonial_title"
                                                 placeholder="Enter testimonial title"
-                                                value="{{ $org->testimonial_title ?? '' }}" minlength="3" maxlength="30"
-                                                class="form-control preventnumeric">
+                                                value="{{ $org->testimonial_title ?? '' }}" minlength="3"
+                                                maxlength="30" class="form-control preventnumeric">
                                         </div>
                                     </div>
 
@@ -680,6 +706,8 @@
             CKEDITOR.replace('team_description2');
             CKEDITOR.replace('news_description');
             CKEDITOR.replace('some_point');
+            CKEDITOR.replace('head_script');
+            CKEDITOR.replace('body_script');
         </script>
 
     @endsection

@@ -70,6 +70,7 @@ class PermissionTableSeeder extends Seeder
            'faq-delete',
 
            'appointment-list',
+           'appointment-edit',
            'appointment-delete',
            
            'testimonial-list',

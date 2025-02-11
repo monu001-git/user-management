@@ -77,13 +77,13 @@
 
           <div class="row justify-content-center">
               <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center">
-                  <h6>
+                  <h7>
                       @if (!empty($orgData->specialities_description2))
-                          {!! substr_replace($orgData->specialities_description1, '...', 600) !!}
+                          {!! substr_replace($orgData->specialities_description2, '...', 600) !!}
                       @else
                           No description available
                       @endif
-                  </h6>
+                  </h7>
                   <a href="tel:{{ $orgData->specialities_phone ?? '' }}"><img
                           src="{{ asset('front/assets/images/icon/call-btn.svg') }}" alt=""></a>
               </div>

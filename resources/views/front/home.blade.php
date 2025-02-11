@@ -8,9 +8,9 @@
 
 @include('front.partials.Team')
 
-@include('front.partials.somePoint')
-
 @include('front.partials.conter')
+
+@include('front.partials.somePoint')
 
 @include('front.partials.news')
 

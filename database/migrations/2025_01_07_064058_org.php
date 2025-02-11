@@ -86,6 +86,9 @@ return new class extends Migration
         //report download    
            $table->string('report_download', 255)->nullable();
 
+           $table->text('body_script')->nullable();
+           $table->text('head_script')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

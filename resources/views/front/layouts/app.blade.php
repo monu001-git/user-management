@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    
     <meta name="title" content="{{ $orgData->meta_title ?? 'Default Title' }}">
     <meta name="keywords" content="{{ $orgData->meta_keyword ??"" }}">
     <meta name="description" content="{{ $orgData->meta_description ??"" }}">
@@ -138,7 +139,7 @@
             </div>
             <div class="btn-text"><span>Book an Appointment</span> +91 9711010235</div>
         </a>
-        <a @if($orgData->report_download) href="{{ asset('uploads/report_download/'.$orgData->report_download) }}" @endif download>
+        <a @if(isset($orgData->report_download)) href="{{ asset('uploads/report_download/'.$orgData->report_download) }}" @endif download>
             <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 34 34">
                     <g transform="translate(-909 -955)">
                         <circle cx="17" cy="17" r="17" transform="translate(909 955)" fill="#02aa7e" />

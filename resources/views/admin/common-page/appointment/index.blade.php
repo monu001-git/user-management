@@ -58,6 +58,11 @@
                                                 <td>{{ $appointments->gender }}</td>
                                                 <td>{{ $appointments->date }}</td>
                                                 <td>
+
+                                                    @can('appointment-edit')
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('appointments.edit',dEncrypt($appointments->id)) }}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                                    @endcan
+
                                                     @can('appointment-delete')
                                                         <form method="POST"
                                                             action="{{ route('appointments.destroy', dEncrypt($appointments->id)) }}"

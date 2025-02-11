@@ -41,9 +41,11 @@
 
                @endif
            </div>
+           @if (isset($bannerData) && count($bannerData) > 0)
            <div class="swiper-pagination"></div>
            <div class="swiper-button-next"></div>
            <div class="swiper-button-prev"></div>
+           @endif
        </div>
 
    </section>

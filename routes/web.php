@@ -18,6 +18,7 @@ use App\Http\Controllers\specialitiesController;
 use App\Http\Controllers\appointmentController;
 use App\Http\Controllers\testimonialController;
 use App\Http\Controllers\departmentController;
+use App\Http\Controllers\blogController;
 
 Auth::routes();
 
@@ -36,6 +37,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('testimonials',testimonialController ::class);
     Route::resource('appointments',appointmentController::class);
     Route::resource('faqs',faqController ::class);
+    Route::get('doctor-lists',[appointmentController::class,'doctorList']);
     Route::get('delete-gallery-detail', [galleryController::class, 'deleteItem'])->name('delete-item');
     Route::get('team-static', [teamController::class, 'deleteTeamStatic'])->name('delete-team');
     Route::controller(commonController::class)->group(function () {

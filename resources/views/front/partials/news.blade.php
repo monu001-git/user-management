@@ -21,12 +21,15 @@
                 <div class="video-slider owl-carousel owl-theme">
                     @if(isset($galleryDataNews) && count($galleryDataNews) > 0 )
                     @foreach ($galleryDataNews['gallerydetailData'] as $galleryNews)
+                    
+
                     <div class="notice-block-two">
                         <div class="video-single-img">
-                            <img src="{{ asset('uploads/content/image'.'/'.$galleryNews->image ) }}" title="{{ $galleryNews->title ??"" }}">
+                           <img src="{{ asset('uploads/content/image'.'/'.$galleryNews->image ) }}" title="{{ $galleryNews->title ??"" }}">
                         </div>
-                        <a href="{{ $galleryNews->file ??"" }}" class="video-btn" data-type="iframe"><img src="{{ $galleryNews->file ??"" }}" /></a>
+                        <a href="{{ $galleryNews->file ??"" }}"  class="video-btn" data-type="iframe"><img src="assets/images/icon/play.svg"/></a>
                     </div>
+
                     @endforeach
 
                     @else

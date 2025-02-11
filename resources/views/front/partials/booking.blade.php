@@ -109,7 +109,7 @@
                                          
                                         </select>
 
-                                        @error('department')
+                                        @error('doctor')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
