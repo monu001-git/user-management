@@ -142,12 +142,13 @@
 
                                             <div class="col-4" id="fileInputContainer" style="display: none;">
                                                 <input type="file" minlength="3" maxlength="100"
-                                                    class="form-control " name="image1[]" id="fileInput" />
+                                                    class="form-control  image1" name="image1[]" id="fileInput" />
                                             </div>
 
 
                                             <div class="col-4 urlInputContainer" style="display: none;">
-                                                <input type="file" class="form-control " name="image2[]"
+                                                <input type="file" class="form-control image2" name="image2[]"
+                                                minlength="3" maxlength="100"
                                                     id="imageInput" />
                                             </div>
 
@@ -183,6 +184,8 @@
 
 
         <script>
+
+
             $(document).ready(function() {
                 $('#doctorDropdown').hide();
                 $('#section').trigger('change');
@@ -245,6 +248,7 @@
                     }
                 });
             });
+
         </script>
 
 

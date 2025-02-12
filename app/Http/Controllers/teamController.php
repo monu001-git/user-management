@@ -83,6 +83,7 @@ class teamController extends Controller
      */
     public function store(Request $request)
     {
+         try {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|max:255|unique:teams,email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
@@ -95,7 +96,7 @@ class teamController extends Controller
         }
             DB::beginTransaction();
 
-        // try {
+       
                 $departmentName = department::where('id',$request->department)->first();
 
                 $team = new Team;
@@ -137,21 +138,20 @@ class teamController extends Controller
  
             return redirect()->route('teams.index')->with('success', 'Team created successfully');
     
-            // } catch (\Exception $e) {
-            //     DB::rollBack();
-            //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            // } catch (\Exception $e) {
-            //     \Log::error('An exception occurred: ' . $e->getMessage());
-            //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-            // } catch (\PDOException $e) {
-            //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-            //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-            // } catch (\Throwable $e) {
-            //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-            // }
-       
-      
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\Exception $e) {
+                \Log::error('An exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+            } catch (\PDOException $e) {
+                \Log::error('A PDOException occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+            } catch (\Throwable $e) {
+                \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+                return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+            }
+    
     }
 
 
@@ -212,6 +212,7 @@ class teamController extends Controller
     public function update(Request $request, $id)
     {
        
+        try {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|max:255|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/i',
@@ -224,9 +225,7 @@ class teamController extends Controller
         }
     
             DB::beginTransaction();
-
-        try {
-                   
+ 
             $departmentName = department::where('id', $request->department)->first();
             $team = Team::find(dDecrypt($id));
             $team->name = ucwords($request->name);
@@ -259,18 +258,17 @@ class teamController extends Controller
                 if ($id) {
                    
                     $teamStatic = team_static::find($id);
-                    if ($teamStatic) {  // Ensure the team_static record exists before updating
+                    if ($teamStatic) {  
                         $teamStatic->team_id = $team->id;
                         $teamStatic->number = $numbers[$index] ?? null;
                         $teamStatic->text = $texts[$index] ?? null;
                         $teamStatic->save();
                     } else {
-                        // If teamStatic is not found, skip or handle the error appropriately
+                    
                         return redirect()->back()->with('error', 'Team Static record not found for ID: ' . $id);
                     }
                 } else {
-                    // Create a new team_static record when $id is not provided
-                  
+                   
                     $teamStatic = new team_static();
                     $teamStatic->team_id = $team->id;
                     $teamStatic->number = $numbers[$index] ?? null;

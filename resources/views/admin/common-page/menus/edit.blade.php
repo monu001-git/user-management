@@ -45,9 +45,9 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Name:</strong>
-                                    <input type="text" name="name" minlength="1" maxlength="25" placeholder="Name" class="form-control" value="{{ $menu->name }}">
+                                    <input type="text" name="name" minlength="3" maxlength="30" placeholder="Name" class="form-control preventnumeric" value="{{ $menu->name ??'' }}">
 
-                                    @error('order')
+                                    @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -61,8 +61,8 @@
                                     <select name="parent_id" class="form-control">
                                         <option value=''>Section Option</option>
                                         @foreach($parentId as $value)
-                                        <option value='{{ $value->id }}' @if($value->id == $menu->parent_id) selected @endif>
-                                            {{ $value->name }}
+                                        <option value='{{ $value->id  ??""}}' @if($value->id == $menu->parent_id) selected @endif>
+                                            {{ $value->name ??"" }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -78,8 +78,8 @@
                                     <select name="content_id" class="form-control">
                                         <option value=''>Section Option</option>
                                         @foreach($contentId as $contentlist)
-                                        <option value='{{ $contentlist->id }}' @if($contentlist->id == $menu->content_id) selected @endif>
-                                            {{ $contentlist->title }}
+                                        <option value='{{ $contentlist->id  ??""}}' @if($contentlist->id == $menu->content_id) selected @endif>
+                                            {{ $contentlist->title ??"" }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -97,7 +97,7 @@
                                         <option value="1" {{ old('link_type', $menu->link_type) == 1 ? 'selected' : '' }}>Internal</option>
                                     </select>
 
-                                    @error('order')
+                                    @error('link_type')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -106,7 +106,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12" id="url-input-group" style="display: none;">
                                 <div class="form-group">
                                     <strong>Url:</strong>
-                                    <input type="text" name="url" placeholder="url" value="{{ $menu->url  ??''}}" class="form-control">
+                                    <input type="text" name="url" placeholder="url"  minlength="3" maxlength="100" value="{{ $menu->url  ??''}}" class="form-control">
                                 </div>
                             </div>
 
@@ -122,7 +122,7 @@
                                         <option value="3" {{ old('menu_place', $menu->menu_place) == 3 ? 'selected' : '' }}>Both</option>
                                     </select>
 
-                                    @error('order')
+                                    @error('menu_place')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -133,7 +133,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Sort Order:</strong>
-                                    <input type="text" minlenght="1" maxlength="3" name="order" value={{ $menu->order }} placeholder="Sort order" class="form-control">
+                                    <input type="text" minlenght="1" maxlength="3" name="order" value={{ $menu->order }} placeholder="Sort order" class="form-control mobile_no">
                                 </div>
                             </div>
 

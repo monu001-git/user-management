@@ -103,7 +103,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Image *: [Width:1920px, Height:500px]</strong>
+                                    <strong>Image *:</strong>
                                     <span style="color:green;font-size:12px;">
                                         @if($banner->image)
                                         [{{$banner->image}}]

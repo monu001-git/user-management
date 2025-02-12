@@ -71,3 +71,28 @@ $('.image').on('change', function () {
         $('.image').val("");
     }
 });
+
+var doc_file1 = "";
+$('.image1').on('change', function () {
+    doc_file1 = $(".image1").val();
+    console.log(doc_file3);
+    var doc_file1_ext = doc_file1.split('.').pop()
+        .toLowerCase();
+    if (doc_file1_ext == 'png' || doc_file1_ext == 'jpg' || doc_file1_ext == 'jpeg' || doc_file1_ext == 'svg') {
+    } else {
+        alert("Only PNG, JPG, and JPEG files are allowed");
+        $('.image1').val("");
+    }
+});
+
+var doc_file2 = "";
+$('.image2').on('change', function () {
+    doc_file2 = $(".image2").val();
+    var doc_file2_ext = doc_file2.split('.').pop()
+        .toLowerCase();
+    if (doc_file2_ext == 'png' || doc_file2_ext == 'jpg' || doc_file2_ext == 'jpeg' || doc_file2_ext == 'svg') {
+    } else {
+        alert("Only PNG, JPG, and JPEG files are allowed");
+        $('.image2').val("");
+    }
+});

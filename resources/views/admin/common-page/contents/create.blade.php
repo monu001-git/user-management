@@ -232,7 +232,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentImage" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Image:</strong>
-                                        <input type="file" name="image" placeholder="content " class="form-control image">
+                                        <input type="file" name="image" placeholder="content" class="form-control image1">
                                     </div>
                                 </div>
 
@@ -263,7 +263,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentImage2" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Image:</strong>
-                                        <input type="file" name="image2" placeholder="content " class="form-control ">
+                                        <input type="file" name="image2" placeholder="content" class="form-control image2">
                                     </div>
                                 </div>
 

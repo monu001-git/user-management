@@ -1,6 +1,23 @@
 @extends('front.layouts.app')
 
+
 @section('content')
+
+
+
+@if(isset($content) &&  $content->meta_title != null)
+@section('meta_title', $content->meta_title )
+@endif
+
+@if(isset($content) &&  $content->meta_keyword != null)
+@section('meta_keyword', $content->meta_keyword)
+@endif
+
+@if(isset($content) &&  $content->meta_description != null)
+@section('meta_description', $content->meta_description)
+@endif
+
+
 
 @if (isset($content->banner) && $content->image != null)
 <section class="wpo-page-title" style="background: url( {{ asset('front/assets/images/about-us/about-banner.jpg') }}) no-repeat center top/cover;">

@@ -147,7 +147,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Content banner: [Width:1920px, Height:500px]</strong>
+                                        <strong>Content banner:</strong>
                                         <span style="color:green;font-size:12px;">
                                             @if ($content->banner)
                                             [{{ $content->banner }}]
@@ -224,7 +224,7 @@
                                     <div class="form-group">
                                         <strong>Content left and image right:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleLayout" name="left_right" @if ($content->left_right == 'on') checked  @endif>
+                                            <input type="checkbox" id="toggleLayout" @if($content->left_right == 'on') value="{{ $content->left_right }}" @else value=""  @endif name="left_right" @if ($content->left_right == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -249,7 +249,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image" class="form-control " @if ($content->image) value="{{ $content->image ??'' }}" @endif>
+                                        <input type="file" name="image" class="form-control image1" @if ($content->image) value="{{ $content->image ??'' }}" @endif>
                                     </div>
                                 </div>
 
@@ -262,7 +262,7 @@
                                     <div class="form-group">
                                         <strong>Content right and image left:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleRightLeft" name="right_left" @if ($content->right_left == 'on') checked  @endif>
+                                            <input type="checkbox" id="toggleRightLeft" @if($content->right_left == 'on') value="{{ $content->right_left }}" @else value=""  @endif  name="right_left" @if ($content->right_left == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -288,7 +288,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="image2" class="form-control " @if ($content->image2) value="{{ $content->image2  ??''}}" @endif>
+                                        <input type="file" name="image2" class="form-control image2" @if ($content->image2) value="{{ $content->image2  ??''}}" @endif>
                                     </div>
                                 </div>
 
@@ -301,7 +301,7 @@
                                     <div class="form-group">
                                         <strong>Center Content:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="center_content" id="toggleButton"  @if($content->center_content == 'on') checked  @endif>
+                                            <input type="checkbox" name="center_content" id="toggleButton" @if($content->center_content == 'on') value="{{ $content->center_content }}" @else value=""  @endif  @if($content->center_content == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentToShow" style="display: none;">
                                     <div class="form-group">
                                         <strong>Content Description:</strong>
-                                        <textarea name="descriptions3" placeholder="description3" class="form-control">{!! $content->descriptions3 ??'' !!}</textarea>
+                                        <textarea name="descriptions3" placeholder="description3"   class="form-control">{!! $content->descriptions3 ??'' !!}</textarea>
                                     </div>
                                 </div>
                                 {{-- center content end --}}
@@ -343,22 +343,28 @@
             var selectedValue1 = $('#toggleButton').val();
             var selectedValue2 = $('#toggleLayout').val();
             var selectedValue3 = $('#toggleRightLeft').val();
-
+   
             console.log('selectedValue1',selectedValue1)
             console.log('selectedValue2',selectedValue2)
             console.log('selectedValue3',selectedValue3)
-        
 
-            if (selectedValue1 = 'on') {
+    
+            if (selectedValue1 == 'on') {
                 $(" #contentToShow").show();
+            }else{
+                $(" #contentToShow").hide();
             }
 
-            if (selectedValue2 = 'on') {
+            if (selectedValue2 == 'on') {
                 $("#contentDescription, #contentImage").show();
+            }else{
+                $("#contentDescription, #contentImage").hide();
             }
 
-            if (selectedValue3 = 'on') {
+            if (selectedValue3 == 'on') {
                 $("#contentDescription2, #contentImage2").show();
+            }else{
+                $("#contentDescription2, #contentImage2").hide();
             }
 
 

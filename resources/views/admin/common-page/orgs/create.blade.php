@@ -417,7 +417,7 @@
                                             <strong>Count Number 3 :</strong>
                                             <input type="text" name="number_count3"
                                                 value="{{ old('number_count3') }}" placeholder="Enter Third count Number"
-                                                minlength="1" maxlength="3" class="form-control moblie_no">
+                                                minlength="1" maxlength="3" class="form-control mobile_no">
                                         </div>
                                     </div>
 
@@ -447,7 +447,7 @@
                                             <input type="text" name="number_count4"
                                                 value="{{ old('number_count4') }}"
                                                 placeholder="Enter Fourth count Number" minlength="1" maxlength="3"
-                                                class="form-control moblie_no">
+                                                class="form-control mobile_no">
                                         </div>
                                     </div>
 
@@ -618,7 +618,7 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <strong>Middle Image:</strong>
-                                            <input type="file" name="middle_image" class="form-control">
+                                            <input type="file" name="middle_image" class="form-control image2">
                                         </div>
                                     </div>
 

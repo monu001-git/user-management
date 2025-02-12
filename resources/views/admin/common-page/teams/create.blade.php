@@ -143,7 +143,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Image</strong>
-                                        <input type="file" name="image" class="form-control image">
+                                        <input type="file" name="image" class="form-control image1">
                                         @error('image')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -156,13 +156,13 @@
                                     <div id="imageItemsContainer">
                                         <div class="form-group row mb-3">
                                             <div class="col-4">
-                                                <input type="text" minlength="3" maxlength="100"
-                                                    class="form-control preventnumeric" name="number[]"
+                                                <input type="text" minlength="1" maxlength="3"
+                                                    class="form-control mobile_no" name="number[]"
                                                     placeholder="number" />
                                             </div>
 
                                             <div class="col-4">
-                                                <input type="text" minlength="3" maxlength="100"
+                                                <input type="text" minlength="3" maxlength="30"
                                                     class="form-control preventnumeric" name="text[]"
                                                     placeholder="text" />
                                             </div>

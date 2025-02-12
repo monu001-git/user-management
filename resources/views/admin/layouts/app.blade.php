@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @if (isset($orgData->name) && $orgData->name != null)
+        <title>{{ $orgData->name }}</title>
+    @endif
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -26,6 +29,11 @@
 
     <link rel="icon" href="{{ asset('admin/assets/img/kaiadmin/favicon.ico') }}" type="image/x-icon" />
 
+    @if (isset($orgData->favicon))
+        <link rel="icon" href="{{ asset('uploads/logo/favicon' . '/' . $orgData->favicon) }}"
+            title="{{ $orgData->favicon_title ?? '' }}"type="image/x-icon" />
+    @endif
+
     <!-- Fonts and icons -->
     <script src="{{ asset('admin/assets/js/plugin/webfont/webfont.min.js') }}"></script>
 
@@ -33,21 +41,18 @@
         WebFont.load({
             google: {
                 families: ["Public Sans:300,400,500,600,700"]
-            }
-            , custom: {
+            },
+            custom: {
                 families: [
-                    "Font Awesome 5 Solid"
-                    , "Font Awesome 5 Regular"
-                    , "Font Awesome 5 Brands"
-                    , "simple-line-icons"
-                , ]
-                , urls: ["{{ asset('admin/assets/css/fonts.min.css') }}"]
-            , }
-            , active: function() {
+                    "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["{{ asset('admin/assets/css/fonts.min.css') }}"],
+            },
+            active: function() {
                 sessionStorage.fonts = true;
-            }
-        , });
-
+            },
+        });
     </script>
 
     <!-- CSS Files -->
@@ -58,9 +63,10 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}" />
 
-    
-    <script src="{{url('admin/assets/ckeditor/ckeditor.js')}}"></script>
+
+    <script src="{{ url('admin/assets/ckeditor/ckeditor.js') }}"></script>
 </head>
+
 <body>
 
     <div class="wrapper">
@@ -73,7 +79,8 @@
 
                     <div class="logo-header" data-background-color="dark">
                         <a href="" class="logo">
-                            <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg')}}" alt="navbar brand" class="navbar-brand" height="20" />
+                            <img src="{{ asset('admin/assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand"
+                                class="navbar-brand" height="20" />
                         </a>
                         <div class="nav-toggle">
                             <button class="btn btn-toggle toggle-sidebar">
@@ -103,7 +110,7 @@
     </div>
 
 
-    
+
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/common.js') }}"></script>
@@ -143,32 +150,31 @@
     <script src="{{ asset('admin/assets/js/demo.js') }}"></script>
     <script>
         $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
-            type: "line"
-            , height: "70"
-            , width: "100%"
-            , lineWidth: "2"
-            , lineColor: "#177dff"
-            , fillColor: "rgba(23, 125, 255, 0.14)"
-        , });
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#177dff",
+            fillColor: "rgba(23, 125, 255, 0.14)",
+        });
 
         $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-            type: "line"
-            , height: "70"
-            , width: "100%"
-            , lineWidth: "2"
-            , lineColor: "#f3545d"
-            , fillColor: "rgba(243, 84, 93, .14)"
-        , });
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#f3545d",
+            fillColor: "rgba(243, 84, 93, .14)",
+        });
 
         $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-            type: "line"
-            , height: "70"
-            , width: "100%"
-            , lineWidth: "2"
-            , lineColor: "#ffa534"
-            , fillColor: "rgba(255, 165, 52, .14)"
-        , });
-
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#ffa534",
+            fillColor: "rgba(255, 165, 52, .14)",
+        });
     </script>
 
 

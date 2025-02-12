@@ -152,11 +152,11 @@
                                         <strong>Image:</strong>
                                         <span style="color:green;font-size:12px;">
                                             @if ($team->image)
-                                                [{{ $team->image }}]
+                                                [{{ $team->image ??'' }}]
                                             @endif
                                         </span>
-                                        <input type="file" name="image" class="form-control image"
-                                            @if ($team->image) value="{{ $team->image }}" @endif>
+                                        <input type="file" name="image" class="form-control image1"
+                                            @if ($team->image) value="{{ $team->image ??"" }}" @endif>
                                     </div>
                                 </div>
 
@@ -174,13 +174,13 @@
 
 
                                             <div class="col-4">
-                                                <input type="text" minlength="3" maxlength="100"
-                                                    class="form-control preventnumeric" name="number[]"
+                                                <input type="text" minlength="1" maxlength="3"
+                                                    class="form-control mobile_no" name="number[]"
                                                     value="{{ $teamStatics->number ?? '' }}" placeholder="number" />
                                             </div>
 
                                             <div class="col-4">
-                                                <input type="text" minlength="3" maxlength="100"
+                                                <input type="text" minlength="3" maxlength="30"
                                                     class="form-control preventnumeric" name="text[]"
                                                     value="{{ $teamStatics->text ?? '' }}" placeholder="text" />
                                             </div>
@@ -227,17 +227,21 @@
             const newRowHtml = `
 
             <div class="form-group row mb-3">
+
+                <input type="hidden" class="form-control" name="id[]" value="" />
+
                 <div class="col-4">
-                    <input type="text" minlength="3" maxlength="100"
-                        class="form-control preventnumeric" name="number[]"
+                    <input type="text" minlength="1" maxlength="3"
+                        class="form-control mobile_no" name="number[]"
                       placeholder="number" />
                 </div>
-                   <input type="hidden" class="form-control" name="id[]" value="" />
+                
                 <div class="col-4">
-                    <input type="text" minlength="3" maxlength="100"
+                    <input type="text" minlength="3" maxlength="30"
                         class="form-control preventnumeric" name="text[]"
                         placeholder="text" />
                 </div>
+
                 <div class="col-3">
                     <button type="button" class="btn btn-danger" onclick="removeItem(this)">Delete</button>
                 </div>
@@ -259,7 +263,7 @@
                 });
 
                 $.ajax({
-                    url: '/team-static',
+                    url: "{{ url('team-static') }}",
                     type: 'get',
                     data: {
                         id: id,
@@ -295,7 +299,6 @@
                 $('#doctorDropdown').hide();
                 $('#doctorList').removeAttr('required');
             }
-            // });
         });
     </script>
 

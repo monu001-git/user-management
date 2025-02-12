@@ -206,6 +206,7 @@ class contentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), [
             'title'            => 'required|string|max:255',

@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <strong>Name:</strong>
                                         <input type="text" name="name" minlength="3" maxlength="100"
-                                            placeholder="event name" value="{{ $gallery->name }}"
+                                            placeholder="event name" value="{{ $gallery->name  ??''}}"
                                             class="form-control preventnumeric">
                                     </div>
                                 </div>
@@ -120,13 +120,13 @@
                                     <div class="form-group">
                                         <strong>Sort order:</strong>
                                         <input type="text" minlength="1" maxlength="3" name="order"
-                                            value="{{ $gallery->order }}" placeholder="sort order"
+                                            value="{{ $gallery->order  ??''}}" placeholder="sort order"
                                             class="form-control mobile_no">
                                     </div>
                                 </div>
 
 
-                                <input type="hidden" name="status" value="{{ $gallery->status }}" class="form-control">
+                                <input type="hidden" name="status" value="{{ $gallery->status ??'' }}" class="form-control">
 
                                 <!-- Image Items Section --><br><br><br><br>
                                 <h5 style="text-align:center;">Gallery Upload</h5>
@@ -134,7 +134,7 @@
                                     @foreach ($gallerydetail as $i => $gallerydetails)
                                         <div class="form-group row mb-3">
 
-                                            <div class="col-4">
+                                            <div class="col-3">
                                                 <strong>Image title:</strong>
                                                 <input type="text" class="form-control preventnumeric" minlength="3"
                                                     maxlength="100" name="title[]" placeholder="Image title"
@@ -147,7 +147,7 @@
 
 
                                             @if ($gallery->file_type == 'i')
-                                                <div class="col-4">
+                                                <div class="col-3">
                                                     <strong>Image:</strong>
                                                     <span style="color:green;font-size:12px;">
                                                         @if ($gallerydetails->image)
@@ -155,7 +155,7 @@
                                                         @endif
                                                     </span>
 
-                                                    <input type="file" name="image1[]" class="form-control image"
+                                                    <input type="file" name="image1[]" class="form-control image1"
                                                         @if ($gallerydetails->image) value="{{ $gallerydetails->image }}" @endif>
                                                 </div>
                                             @else
@@ -167,8 +167,8 @@
                                                         @endif
                                                     </span>
 
-                                                    <input type="file" name="image2[]" class="form-control image"
-                                                        @if ($gallerydetails->image) value="{{ $gallerydetails->image }}" @endif>
+                                                    <input type="file" name="image2[]" class="form-control image2"
+                                                        @if ($gallerydetails->image) value="{{ $gallerydetails->image  ??''}}" @endif>
                                                 </div>
 
 

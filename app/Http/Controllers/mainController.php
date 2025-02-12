@@ -73,6 +73,7 @@ class mainController extends Controller
 
 
             if ($contentData != null) {
+
                 $organizedData = [];
 
                     $image = DB::table('galleries')

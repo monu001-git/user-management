@@ -632,7 +632,7 @@
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="middle_image" class="form-control "
+                                            <input type="file" name="middle_image" class="form-control image2"
                                                 @if ($org->middle_image) value="{{ $org->middle_image ?? '' }}" @endif>
                                         </div>
                                     </div>
