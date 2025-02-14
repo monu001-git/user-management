@@ -18,9 +18,9 @@
 @endif
 
 
+@if (isset($content->banner) && $content->banner != null)
 
-@if (isset($content->banner) && $content->image != null)
-<section class="wpo-page-title" style="background: url( {{ asset('front/assets/images/about-us/about-banner.jpg') }}) no-repeat center top/cover;">
+<section class="wpo-page-title" style="background: url( {{ asset('uploads/banner/'.$content->banner) }}) no-repeat center top/cover;">
     <div class="container">
         <div class="row">
             <div class="col col-xs-12">

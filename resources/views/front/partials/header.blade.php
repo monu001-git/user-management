@@ -18,8 +18,8 @@
                           <div class="navbar-header">
                               @if (isset($orgData->header_logo))
                                   <a class="navbar-brand" href="{{ url('/') }}"><img
-                                          src="{{ asset('uploads/logo/headerlogo' . '/' . $orgData->header_logo ?? '') }}"
-                                          title="{{ $orgData->header_logo_title ?? '' }}"></a>
+                                      @if(isset($orgData->header_logo)) src="{{ asset('uploads/logo/headerlogo' . '/' . $orgData->header_logo ?? '') }}"
+                                        @endif   title="{{ $orgData->header_logo_title ?? '' }}"></a>
                               @endif
                           </div>
                       </div>
@@ -114,4 +114,5 @@
           </nav>
       </div>
   </header>
+  
   <!-- end of header -->

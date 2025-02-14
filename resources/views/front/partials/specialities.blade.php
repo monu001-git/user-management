@@ -6,13 +6,13 @@
                   <div class="wpo-section-title">
                       <span>{{ $orgData->specialities_title ?? '' }}</span>
                       <h2>{{ $orgData->specialities_heading ?? '' }}</h2>
-                      <p>
+                      
                           @if (!empty($orgData->specialities_description1))
                               {!! substr_replace($orgData->specialities_description1, '...', 600) !!}
                           @else
                               <p>No description available</p>
                           @endif
-                      </p>
+                      
                   </div>
               </div>
           </div>
@@ -49,14 +49,14 @@
                                           {{-- <img src="{{ asset('uploads/specialitie'.'/'.$specialitieDatas->image) }}"> --}}
                                       </div>
                                       <span>{{ $specialitieDatas->title ?? '' }}</span>
-                                      <p>
+                                      
 
                                           @if (!empty($specialitieDatas->description))
                                               {!! substr_replace($specialitieDatas->description, '...', 100) !!}
                                           @else
                                               <p>No description available</p>
                                           @endif
-                                      </p>
+                                      
                                       @if (!empty($specialitieDatas->url))
                                           <a href="{{ $specialitieDatas->url ?? '' }}">
                                               <i class="ti-arrow-right"></i>

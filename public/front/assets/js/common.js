@@ -62,3 +62,20 @@ $(".department").change(function (e) {
     });
 
 });
+
+
+$(document).ready(function () {
+    $('#refresh-captcha').click(function () {
+
+        $.ajax({
+            url: "/captcha-refresh",
+            type: "GET",
+            success: function (data) {
+                $('#captcha-image').attr('src', data.captcha);
+            },
+            error: function () {
+                alert('Error refreshing CAPTCHA. Please try again.');
+            }
+        });
+    });
+});

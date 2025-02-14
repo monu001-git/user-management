@@ -34,7 +34,7 @@ class CommonComposer
      */
     public function compose(View $view)
     {
-        // try {
+        try {
             $galleryDatarecord1 = DB::table('galleries')->where('section','1')->whereNull('deleted_at')->orderBy('order', 'ASC')->where('status', 1)->first();
            
             if ($galleryDatarecord1 != null) {
@@ -132,16 +132,16 @@ class CommonComposer
                 'testimonialData'=>$testimonialData
             ]);
 
-        // } catch (\Exception $e) {
-        //     \Log::error('An exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        // } catch (\PDOException $e) {
-        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        // } catch (\Throwable $e) {
-        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        // }
+        } catch (\Exception $e) {
+            \Log::error('An exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        } catch (\PDOException $e) {
+            \Log::error('A PDOException occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        } catch (\Throwable $e) {
+            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        }
     }
 
     function getMenuTree($menus, $parentId)

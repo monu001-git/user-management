@@ -85,7 +85,7 @@
                                 <div class="form-control-age form-field col-lg-6">
                                     <div class="form-controls form-control-choose-department ">
                                         <select name="department" class="form-control department" required>
-                                            <option value=""  selected>Choose Department</option>
+                                            <option value="" selected>Choose Department</option>
                                             @if (isset($bookapp) && count($bookapp) > 0)
                                                 @foreach ($bookapp as $bookapps)
                                                     <option value="{{ $bookapps->id ?? '' }}">
@@ -105,8 +105,8 @@
                                 <div class="form-control-age form-field col-lg-6">
                                     <div class="form-controls form-control-choose-department">
                                         <select name="doctor" class="form-control" id="doctor_value" required>
-                                       
-                                         
+
+
                                         </select>
 
                                         @error('doctor')
@@ -126,6 +126,24 @@
                                 </div>
 
 
+                                <div class="form-control-age form-field col-lg-12">
+                                    <div class="form-group">
+                                        <img id="captcha-image" src="{{ captcha_src() }}" alt="CAPTCHA"
+                                            class="captcha-img"><br>
+
+                                            <button type="button" class="btn btn-secondary" id="refresh-captcha">
+                                                <i class="fas fa-sync-alt"></i> Refresh CAPTCHA
+                                            </button><br>
+    
+                                        <input type="text" name="captcha" class="form-control"
+                                            placeholder="Enter CAPTCHA" required>
+                                    </div>
+
+
+                                    @error('captcha')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                                 <div class="col-xl-7 col-lg-12 col-12">
                                     <div class="submit-area">
@@ -151,4 +169,8 @@
         </div>
     </div>
 
+
+
+
+ 
 </section>

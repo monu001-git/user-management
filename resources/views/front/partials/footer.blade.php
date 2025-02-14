@@ -94,7 +94,7 @@
          <div class="container">
              <div class="row">
                  <div class="col col-xs-12">
-                     <p class="copyright">© Copyright 2024-2025, All Rights Reserved by Gunjan Clininc
+                     <p class="copyright">© Copyright {{ date('Y') }}, All Rights Reserved by Gunjan Clininc
                          <br> Designed by <a href="https://graphotive.com/" target="_blank">graphotive</a>
                      </p>
                  </div>

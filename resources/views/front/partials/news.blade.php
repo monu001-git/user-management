@@ -25,9 +25,9 @@
 
                     <div class="notice-block-two">
                         <div class="video-single-img">
-                           <img src="{{ asset('uploads/content/image'.'/'.$galleryNews->image ) }}" title="{{ $galleryNews->title ??"" }}">
+                           <img @if(isset($galleryNews->image)) src="{{ asset('uploads/content/image'.'/'.$galleryNews->image ) }}" @endif title="{{ $galleryNews->title ??"" }}">
                         </div>
-                        <a href="{{ $galleryNews->file ??"" }}"  class="video-btn" data-type="iframe"><img src="assets/images/icon/play.svg"/></a>
+                        <a href="{{ $galleryNews->file ??"" }}"  class="video-btn" data-type="iframe"><img src="{{ asset('front/assets/images/icon/play.svg') }}"/></a>
                     </div>
 
                     @endforeach

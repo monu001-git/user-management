@@ -85,7 +85,7 @@
 
 
     <!-- Modal -->
-    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
@@ -93,45 +93,13 @@
                     <div data-slide="slide" class="slide">
 
                         @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
-                        @foreach ($galleryDataTopImage['gallerydetailData'] as $galleryDataTopImages)
-                        <div class="slide-items">
-                            <img src="{{ asset('uploads/content/image'.'/'.$galleryDataTopImages->image) ??'' }}" alt="story">
-    </div>
-    @endforeach
-    @endif
-
-    <nav class="slide-nav">
-        <div class="slide-thumbs"></div>
-        <button class="slide-prev">Previous</button>
-        <button class="slide-next">Next</button>
-    </nav>
-    </div>
-    </div>
-
-    </div>
-    </div>
-    </div> --}}
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
-                <div class="modal-body p-0">
-                    <div data-slide="slide" class="slide">
-                        <div class="slide-items">
-                            <img src="assets/images/story/story-01.jpg" alt="story">
-                        </div>
-                        <div class="slide-items">
-                            <img src="assets/images/story/story-02.jpg" alt="story">
-                        </div>
-                        <div class="slide-items">
-                            <img src="assets/images/story/story-03.jpg" alt="story">
-                        </div>
-                        <!--div class="slide-items">
-                         <video class="videostory" autoplay muted>
-                             <source src="https://cdn.pixabay.com/video/2024/03/14/204214-923594173_large.mp4" type="video/mp4">
-                         </video>
-                    </div -->
+                            @foreach ($galleryDataTopImage['gallerydetailData'] as $galleryDataTopImages)
+                                <div class="slide-items">
+                                    <img src="{{ asset('uploads/content/image' . '/' . $galleryDataTopImages->image) ?? '' }}"
+                                        alt="story">
+                                </div>
+                            @endforeach
+                        @endif
                         <nav class="slide-nav">
                             <div class="slide-thumbs"></div>
                             <button class="slide-prev">Previous</button>
@@ -139,11 +107,9 @@
                         </nav>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
     <!-- Modal end -->
 
 

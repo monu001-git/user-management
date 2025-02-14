@@ -67,49 +67,12 @@
                                                     </span>
                                                     <div class="progress-value">{{ $teamDataStatics->number ?? '' }}+</div>
                                                     <div class="progress-name">
-                                                        <span>{{ $teamDataStatics->text ?? '' }}</span></div>
+                                                        <span>{{ $teamDataStatics->text ?? '' }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endforeach
                                     @endif
-
-
-                                    {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
-                                        <div class="progress blue">
-                                            <span class="progress-left">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <div class="progress-value">1200+</div>
-                                            <div class="progress-name"><span>Happy Patient</span></div>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
-                                        <div class="progress pink">
-                                            <span class="progress-left">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <div class="progress-value">400+</div>
-                                            <div class="progress-name"><span>Surgery Done</span></div>
-                                        </div>
-                                    </div> --}}
-                                    {{-- <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 custom-grid">
-                                        <div class="progress green">
-                                            <span class="progress-left">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar"></span>
-                                            </span>
-                                            <div class="progress-value">10+</div>
-                                            <div class="progress-name"><span>Year Experience</span></div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -119,8 +82,6 @@
                                 <div class="wpo-contact-area ex-wiget certificate pb-0">
                                     <h2>Certificates</h2>
                                     <div class="row certificatee">
-
-
                                         <div class="col-lg-3 col-md-6 col-12">
                                             <div class="certificate-img">
                                                 <div class="img-holder">
@@ -135,7 +96,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             @endforeach

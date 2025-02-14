@@ -19,6 +19,7 @@ use App\Http\Controllers\appointmentController;
 use App\Http\Controllers\testimonialController;
 use App\Http\Controllers\departmentController;
 use App\Http\Controllers\blogController;
+use Mews\Captcha\Facades\Captcha;
 
 Auth::routes();
 
@@ -48,9 +49,12 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 
+
+// Route to refresh CAPTCHA
+Route::get('/captcha-refresh',[mainController::class,'captchRefresh'])->name('captcha.refresh');
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('contact-us', [mainController::class, 'contactUs']);
 Route::post('contact-us',[mainController::class, 'contactUsPost']);
-Route::get('doctor-list',[mainController::class,'doctorList']);
+Route::get('doctor-list',[mainController::class,'doctorList'])->name('doctorListFront');
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);
