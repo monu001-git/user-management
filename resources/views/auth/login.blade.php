@@ -3,7 +3,7 @@
 @section('content')
     <!-- start wpo-page-title -->
     <section class="wpo-page-title"
-        style="background: url(assets/images/about-us/career-banner.jpg) no-repeat center top/cover;">
+        style="background: url({{ asset('front/assets/images/about-us/career-banner.jpg') }}) no-repeat center top/cover;">
         <div class="container">
             <div class="row">
                 <div class="col col-xs-12">
