@@ -48,8 +48,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-
-
 // Route to refresh CAPTCHA
 Route::get('/captcha-refresh',[mainController::class,'captchRefresh'])->name('captcha.refresh');
 Route::get('/', [mainController::class, 'home']);
