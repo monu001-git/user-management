@@ -10,6 +10,7 @@
                      </div>
                  </div>
              </div>
+             
              <div class="row">
                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
                      <div class="widget about-widget">
