@@ -20,7 +20,8 @@
 
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite([ {{ asset('resources/sass/app.scss') }},  {{ asset('resources/js/app.js') }}])
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="{{ asset('admin/assets/js/core/jquery-3.7.1.min.js') }}"></script>
