@@ -58,7 +58,7 @@
                                             <td>
 
                                                 @can('department-edit')
-                                                    <a class="btn btn-primary btn-sm"
+                                                    <a class="btn btn-primary btn-sm" onclick="return confirm('Are you sure to edit this record?')"
                                                         href="{{ route('departments.edit', dEncrypt($departments->id)) }}"><i
                                                             class="fa-solid fa-pen-to-square"></i> Edit</a>
                                                 @endcan
@@ -70,7 +70,7 @@
                                                         @csrf
                                                         @method('DELETE')
 
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        <button type="submit" onclick="return confirm('Are you sure to delete this record?')" class="btn btn-danger btn-sm"><i
                                                                 class="fa-solid fa-trash"></i> Delete</button>
                                                     </form>
                                                 @endcan
