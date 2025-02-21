@@ -18,12 +18,13 @@ use App\Http\Controllers\specialitiesController;
 use App\Http\Controllers\appointmentController;
 use App\Http\Controllers\testimonialController;
 use App\Http\Controllers\departmentController;
-use App\Http\Controllers\blogController;
 use Mews\Captcha\Facades\Captcha;
+use App\Http\Middleware\logMiddleware;
 
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::middleware([logMiddleware::class])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('contents', contentController::class);
     Route::resource('gallery', galleryController::class);
     Route::resource('teams', teamController::class);
+    Route::get('log',[HomeController::class,'logIndex']);
     Route::resource('departments', departmentController::class);
     Route::resource('specialities',specialitiesController ::class);
     Route::resource('testimonials',testimonialController ::class);
@@ -45,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('status-change/{status?}/{id?}/{db?}', 'StatusChange');
     });
 
-
+    });
 });
 
 // Route to refresh CAPTCHA
