@@ -1,5 +1,6 @@
 @extends('front.layouts.app')
 
+
 @section('content')
     <!-- start wpo-page-title -->
     <section class="wpo-page-title"
@@ -39,55 +40,55 @@
                                     <label for="email">Email</label>
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    {{-- <div class="error" id="emailError"> --}}
+                                        value="{{ old('email') }}" required autocomplete="email">
+
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    {{-- </div> --}}
+
                                 </div>
 
                                 <div class="form-group">
-                                    <input id="password" type="password" id="togglePassword"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="password">
-                                    <button type="button" id="togglePassword">
+                                    <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
+                                    <button type="button" class="eyePossition" id="togglePasswordBtn">
                                         👁️
                                     </button>
-                                    {{-- <div class="error" id="passwordError"> --}}
+                                
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                    {{-- </div> --}}
                                 </div>
+                                
 
 
                                 <div class="form-group">
-                                    <img id="captcha-image" src="{{ captcha_src() }}" alt="CAPTCHA"
-                                        class="captcha-img"><br>
+                                    <div class="row">
+                                        <div class="col-lg-6">
 
-                                    <button type="button" class="btn btn-secondary" id="refresh-captcha">
-                                        <i class="fas fa-sync-alt"></i> Refresh CAPTCHA
-                                    </button><br>
+                                            <img id="captcha-image" src="{{ captcha_src() }}" alt="CAPTCHA"
+                                                class="captcha-img">
+                                           
+                                        </div>
 
-                                    <input type="text" name="captcha" class="form-control" placeholder="Enter CAPTCHA"
-                                        required>
+                                        <div class="col-lg-6">
+                                            <button type="button" class="btn btn-secondary" id="refresh-captcha"
+                                                style="float:right">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
 
+                                        </div><br><br>
+                                        <input type="text" name="captcha" class="form-control"
+                                            placeholder="Enter Captcha" required>
+
+                                    </div>
                                     @error('captcha')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
-
                                 </div>
-
-
-
-
-
-
 
                                 <div class="remember-forgot">
                                     <div class="remember-me">
@@ -110,7 +111,7 @@
                                 </button>
                             </form>
                         </div>
-                    </div><br><br><br><br><br><br><br>
+                    </div>
                 </div>
             </div>
         </div>

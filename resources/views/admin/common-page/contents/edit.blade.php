@@ -154,7 +154,7 @@
                                             @endif
                                         </span>
 
-                                        <input type="file" name="banner" class="form-control image" @if ($content->banner) value="{{ $content->banner  ??''}}" @endif>
+                                        <input type="file" name="banner" class="form-control image4" @if ($content->banner) value="{{ $content->banner  ??''}}" @endif>
 
 
                                         @error('name')
@@ -224,7 +224,7 @@
                                     <div class="form-group">
                                         <strong>Content left and image right:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleLayout" @if($content->left_right == 'on') value="{{ $content->left_right }}" @else value=""  @endif name="left_right" @if ($content->left_right == 'on') checked  @endif>
+                                            <input type="checkbox" id="toggleLayout"  name="left_right" @if ($content->left_right == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -262,7 +262,7 @@
                                     <div class="form-group">
                                         <strong>Content right and image left:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" id="toggleRightLeft" @if($content->right_left == 'on') value="{{ $content->right_left }}" @else value=""  @endif  name="right_left" @if ($content->right_left == 'on') checked  @endif>
+                                            <input type="checkbox" id="toggleRightLeft"   name="right_left" @if ($content->right_left == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -301,11 +301,13 @@
                                     <div class="form-group">
                                         <strong>Center Content:</strong>
                                         <label class="switch">
-                                            <input type="checkbox" name="center_content" id="toggleButton" @if($content->center_content == 'on') value="{{ $content->center_content }}" @else value=""  @endif  @if($content->center_content == 'on') checked  @endif>
+                                            <input type="checkbox" name="center_content" id="toggleButton"  @if($content->center_content == 'on') checked  @endif>
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
                                 </div>
+
+                              
 
                                 <div class="col-xs-12 col-sm-12 col-md-12" id="contentToShow" style="display: none;">
                                     <div class="form-group">

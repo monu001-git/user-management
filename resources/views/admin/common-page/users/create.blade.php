@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <strong>Password:</strong>
                                     <input type="password" name="password"  minlength="2" maxlength="30" autocomplete="off" id="password" placeholder="Password" value="{{ old('password') }}" class="form-control" autocomplete="password">
-                                    <button type="button" id="togglePassword">
+                                    <button type="button" class="eyePossition" id="togglePassword">
                                         👁️
                                     </button>
                                     @error('password')
@@ -71,8 +71,8 @@
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Confirm Password:</strong>
-                                    <input type="password" name="confirm-password" minlength="2" maxlength="30" autocomplete="off" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
-                                    <button type="button" id="ctogglePassword">
+                                    <input type="password" name="confirm-password"  minlength="2" maxlength="30" autocomplete="off" id="confirm-password" value="{{ old('confirm-password') }}" placeholder="Confirm Password" class="form-control">
+                                    <button type="button" class="eyePossition"  id="ctogglePassword">
                                         👁️
                                     </button>
                                     @error('confirm-password')

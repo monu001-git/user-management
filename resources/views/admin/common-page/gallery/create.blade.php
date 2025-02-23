@@ -79,11 +79,16 @@
                                             <br />
                                             <select name="section" class="form-control" id="section">
                                                 <option value="">Select Option</option>
-                                                <option value="1" {{ old('section') == '1' ? 'selected' : '' }}> Certificates</option>
-                                                <option value="2" {{ old('section') == '2' ? 'selected' : '' }}>News Section</option>
-                                                <option value="5" {{ old('section') == '5' ? 'selected' : '' }}>Image Section</option>
-                                                <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Doctor</option>
-                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model Image</option>
+                                                <option value="1" {{ old('section') == '1' ? 'selected' : '' }}>
+                                                    Certificates</option>
+                                                <option value="2" {{ old('section') == '2' ? 'selected' : '' }}>News
+                                                    Section</option>
+                                                <option value="5" {{ old('section') == '5' ? 'selected' : '' }}>Image
+                                                    Section</option>
+                                                <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Doctor
+                                                </option>
+                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model
+                                                    Image</option>
                                             </select>
 
                                             @error('section')
@@ -148,13 +153,13 @@
 
                                             <div class="col-4 urlInputContainer" style="display: none;">
                                                 <input type="file" class="form-control image2" name="image2[]"
-                                                minlength="3" maxlength="100"
-                                                    id="imageInput" />
+                                                    minlength="3" maxlength="100" id="imageInput" />
                                             </div>
 
                                             <div class="col-4 urlInputContainer" style="display: none;">
-                                                <input type="text" class="form-control" minlength="3" maxlength="100"
-                                                    name="url[]" id="urlInput" placeholder="Enter Video URL" />
+                                                <input type="text" class="form-control" minlength="3"
+                                                    maxlength="100" name="url[]" id="urlInput"
+                                                    placeholder="Enter Video URL" />
                                             </div>
 
 
@@ -184,8 +189,6 @@
 
 
         <script>
-
-
             $(document).ready(function() {
                 $('#doctorDropdown').hide();
                 $('#section').trigger('change');
@@ -248,7 +251,6 @@
                     }
                 });
             });
-
         </script>
 
 

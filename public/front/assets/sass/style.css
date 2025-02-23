@@ -902,7 +902,9 @@ img {
 }
 
 /*------------------------------------
+
 	blog sidebar
+
 ------------------------------------*/
 .blog-sidebar {
   /*** search-widget ***/
@@ -1472,7 +1474,9 @@ img {
 }
 
 /*--------------------------------------------------------------
+
 2. header
+
 --------------------------------------------------------------*/
 /*-- 2.1 topbar --*/
 .topbar {
@@ -2937,7 +2941,9 @@ img {
 }
 
 /*--------------------------------------------------------------
+
 3. content
+
 --------------------------------------------------------------*/
 /*3.1 wpo-hero-slider*/
 .wpo-hero-slider,
@@ -3918,7 +3924,9 @@ img {
 }
 
 /*-------------------------------------------
+
 	hero style 1
+
 --------------------------------------------*/
 .static-hero {
   height: 720px;
@@ -4158,7 +4166,9 @@ img {
 }
 
 /*--------------------------------------------------------------
+
 4. wpo-footer
+
 --------------------------------------------------------------*/
 .wpo-site-footer,
 .wpo-site-footer-s2 {
@@ -4439,7 +4449,7 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
   padding-top:7px;
 }
 .link-widget1 {
-    padding-left: 70px !important;
+    padding-left: 40px !important;
   }
 @media screen and (min-width: 1200px) {
   .wpo-site-footer .link-widget,
@@ -4920,7 +4930,7 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 .department-single:hover  {
   background: #fff;
   border: 0px solid transparent;
-  color;#226957;
+  color:#226957;
 }
 .department-single:hover p{color:#226957}
 .department-single:hover span{color:#226957}
@@ -5490,13 +5500,13 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 .wpo-testimonial-section .testimonial-left .fun-fact-grids .info h3 i {
-  position: absolute;
-  bottom: 14px;
-  left: 165px;
-  font-size: 21px;
-  color: #fff;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+	position: relative;
+	bottom: -9px;
+	left: 10px;
+	font-size: 21px;
+	color: #fff;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 @media (max-width: 1199px) {
@@ -6343,7 +6353,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*======================================
+
  5. Home-style-2 
+
  =======================================*/
 /* 5.1 wpo-about-section  */
 .wpo-about-section {
@@ -6870,7 +6882,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*=====================================================
+
 6. wpo-service-single
+
 ======================================================*/
 .wpo-service-single-area .wpo-service-single-wrap .wpo-service-single-title h3 {
   font-weight: 500;
@@ -7103,7 +7117,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*==========================================
+
 11. wpo-team-single
+
 ===========================================*/
 .wpo-team-section-s3 {
   padding-bottom: 90px;
@@ -7653,7 +7669,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*===========================
+
 7. wpo-cart-page-style
+
 ===========================*/
 .cart-area .cart-wrapper {
   -webkit-box-shadow: 0px 5px 15px 0px rgba(68, 68, 68, 0.1);
@@ -7969,7 +7987,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*===============================
+
 8. wpo-checkout-page-style
+
 ================================*/
 .wpo-checkout-area .checkout-wrap {
   background: #fff;
@@ -8410,7 +8430,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 9. wpo-shop-page
+
 --------------------------------------------------------------*/
 .wpo-shop-section .shop-grids {
   margin: 0 -15px;
@@ -8527,7 +8549,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 10. wpo-shop-single-page
+
 --------------------------------------------------------------*/
 .wpo-shop-single-section {
   /*** product slider ***/
@@ -9192,7 +9216,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 14. wpo-contact-pg-section
+
 --------------------------------------------------------------*/
 .wpo-contact-pg-section {
   padding-bottom: 0px;
@@ -9447,7 +9473,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 12. wpo-blog-pg-section
+
 --------------------------------------------------------------*/
 .wpo-blog-pg-section {
   /*** format-standard ***/
@@ -9841,7 +9869,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 13. wpo-blog-single-section
+
 --------------------------------------------------------------*/
 .wpo-blog-single-section {
   /*** tag-share ***/
@@ -10601,7 +10631,9 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 }
 
 /*--------------------------------------------------------------
+
 15. error-404-section
+
 --------------------------------------------------------------*/
 .error-404-section {
   text-align: center;
@@ -10710,7 +10742,7 @@ background: linear-gradient(180deg, rgb(20 155 120) 10%, rgba(19, 69, 56, 0.9948
 .three-button .icon{float:left; padding:8px 5px;line-height: 38px;}
 .three-button .btn-text{float:left; text-align:left;padding:8px 10px 8px 5px;font-size:16px; ;font-weight:bold;line-height: 20px;}
 .three-button .btn-text span{display:block; font-size:12px;font-weight:500;}
-.three-button .btn-report{float:left; text-align:left;padding:8px 5px 8px 5px;font-size:16px; ;font-weight:bold;line-height: 38px;}
+.three-button .btn-report{float:left; text-align:left;padding:8px 5px 8px 5px;font-size:16px; ;font-weight:bold;line-height: 38px; color: #01261c;}
 /* ================================== Specility Section ----------------------------- */
 .spty{padding:0px 70px}
 .department-doctor-wrap .owl-dots {
@@ -10847,7 +10879,7 @@ background-repeat: no-repeat;
 	margin-bottom: 40px;
 }
 .team-department-section-s2 .team-single-text h2 a {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 500;
     line-height: 30px;
     color: #2B433C;
@@ -10856,9 +10888,9 @@ background-repeat: no-repeat;
     transition: all .4s ease-in-out;
 }
  .team-department-section-s2 .team-single-text span {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 30px;
+    line-height: 22px;
     color: #226957;padding-bottom:15px;
 	display: block;
 	
@@ -10870,7 +10902,7 @@ background-repeat: no-repeat;
     line-height: 20px;
     color: #2B433C !important;
 }
-
+.team-single-text p{margin-bottom:4px}
 /* counter */
 .counter-box-sec{position: relative;height: 450px;}
 .counter-box{
@@ -11339,4 +11371,89 @@ background-repeat: no-repeat;
 
 .login-card .login-btn:active {
 	transform: translateY(0);
+}
+
+.card-img-new {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 25px 25px 0 0;
+    border-bottom: 1px solid #f9f9f9;
+	background-color: #fff;
+}
+.card {
+    word-wrap: break-word;
+    background-color: #268A70;
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, .125);
+    border-radius: 25px;
+	margin-bottom:25px;	
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem;
+}
+.btn-info {
+    color: #fff;
+    background-color: transparent;
+    border-color: #02c18f;
+    border-radius: 25px;
+    padding: 7px 20px;
+}
+.btn-info:hover {background-color:#05cb97;border-color: #02c18f;color: #fff;}
+.card-title{height: 55px;color: #fff;}
+.card-text {
+    min-height: 50px;
+    font-size: 14px;
+	 color: #fff;
+}
+.card-text p {
+    font-size: 14px;
+    color: #fff;
+    line-height: 1.5em;	
+}
+
+
+.section-paddingg {
+  padding: 71px 2px 0px 0px;
+}
+.team-departmentt-section-s2 .team-section-title {
+  margin-bottom: 60px;
+  margin-top: 0px;
+  font-size: 37px;
+  color: #000;
+  font-weight: 500;
+}
+.notice-block-twoo {
+  position: relative;
+  margin-bottom: 30px;
+}
+.video-btnn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+}
+
+
+.card-body p{
+    color:#fff;
+}
+
+.refresh{
+   float: right;
+    padding: 5px;
+    background: #fff;
+    color: #149b78;
+    font-size: 30px;
+    border: 0;
+    float:right;
+}
+
+.eyePossition{
+  position: absolute;
+    top: 10px;
+    right: 0;
+    border: 0;
+    background: transparent;
 }

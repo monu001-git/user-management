@@ -1,4 +1,5 @@
- <footer class="wpo-site-footer fhome">
+ <footer  @if (Request::is('/')) class="wpo-site-footer fhome"  @else class="wpo-site-footer pt-0 mt-0" @endif>>
+    
      <div class="wpo-upper-footer">
          <div class="container">
              <div class="row">
@@ -10,7 +11,6 @@
                      </div>
                  </div>
              </div>
-             
              <div class="row">
                  <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
                      <div class="widget about-widget">
@@ -20,15 +20,15 @@
                          <div class="social-widget">
                              <ul>
                                  @if(isset($orgData->facebook) && !empty($orgData->facebook) )
-                                 <li><a href="{{ $orgData->facebook ??''}}" title="{{  $orgData->facebook_title ??'' }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->facebook ??''}}" target="_blank title" class="{{  $orgData->facebook_title ??'' }}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                  @endif
 
                                  @if(isset($orgData->instagram) && !empty($orgData->instagram) )
-                                 <li><a href="{{ $orgData->instagram ?? "" }}" title="{{  $orgData->instagram_title ??'' }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->instagram ?? "" }}" target="_blank title" class="{{  $orgData->instagram_title ??'' }}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                  @endif
 
                                  @if(isset($orgData->youtube) && !empty($orgData->youtube) )
-                                 <li><a href="{{ $orgData->youtube ??"" }}" title="{{  $orgData->youtube_title ??'' }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                                 <li><a href="{{ $orgData->youtube ??"" }}" target="_blank title" class="{{  $orgData->youtube_title ??'' }}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
                                  @endif
 
                              </ul>

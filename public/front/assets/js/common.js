@@ -1,5 +1,3 @@
-//jqery validation
-
 $('.preventnumeric').keypress(function (e) {
     var regex = new RegExp(/^[a-zA-Z\s]+$/);
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -10,6 +8,8 @@ $('.preventnumeric').keypress(function (e) {
     return false;
 });
 
+
+
 $('.mobile_no').keypress(function (e) {
     var regex = new RegExp("^[0-9_]");
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -18,8 +18,10 @@ $('.mobile_no').keypress(function (e) {
     }
     e.preventDefault();
     return false;
-    f
 });
+
+
+
 
 
 var doc_file3 = "";
@@ -35,19 +37,16 @@ $('.image').on('change', function () {
     }
 });
 
-
-
-
 $(".department").change(function (e) {
+    var baseurl=  window.location;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
     var data = $(".department").val();
-
     $.ajax({
-        url: 'doctor-list',
+        url: baseurl+'doctor-list',
         type: "get",
         data: { id: data },
         success: function (data) {
@@ -57,18 +56,19 @@ $(".department").change(function (e) {
                 formoption += "<option value='" + resdata[i].id + "'>" + resdata[i].name + "</option>";
             }
             $('#doctor_value').html(formoption);
-
         }
     });
-
 });
+
+
+
 
 
 $(document).ready(function () {
     $('#refresh-captcha').click(function () {
-
+        var baseurl=  window.location;
         $.ajax({
-            url: "/captcha-refresh",
+            url: baseurl+"captcha-refresh",
             type: "GET",
             success: function (data) {
                 $('#captcha-image').attr('src', data.captcha);
@@ -79,3 +79,13 @@ $(document).ready(function () {
         });
     });
 });
+
+$('#togglePasswordBtn').click(function () {
+    var passwordField = $('#password');
+    var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+    $(this).text(type === 'password' ? '👁️' : '🙈');
+});
+
+
+

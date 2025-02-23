@@ -35,6 +35,13 @@
         <title>{{ $orgData->name }}</title>
     @endif
 
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/plugin.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/font.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/lightgallery.min.css') }}">
+
+
     <link href="{{ asset('front/assets/css/themify-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/css/flaticon.css') }}" rel="stylesheet">
     <link href="{{ asset('front/assets/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -52,12 +59,7 @@
     <link href="{{ asset('front/assets/sass/responsive.css?ver=1.1') }}" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/plugin.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/font.css') }}">
-    <link rel="stylesheet" href="{{ asset('front/assets/gallery/css/lightgallery.min.css') }}">
-
+    
 
     @if (isset($orgData->head_script) && $orgData->head_script != null)
         <title>{!! $orgData->head_script !!}</title>
@@ -94,10 +96,7 @@
 
                         @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
                             @foreach ($galleryDataTopImage['gallerydetailData'] as $galleryDataTopImages)
-                                <div class="slide-items">
-                                    <img src="{{ asset('uploads/content/image' . '/' . $galleryDataTopImages->image) ?? '' }}"
-                                        alt="story">
-                                </div>
+                                    <img src="{{ asset('uploads/content/image' . '/' . $galleryDataTopImages->image) ?? '' }}" alt="story">
                             @endforeach
                         @endif
                         <nav class="slide-nav">

@@ -95,7 +95,7 @@
                                         @endif
                                     </span>
 
-                                    <input type="file" name="image" class="form-control image" @if($specialitie->image)
+                                    <input type="file" name="image" class="form-control image1" @if($specialitie->image)
                                     value="{{$specialitie->image}}"
                                     @endif>
 

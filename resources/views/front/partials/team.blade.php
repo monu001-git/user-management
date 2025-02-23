@@ -8,7 +8,7 @@
                             <h2>{{ $orgData->team_heading ?? '' }} </h2>
                             <p>
                                 @if (!empty($orgData->team_description1))
-                                    {!! substr_replace($orgData->team_description1, '...', 500) !!}
+                                    {!! substr_replace($orgData->team_description1, '', 500) !!}
                                 @else
                                     <p>No description available</p>
                                 @endif
@@ -50,7 +50,7 @@
                     <div class="col-xl-7 col-lg-7 col-md-7 col-12 text-center department-wrap1">
                         <h6>
                             @if (!empty($orgData->team_description2))
-                                {!! substr_replace($orgData->team_description2, '...', 500) !!}
+                                {!! substr_replace($orgData->team_description2, '', 500) !!}
                             @else
                                 <p>No description available</p>
                             @endif

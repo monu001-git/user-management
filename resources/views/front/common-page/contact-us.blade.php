@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="office-info-text">
                                     <h2>Address</h2>
-                                    <p>{{ $orgData->address ??"Address not available" }}</p>
+                                    <p>{!! $orgData->address ??"Address not available" !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -137,15 +137,9 @@
                             </div>
                             <div class="submit-area pt-4">
                                 <button type="submit" class="theme-btn-s4">Get in Touch</button>
-                                {{-- <div id="loader">
-                                    <i class="ti-reload"></i>
-                                </div> --}}
+                                
                             </div>
-                            {{-- <div class="clearfix error-handling-messages">
-                                <div id="success">Thank you for getting in touch! We appreciate you contacting us</div>
-                                <div id="error"> Error occurred while sending email. Please try again later. </div>
-                            </div> --}}
-
+                           
                         </div>
 
                     </form>

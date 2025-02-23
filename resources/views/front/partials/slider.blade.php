@@ -16,19 +16,27 @@
                                data-background="{{ asset('uploads/banner' . '/' . $bannerDatas->image) }}">
                                <div class="gradient-overlay"></div>
                                <div class="container">
-                                   <div class="slide-content">
-                                       <div class="wpo-static-hero-inner">
-                                           <div class="slide-sub-title">
-                                               <h2>{{ $bannerDatas->title ?? '' }}</h2>
+
+                                   <div class="row align-items-center">
+                                       <div class="col-xl-7 col-lg-8 col-12">
+
+                                           <div class="slide-content">
+                                               <div class="wpo-static-hero-inner">
+                                                   <div class="slide-sub-title">
+                                                       <h2>{{ $bannerDatas->title ?? '' }}</h2>
+                                                   </div>
+                                                   <div class="slide-text">
+                                                       @if (!empty($bannerDatas->description))
+                                                           {!! $bannerDatas->description ?? '' !!}
+                                                       @endif
+                                                   </div>
+                                                   <div class="clearfix"></div>
+                                               </div>
                                            </div>
-                                           <div class="slide-text">
-                                               @if (!empty($bannerDatas->description))
-                                                   {!! $bannerDatas->description ??'' !!}
-                                               @endif
-                                           </div>
-                                           <div class="clearfix"></div>
+
                                        </div>
                                    </div>
+
                                </div>
                            </div>
                            @if (!empty($bannerDatas->url))
@@ -42,9 +50,9 @@
                @endif
            </div>
            @if (isset($bannerData) && count($bannerData) > 0)
-           <div class="swiper-pagination"></div>
-           <div class="swiper-button-next"></div>
-           <div class="swiper-button-prev"></div>
+               <div class="swiper-pagination"></div>
+               <div class="swiper-button-next"></div>
+               <div class="swiper-button-prev"></div>
            @endif
        </div>
 

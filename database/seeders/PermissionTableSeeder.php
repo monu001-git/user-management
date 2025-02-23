@@ -77,7 +77,6 @@ class PermissionTableSeeder extends Seeder
            'testimonial-create',
            'testimonial-edit',
            'testimonial-delete',
-
         ];
         
         foreach ($permissions as $permission) {

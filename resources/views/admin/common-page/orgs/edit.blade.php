@@ -188,7 +188,7 @@
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="header_logo" class="form-control image"
+                                            <input type="file" name="header_logo" class="form-control image4"
                                                 @if ($org->header_logo) value="{{ $org->header_logo ?? '' }}" @endif>
 
                                         </div>
@@ -214,7 +214,7 @@
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="favicon" class="form-control image"
+                                            <input type="file" name="favicon" class="form-control image3"
                                                 @if ($org->favicon) value="{{ $org->favicon }}" @endif>
 
                                         </div>
@@ -239,7 +239,7 @@
                                                 @endif
                                             </span>
 
-                                            <input type="file" name="footer_logo" class="form-control image"
+                                            <input type="file" name="footer_logo" class="form-control image1"
                                                 @if ($org->footer_logo) value="{{ $org->footer_logo ?? '' }}" @endif>
 
                                         </div>
@@ -367,7 +367,7 @@
                                     {{-- count --}}
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 1 :</strong>
                                             <input type="text" name="number_count1"
@@ -376,7 +376,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 1:</strong>
                                             <input type="text" name="unit_count1" placeholder="Enter First count Unit"
@@ -385,7 +385,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 1:</strong>
                                             <input type="text" name="text_count1" placeholder="Enter First count Text"
@@ -395,7 +395,7 @@
                                     </div>
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 2 :</strong>
                                             <input type="text" name="number_count2"
@@ -404,7 +404,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 2:</strong>
                                             <input type="text" name="unit_count2"
@@ -413,7 +413,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 2 :</strong>
                                             <input type="text" name="text_count2"
@@ -423,7 +423,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 3 :</strong>
                                             <input type="text" name="number_count3"
@@ -432,7 +432,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 3:</strong>
                                             <input type="text" name="unit_count3" placeholder="Enter Third count Unit"
@@ -441,7 +441,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 3 :</strong>
                                             <input type="text" name="text_count3" placeholder="Enter Third count Text"
@@ -452,7 +452,7 @@
 
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 4 :</strong>
                                             <input type="text" name="number_count4"
@@ -461,7 +461,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 4:</strong>
                                             <input type="text" name="unit_count4"
@@ -470,7 +470,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 4 :</strong>
                                             <input type="text" name="text_count4"

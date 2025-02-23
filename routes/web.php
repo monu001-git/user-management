@@ -52,9 +52,13 @@ Route::group(['middleware' => ['auth']], function () {
 
 // Route to refresh CAPTCHA
 Route::get('/captcha-refresh',[mainController::class,'captchRefresh'])->name('captcha.refresh');
+Route::get('/logincaptcha-refresh',[mainController::class,'loginCaptchRefresh'])->name('login.refresh');
 Route::get('/', [mainController::class, 'home']);
 Route::post('/appointment-book',[mainController::class,'appoinment_book']);
 Route::get('contact-us', [mainController::class, 'contactUs']);
 Route::post('contact-us',[mainController::class, 'contactUsPost']);
 Route::get('doctor-list',[mainController::class,'doctorList'])->name('doctorListFront');
 Route::get('/{slug1}/{slug2?}', [mainController::class, 'getAllPageContent']);
+
+
+

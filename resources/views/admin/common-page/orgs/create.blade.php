@@ -181,7 +181,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Header logo:</strong>
-                                            <input type="file" name="header_logo" class="form-control image">
+                                            <input type="file" name="header_logo" class="form-control image4">
 
                                             @error('header_logo')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -206,7 +206,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Favicon :</strong>
-                                            <input type="file" name="favicon" class="form-control image">
+                                            <input type="file" name="favicon" class="form-control image3">
 
                                             @error('favicon')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -232,7 +232,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Footer logo:</strong>
-                                            <input type="file" name="footer_logo" class="form-control image">
+                                            <input type="file" name="footer_logo" class="form-control image1">
 
                                             @error('footer_logo')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -354,7 +354,7 @@
                                     {{-- counter --}}
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 1 :</strong>
                                             <input type="text" name="number_count1"
@@ -363,7 +363,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 1:</strong>
                                             <input type="text" name="unit_count1" value="{{ old('unit_count1') }}"
@@ -372,7 +372,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 1:</strong>
                                             <input type="text" name="text_count1" value="{{ old('text_count1') }}"
@@ -383,7 +383,7 @@
 
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 2 :</strong>
                                             <input type="text" name="number_count2"
@@ -393,7 +393,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 2:</strong>
                                             <input type="text" name="unit_count2" value="{{ old('unit_count2') }}"
@@ -402,7 +402,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 2 :</strong>
                                             <input type="text" name="text_count2" value="{{ old('text_count2') }}"
@@ -412,7 +412,7 @@
                                     </div>
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 3 :</strong>
                                             <input type="text" name="number_count3"
@@ -422,7 +422,7 @@
                                     </div>
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 3:</strong>
                                             <input type="text" name="unit_count3" value="{{ old('unit_count3') }}"
@@ -431,7 +431,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 3 :</strong>
                                             <input type="text" name="text_count3" value="{{ old('text_count3') }}"
@@ -441,7 +441,7 @@
                                     </div>
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Number 4 :</strong>
                                             <input type="text" name="number_count4"
@@ -452,7 +452,7 @@
                                     </div>
 
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count Unit 4:</strong>
                                             <input type="text" name="unit_count4" value="{{ old('unit_count4') }}"
@@ -461,7 +461,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             <strong>Count text 4 :</strong>
                                             <input type="text" name="text_count4" value="{{ old('text_count4') }}"
@@ -543,7 +543,7 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <strong>Team title :</strong>
-                                            <input type="text" name="team_title" value="{{ old('count_phone') }}"
+                                            <input type="text" name="team_title" value="{{ old('team_title') }}"
                                                 minlength="3" maxlength="30" class="form-control preventnumeric">
                                         </div>
                                     </div>

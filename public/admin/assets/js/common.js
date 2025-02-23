@@ -60,15 +60,15 @@ $('.mobile_no').keypress(function (e) {
 
 
 var doc_file3 = "";
-$('.image').on('change', function () {
-    doc_file3 = $(".image").val();
+$('.image3').on('change', function () {
+    doc_file3 = $(".image3").val();
     console.log(doc_file3);
     var doc_file3_ext = doc_file3.split('.').pop()
         .toLowerCase();
     if (doc_file3_ext == 'png' || doc_file3_ext == 'jpg' || doc_file3_ext == 'jpeg' || doc_file3_ext == 'svg') {
     } else {
         alert("Only PNG, JPG, and JPEG files are allowed");
-        $('.image').val("");
+        $('.image3').val("");
     }
 });
 
@@ -96,3 +96,82 @@ $('.image2').on('change', function () {
         $('.image2').val("");
     }
 });
+
+var doc_file4 = "";
+$('.image4').on('change', function () {
+    doc_file4 = $(".image4").val();
+    var doc_file4_ext = doc_file4.split('.').pop()
+        .toLowerCase();
+    if (doc_file4_ext == 'png' || doc_file4_ext == 'jpg' || doc_file4_ext == 'jpeg' || doc_file4_ext == 'svg') {
+    } else {
+        alert("Only PNG, JPG, and JPEG files are allowed");
+        $('.image4').val("");
+    }
+});
+
+
+
+
+$(".department").change(function (e) {
+    var baseurl=  window.location;
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var data = $(".department").val();
+    $.ajax({
+        url: baseurl+'doctor-list',
+        type: "get",
+        data: { id: data },
+        success: function (data) {
+            var resdata = data.doctor
+            var formoption = "<option value=''>Please doctor</option>";
+            for (i = 0; i < resdata.length; i++) {
+                formoption += "<option value='" + resdata[i].id + "'>" + resdata[i].name + "</option>";
+            }
+            $('#doctor_value').html(formoption);
+        }
+    });
+});
+
+
+
+
+
+$(document).ready(function () {
+    $('#refresh-captcha').click(function () {
+        var baseurl=  window.location;
+        $.ajax({
+            url: baseurl+"captcha-refresh",
+            type: "GET",
+            success: function (data) {
+                $('#captcha-image').attr('src', data.captcha);
+            },
+            error: function () {
+                alert('Error refreshing CAPTCHA. Please try again.');
+            }
+        });
+    });
+});
+
+
+//eye toggle button 
+$('#togglePassword').click(function () {
+    var passwordField = $('#password');
+    var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+    $(this).text(type === 'password' ? '👁️' : '🙈');
+});
+
+$('#ctogglePassword').click(function () {
+    var passwordField = $('#confirm-password');
+    var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+    passwordField.attr('type', type);
+    $(this).text(type === 'password' ? '👁️' : '🙈');
+});
+
+
+
+
+

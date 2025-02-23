@@ -33,7 +33,7 @@
                             <div class="row">
                                 <div class="form-field col-lg-6">
                                     <input class="form-control-name preventnumeric" minlength="2" maxlength="100"
-                                        type="text" placeholder="Full Name" name="name" id="name" required>
+                                        type="text" placeholder="Full Name" value="{{ old('name') }}" name="name" id="name" required>
 
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-field col-lg-6">
                                     <input class="form-control-mail" type="email" minlength="2" maxlength="100"
-                                        placeholder="Email" name="email" id="email" required>
+                                        placeholder="Email" name="email"  value="{{ old('email') }}" id="email" required>
 
                                     @error('email')
                                         <div class="text-danger">{{ $message }}</div>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-field col-lg-6">
                                     <input class="form-controls form-control-number mobile_no" minlength="10"
-                                        maxlength="10" name="phone" type="tel" placeholder="Phone No." required>
+                                        maxlength="10" name="phone"  value="{{ old('phone') }}" type="tel" placeholder="Phone No." required>
 
                                     @error('phone')
                                         <div class="text-danger">{{ $message }}</div>
@@ -117,7 +117,7 @@
 
 
                                 <div class="form-control-age form-field col-lg-12">
-                                    <input class="form-control-mail" type="date" placeholder="Date" name="date"
+                                    <input class="form-control-mail" type="date"  value="{{ old('date') }}" placeholder="Date" name="date"
                                         required min="{{ \Carbon\Carbon::today()->toDateString() }}"
                                         max="{{ \Carbon\Carbon::today()->addMonth()->toDateString() }}">
                                     @error('date')
@@ -126,17 +126,27 @@
                                 </div>
 
 
-                                <div class="form-control-age form-field col-lg-12">
-                                    <div class="form-group">
-                                        <img id="captcha-image" src="{{ captcha_src() }}" alt="CAPTCHA"
-                                            class="captcha-img"><br>
+                            
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6">
 
-                                            <button type="button" class="btn btn-secondary" id="refresh-captcha">
-                                                <i class="fas fa-sync-alt"></i> Refresh CAPTCHA
-                                            </button><br>
-    
-                                        <input type="text" name="captcha" class="form-control"
-                                            placeholder="Enter CAPTCHA" required>
+                                            <img id="captcha-image" src="{{ captcha_src() }}" alt="CAPTCHA"
+                                                class="captcha-img">
+
+
+
+                                            <button type="button" class="btn btn-secondary refresh" id="refresh-captcha"
+                                                style="float:right">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <input type="text" name="captcha" class="form-control"
+                                                placeholder="Enter CAPTCHA" required>
+
+                                        </div>
                                     </div>
 
 
@@ -144,10 +154,9 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                                 <div class="col-xl-7 col-lg-12 col-12">
                                     <div class="submit-area">
-                                        <button type="submit" class="theme-btn">Book Appointment</button>
+                                        <button type="submit" class="theme-btn mt-3">Book Appointment</button>
                                         {{-- <div id="loader">
                                             <i class="ti-reload"></i>
                                         </div> --}}

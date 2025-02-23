@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+\@extends('admin.layouts.app')
 
 @section('content')
 <style>
@@ -143,7 +143,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Content banner:</strong>
-                                        <input type="file" name="banner" placeholder="content" class="form-control image">
+                                        <input type="file" name="banner" placeholder="content" class="form-control image4">
 
                                         @error('banner')
                                         <div class="text-danger">{{ $message }}</div>

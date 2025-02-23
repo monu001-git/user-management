@@ -285,7 +285,7 @@
                 });
 
                 $.ajax({
-                    url: '/delete-gallery-detail',
+                    url: "{{ url('delete-gallery-detail') }}",   
                     type: 'get',
                     data: {
                         id: id,

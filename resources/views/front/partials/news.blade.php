@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="blog-sec-btnn text-center ">
+        <div class="blog-sec-btnn text-center mt-5">
             <a href="{{ url('news-and-media') }}" class="link custom-buttomm">View All News &amp; Updates <img src="{{ asset('front/assets/images/icon/arrow-btn1.svg') }}"></a>
         </div>
     </div>

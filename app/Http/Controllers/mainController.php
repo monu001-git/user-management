@@ -41,7 +41,7 @@ class mainController extends Controller
 
     public function getAllPageContent(Request $request, $slug1 = null, $slug2 = null)
     {
-      try {
+    //   try {
 
         if ($slug1 != null && $slug2 != null) {
             $slug = $slug2;
@@ -56,7 +56,7 @@ class mainController extends Controller
         } else {
 
             return view('front.common-page.master-page', [
-                'message' => 'page common soon.........',
+                'message' => 'coming soon...!',
                 'menu' => $menu
             ]);
         }
@@ -71,7 +71,6 @@ class mainController extends Controller
                 ->whereNull('deleted_at')
                 ->where('status', 1)
                 ->first();
-
 
             if ($contentData != null) {
 
@@ -103,7 +102,23 @@ class mainController extends Controller
                         ->orWhere('galleries.status', 1)
                         ->get();
 
-
+                        $certificategallery = DB::table('galleries')
+                        ->where('section', '1')
+                        ->whereNull('deleted_at')
+                        ->where('status', 1)
+                        ->latest()  
+                        ->first();  
+                    
+                        if ($certificategallery != null) {
+                            $gallerydetailData = DB::table('gallery_entries')
+                                ->where('gallery_id', $certificategallery->id)
+                                ->whereNull('deleted_at')
+                                ->get();
+                            $certificate = $gallerydetailData;
+                        } else {  
+                            $certificate = collect(); 
+                        }
+                        
                     $faq = DB::table('faqs')
                         ->whereNull('deleted_at')
                         ->orderBy('order', 'asc')
@@ -127,7 +142,7 @@ class mainController extends Controller
                 ]);
             } else {
                 return view('front.common-page.master-page', [
-                    'message' => 'page common soon.........',
+                    'message' => 'coming soon...!',
                     'menu' => $menu,
                     'parent_menu'=>$parent_menu                    
                 ]);
@@ -191,16 +206,16 @@ class mainController extends Controller
             ]);
         }
 
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
 
@@ -334,9 +349,15 @@ class mainController extends Controller
         }
     }
 
-public function captchRefresh(){
-    return response()->json(['captcha' => captcha_src()]);
-}
+    public function captchRefresh(){
+        return response()->json(['captcha' => captcha_src()]);
+    }
+
+    public function loginCaptchRefresh(){
+        return response()->json(['captcha' => captcha_src()]);
+    }
+    
+     
 
 }
 
