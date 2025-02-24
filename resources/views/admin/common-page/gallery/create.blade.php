@@ -87,8 +87,7 @@
                                                     Section</option>
                                                 <option value="3" {{ old('section') == '3' ? 'selected' : '' }}>Doctor
                                                 </option>
-                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Model
-                                                    Image</option>
+                                                <option value="4" {{ old('section') == '4' ? 'selected' : '' }}>Story</option>
                                             </select>
 
                                             @error('section')

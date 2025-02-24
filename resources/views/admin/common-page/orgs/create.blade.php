@@ -288,6 +288,18 @@
                                     </div>
 
 
+                                    
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Common Inner page Banner:</strong>
+                                            <input type="file" name="common_banner" class="form-control image5">
+
+                                            @error('common_banner')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <hr>
                                     <h3>Social media</h3>
 

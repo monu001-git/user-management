@@ -89,6 +89,8 @@ return new class extends Migration
            $table->text('body_script')->nullable();
            $table->text('head_script')->nullable();
 
+           $table->string('common_banner',255)->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

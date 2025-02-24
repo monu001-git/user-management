@@ -109,6 +109,18 @@ $('.image4').on('change', function () {
     }
 });
 
+var doc_file5 = "";
+$('.image5').on('change', function () {
+    doc_file5 = $(".image5").val();
+    var doc_file5_ext = doc_file5.split('.').pop()
+        .toLowerCase();
+    if (doc_file5_ext == 'png' || doc_file5_ext == 'jpg' || doc_file5_ext == 'jpeg' || doc_file5_ext == 'svg') {
+    } else {
+        alert("Only PNG, JPG, and JPEG files are allowed");
+        $('.image5').val("");
+    }
+});
+
 
 
 

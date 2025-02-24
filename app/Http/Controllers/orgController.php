@@ -191,7 +191,7 @@ class orgController extends Controller
                 $data->middle_image = $newname;
             }
 
-
+        
             $data->testimonial_number = $request->testimonial_number;
             $data->testimonial_title = $request->testimonial_title;
             $data->testimonial_heading = $request->testimonial_heading;
@@ -202,7 +202,16 @@ class orgController extends Controller
             $data->head_script = $request->head_script;
             $data->body_script = $request->body_script;
          
-   
+            
+            $path = public_path('uploads/commonBanner');
+            if ($request->hasFile('common_banner')) {
+                $file = $request->file('common_banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->common_banner = $newname;
+            }
+
+
             $data->save();
 
             return redirect()->route('orgs.index')->with('success', 'Organization Structure Created Successfully');
@@ -397,6 +406,15 @@ class orgController extends Controller
 
             $data->head_script = $request->head_script;
             $data->body_script = $request->body_script;
+
+            $path = public_path('uploads/commonBanner');
+            if ($request->hasFile('common_banner')) {
+                $file = $request->file('common_banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->common_banner = $newname;
+            }
+
          
             $data->save();
 

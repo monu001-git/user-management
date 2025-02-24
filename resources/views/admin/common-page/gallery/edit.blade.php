@@ -86,7 +86,7 @@
                                                 {{ old('section', $gallery->section) == '3' ? 'selected' : '' }}>Doctor
                                             </option>
                                             <option value="4"
-                                                {{ old('section', $gallery->section) == '4' ? 'selected' : '' }}>Model Image
+                                                {{ old('section', $gallery->section) == '4' ? 'selected' : '' }}>Story
                                             </option>
                                         </select>
 

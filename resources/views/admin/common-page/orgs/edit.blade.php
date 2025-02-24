@@ -296,6 +296,22 @@
                                     </div>
 
 
+      
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <strong>Common Inner page Banner:</strong>
+                                            <span style="color:green;font-size:12px;">
+                                                @if ($org->common_banner)
+                                                    [{{ $org->common_banner }}]
+                                                @endif
+                                            </span>
+
+                                            <input type="file" name="common_banner" class="form-control image5"
+                                                @if ($org->common_banner) value="{{ $org->common_banner ?? '' }}" @endif>
+                                        </div>
+                                    </div>
+
 
                                     <hr>
                                     <h3>Social media</h3>
