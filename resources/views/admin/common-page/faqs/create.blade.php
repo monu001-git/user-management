@@ -69,6 +69,21 @@
                             </div>
 
 
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Content Name:</strong>
+                                    <br />
+                                    <select name="content_id" class="form-control">
+                                        <option value="">Select option</option>
+                                        @foreach ($contentId as $contentlist)
+                                            <option value='{{ $contentlist->id  ??''}}'>
+                                                {{ $contentlist->title ??"" }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
 
                             <input type="hidden" name="status" value="0" class="form-control">
 

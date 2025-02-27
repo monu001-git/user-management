@@ -123,6 +123,7 @@ class mainController extends Controller
                         ->whereNull('deleted_at')
                         ->orderBy('order', 'asc')
                         ->where('status', 1)
+                        ->orWhere('contentId', $contentData->id)
                         ->get();
 
                      

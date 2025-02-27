@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\faq;
 use Illuminate\Support\Facades\Validator;
+use App\Models\content;
 
 class faqController extends Controller
 {
@@ -49,21 +50,22 @@ class faqController extends Controller
      */
     public function create()
     {
-        try {
+        // try {
 
             $faq = faq::pluck('question', 'question')->all();
-            return view('admin.common-page.faqs.create', compact('faq'));
+            $contentId = content::get();
+            return view('admin.common-page.faqs.create', compact('faq','contentId'));
 
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -74,8 +76,9 @@ class faqController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        // try {
 
+      //  dd($request->all());
             $validator = Validator::make($request->all(), [
                 'question' => 'required',
                 'answer' => 'required',
@@ -91,20 +94,21 @@ class faqController extends Controller
             $data->answer  = $request->answer;
             $data->order  = $request->order;
             $data->status  = $request->status;
+            $data->content_id  = $request->content_id;
             $data->save();
 
 
             return redirect()->route('faqs.index')->with('success', 'faq created successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**
@@ -143,7 +147,8 @@ class faqController extends Controller
         try {
 
             $faq = faq::find(dDecrypt($id));
-            return view('admin.common-page.faqs.edit', compact('faq'));
+            $contentId = content::get();
+            return view('admin.common-page.faqs.edit', compact('faq','contentId'));
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -166,7 +171,7 @@ class faqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+        // try {
 
             $validator = Validator::make($request->all(), [
                 'question' => 'required',
@@ -183,19 +188,20 @@ class faqController extends Controller
             $data->answer  = $request->answer;
             $data->order  = $request->order;
             $data->status  = $request->status;
+            $data->content_id  = $request->content_id;
             $data->save();
 
             return redirect()->route('faqs.index')->with('success', 'faq updated successfully');
-        } catch (\Exception $e) {
-            \Log::error('An exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        } catch (\PDOException $e) {
-            \Log::error('A PDOException occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        } catch (\Throwable $e) {
-            \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-            return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        }
+        // } catch (\Exception $e) {
+        //     \Log::error('An exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+        // } catch (\PDOException $e) {
+        //     \Log::error('A PDOException occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+        // } catch (\Throwable $e) {
+        //     \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+        //     return view('error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+        // }
     }
 
     /**

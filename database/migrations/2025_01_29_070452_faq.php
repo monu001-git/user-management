@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
+            $table->string('contentId',255)->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);
             $table->softDeletes();

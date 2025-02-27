@@ -41,26 +41,23 @@ class HomeController extends Controller
 
     public function logIndex(){
 
-        // try{
+        try{
  
            $log = log::orderBy('id', 'asc')->get();  
            return view('admin.common-page.logs.index',['log'=>$log]);
      
      
-        //  } catch (\Exception $e) {
-        //      \Log::error('An exception occurred: ' . $e->getMessage());
-        //      return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
-        //  } catch (\PDOException $e) {
-        //      \Log::error('A PDOException occurred: ' . $e->getMessage());
-        //      return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
-        //  } catch (\Throwable $e) {
-        //      \Log::error('An unexpected exception occurred: ' . $e->getMessage());
-        //      return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
-        //  }
- 
- 
- 
- 
+         } catch (\Exception $e) {
+             \Log::error('An exception occurred: ' . $e->getMessage());
+             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
+         } catch (\PDOException $e) {
+             \Log::error('A PDOException occurred: ' . $e->getMessage());
+             return view('admin.common-page.error', ['error' => 'A database error occurred: ' . $e->getMessage()]);
+         } catch (\Throwable $e) {
+             \Log::error('An unexpected exception occurred: ' . $e->getMessage());
+             return view('admin.common-page.error', ['error' => 'An unexpected error occurred: ' . $e->getMessage()]);
+         }
+
      }
  
 }

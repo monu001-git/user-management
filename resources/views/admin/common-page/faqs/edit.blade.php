@@ -71,6 +71,21 @@
                                 </div>
                             </div>
 
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>Content Name:</strong>
+                                    <br />
+                                    <select name="content_id" class="form-control">
+                                        <option value=''>Section Option</option>
+                                        @foreach($contentId as $contentlist)
+                                        <option value='{{ $contentlist->id  ??""}}' @if($contentlist->id == $faq->content_id) selected @endif>
+                                            {{ $contentlist->title ??"" }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <input type="hidden" name="status" value="{{ $faq->status }}" class="form-control">
 
 
