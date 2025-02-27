@@ -132,8 +132,8 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>whatsapp:</strong>
-                                            <input type="text" name="whatsapp" minlength="3" maxlength="100"
-                                                value="{{ old('whatsapp') }}" placeholder="whatsapp" class="form-control ">
+                                            <input type="text" name="whatsApp" minlength="3" maxlength="100"
+                                                value="{{ old('whatsApp') }}" placeholder="whatsapp" class="form-control ">
 
 
                                         </div>

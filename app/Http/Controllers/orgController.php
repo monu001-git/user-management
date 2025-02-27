@@ -196,7 +196,7 @@ class orgController extends Controller
             $data->testimonial_title = $request->testimonial_title;
             $data->testimonial_heading = $request->testimonial_heading;
 
-            $data->whatsapp = $request->whatsapp;
+            $data->whatsApp = $request->whatsApp;
             $data->report_download = $request->report_download;
          
             $data->head_script = $request->head_script;
@@ -401,7 +401,7 @@ class orgController extends Controller
             $data->testimonial_title = $request->testimonial_title;
             $data->testimonial_heading = $request->testimonial_heading;
 
-            $data->whatsapp = $request->whatsapp;
+            $data->whatsApp = $request->whatsApp;
             $data->report_download = $request->report_download;
 
             $data->head_script = $request->head_script;

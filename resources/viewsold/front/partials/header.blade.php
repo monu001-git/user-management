@@ -18,8 +18,8 @@
                           <div class="navbar-header">
                               @if (isset($orgData->header_logo))
                                   <a class="navbar-brand" href="{{ url('/') }}"><img
-                                      @if(isset($orgData->header_logo)) src="{{ asset('uploads/logo/headerlogo' . '/' . $orgData->header_logo ?? '') }}"
-                                        @endif   title="{{ $orgData->header_logo_title ?? '' }}"></a>
+                                          @if (isset($orgData->header_logo)) src="{{ asset('uploads/logo/headerlogo' . '/' . $orgData->header_logo ?? '') }}" @endif
+                                          title="{{ $orgData->header_logo_title ?? '' }}"></a>
                               @endif
                           </div>
                       </div>
@@ -94,8 +94,8 @@
                               <div class="header-search-form-wrapper">
                                   <div class="cart-search-contact">
 
-                                      @if (isset($orgData->whatsapp))
-                                          <a href="{{ $orgData->whatsapp ?? '' }}" target="_blank"
+                                      @if (isset($orgData->whatsApp) && !empty($orgData->whatsApp))
+                                          <a href="{{ $orgData->whatsApp ?? '' }}" target="_blank"
                                               class="search-toggle-btn"><img
                                                   src="{{ asset('front/assets/images/icon/whataApp.svg') }}"></a>
                                       @endif
@@ -114,5 +114,5 @@
           </nav>
       </div>
   </header>
-  
+
   <!-- end of header -->
