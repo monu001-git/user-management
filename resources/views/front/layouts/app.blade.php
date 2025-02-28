@@ -59,7 +59,7 @@
     <link href="{{ asset('front/assets/sass/responsive.css?ver=1.1') }}" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    
+
 
     @if (isset($orgData->head_script) && $orgData->head_script != null)
         <title>{!! $orgData->head_script !!}</title>
@@ -87,30 +87,57 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!--button type="button" class="btn-close btnrk" data-bs-dismiss="modal" aria-label="Close"></button-->
-                <div class="modal-body p-0">
-                    <div data-slide="slide" class="slide">
+    @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            <!-- Indicators -->
+                            <div class="carousel-indicators">
+                                @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
+                                    @foreach ($galleryDataTopImage['gallerydetailData'] as $k => $galleryDataTopImages)
+                                        <button type="button" data-bs-target="#carouselExampleIndicators"
+                                            data-bs-slide-to="{{ $k }}"
+                                            class="{{ $k == 0 ? 'active' : '' }}"
+                                            aria-label="Slide {{ $k + 1 }}"></button>
+                                    @endforeach
+                                @endif
+                            </div>
 
-                        @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
-                            @foreach ($galleryDataTopImage['gallerydetailData'] as $galleryDataTopImages)
-                                    <img src="{{ asset('uploads/content/image' . '/' . $galleryDataTopImages->image) ?? '' }}" alt="story">
-                            @endforeach
-                        @endif
-                        <nav class="slide-nav">
-                            <div class="slide-thumbs"></div>
-                            <button class="slide-prev">Previous</button>
-                            <button class="slide-next">Next</button>
-                        </nav>
+                            <!-- Carousel Items -->
+                            <div class="carousel-inner">
+                                @if (isset($galleryDataTopImage) && count($galleryDataTopImage) > 0)
+                                    @foreach ($galleryDataTopImage['gallerydetailData'] as $k => $galleryDataTopImages)
+                                        <div class="carousel-item {{ $k == 0 ? 'active' : '' }}">
+                                            <img src="{{ asset('uploads/content/image/' . $galleryDataTopImages->image) }}"
+                                                class="d-block w-100" alt="Gallery Image">
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <!-- Controls -->
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal end -->
+    @else
+        <p>Story Image Not Available </p>
 
+    @endif
+    <!-- Modal end -->
 
     <!-- end of page-wrapper -->
     <div class="three-button">
