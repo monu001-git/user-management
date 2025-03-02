@@ -62,32 +62,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Url:</strong>
-                                    <input type="text" name="url" placeholder="url" minlength="3"  maxlength="100" class="form-control">
-                                    @error('url')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Link Type:</strong>
-                                    <br />
-                                    <select name="link_type" class="form-control">
-                                        <option value="">Select value</option>
-                                        <option value="0">External</option>
-                                        <option value="1">Internal</option>
-                                    </select>
-
-                                    @error('link_type')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                         
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">

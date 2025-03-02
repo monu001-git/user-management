@@ -36,7 +36,7 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('blogs.update', dEncrypt($banner->id)) }}"
+                        <form method="POST" action="{{ route('blogs.update', dEncrypt($blog->id)) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -47,7 +47,8 @@
                                         <strong>Title *:</strong>
                                         <input type="text" name="title" placeholder="title" minlength="3"
                                             maxlength="100" class="form-control preventnumeric"
-                                            value="{{ $banner->title }}">
+                                            value="{{ $blog->title ??'' }}">
+
                                         @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -57,7 +58,7 @@
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Description:</strong>
-                                        <textarea name="description" class="form-control">{!! $banner->description ?? '' !!}</textarea>
+                                        <textarea name="description" class="form-control">{!! $blog->description ?? '' !!}</textarea>
                                     </div>
                                     @error('description')
                                         <div class="text-danger">{{ $message }}</div>
@@ -66,60 +67,30 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Url:</strong>
-                                        <input type="text" name="url" placeholder="url" minlength="3"
-                                            maxlength="100" value="{{ $banner->url ?? '' }}" class="form-control">
-                                        @error('url')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <strong>Link Type:</strong>
-                                        <br />
-                                        <select name="link_type" class="form-control">
-                                            <option value="">Select value</option>
-                                            <option value="0"
-                                                {{ old('link_type', $banner->link_type) == 0 ? 'selected' : '' }}>External
-                                            </option>
-                                            <option value="1"
-                                                {{ old('link_type', $banner->link_type) == 1 ? 'selected' : '' }}>Internal
-                                            </option>
-                                        </select>
-                                        @error('link_type')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
                                         <strong>Sort Order *:</strong>
-                                        <input type="text" name="order" value="{{ $banner->order ?? '' }}"
+                                        <input type="text" name="order" value="{{ $blog->order ?? '' }}"
                                             placeholder="Sort order" minlength="1" maxlength="3"
                                             class="form-control mobile_no">
+
                                         @error('order')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="status" value="{{ $banner->status }}" class="form-control">
+                                <input type="hidden" name="status" value="{{ $blog->status ??'' }}" class="form-control">
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <strong>Image *:</strong>
                                         <span style="color:green;font-size:12px;">
-                                            @if ($banner->image)
-                                                [{{ $banner->image }}]
+                                            @if ($blog->image)
+                                                [{{ $blog->image }}]
                                             @endif
                                         </span>
 
                                         <input type="file" name="image" class="form-control image1"
-                                            @if ($banner->image) value="{{ $banner->image ?? '' }}" @endif>
+                                            @if ($blog->image) value="{{ $blog->image ?? '' }}" @endif>
                                     </div>
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
@@ -128,7 +99,7 @@
 
                                 <div class="card-action">
                                     <button type="submit" class="btn btn-success">Submit</button>
-                                    <a class="btn btn-danger" href="{{ route('banners.index') }}"> Back</a>
+                                    <a class="btn btn-danger" href="{{ route('blogs.index') }}"> Back</a>
                                 </div>
                             </div>
                         </form>

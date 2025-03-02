@@ -89,15 +89,13 @@ class blogController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = new banner;
+            $data = new blog;
             $data->title = ucwords($request->title);
             $data->description  = $request->description;
-            $data->url  = $request->url;
-            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
 
-            $path = public_path('uploads/banner');
+            $path = public_path('uploads/blog');
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
@@ -107,8 +105,7 @@ class blogController extends Controller
 
             $data->save();
 
-            return redirect()->route('banners.index')
-                ->with('success', 'banner created successfully');
+            return redirect()->route('blogs.index')->with('success', 'Blog Created successfully');
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -131,8 +128,10 @@ class blogController extends Controller
     public function show($id)
     {
         try {
-            $banner = banner::find(dDecrypt($id));
-            return view('admin.common-page.banners.show', compact('banner'));
+      
+            $blog = blog::find(dDecrypt($id));
+            return view('admin.common-page.blogs.show', compact('blog'));
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -154,8 +153,10 @@ class blogController extends Controller
     public function edit($id)
     {
         try {
-            $banner = banner::find(dDecrypt($id));
-            return view('admin.common-page.banners.edit', compact('banner'));
+       
+            $blog = blog::find(dDecrypt($id));
+            return view('admin.common-page.blogs.edit', compact('blog'));
+       
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -189,17 +190,13 @@ class blogController extends Controller
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = banner::find(dDecrypt($id));
+            $data = blog::find(dDecrypt($id));
             $data->title = ucwords($request->title);
             $data->description  = $request->description;
-            $data->url  = $request->url;
-            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
 
-            // dd($request->hasFile('image'));
-
-            $path = public_path('uploads/banner');
+            $path = public_path('uploads/blog');
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
@@ -209,8 +206,8 @@ class blogController extends Controller
 
             $data->save();
 
-            return redirect()->route('banners.index')
-                ->with('success', 'banner updated successfully');
+            return redirect()->route('blogs.index')->with('success', 'blog Updated Successfully');
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -232,9 +229,11 @@ class blogController extends Controller
     public function destroy($id)
     {
         try {
-            banner::find(dDecrypt($id))->delete();
-            return redirect()->route('banners.index')
-                ->with('success', 'banner deleted successfully');
+            
+            blog::find(dDecrypt($id))->delete();
+            return redirect()->route('blogs.index')->with('success', 'Blog Deleted Successfully');
+
+
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
