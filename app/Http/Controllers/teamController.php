@@ -35,7 +35,7 @@ class teamController extends Controller
     {
         try {
       
-            $team = team::orderBy('id', 'asc')->get();
+            $team = team::orderBy('id', 'desc')->get();
             return view('admin.common-page.teams.index', compact('team'))->with('i', ($request->input('page', 1) - 1) * 5);
       
         } catch (\Exception $e) {

@@ -30,7 +30,7 @@ class testimonialController extends Controller
     {
         try {
          
-            $testimonial = testimonial::orderBy('id', 'asc')->get();
+            $testimonial = testimonial::orderBy('id', 'desc')->get();
             return view('admin.common-page.testimonials.index', compact('testimonial'))->with('i', ($request->input('page', 1) - 1) * 5);
      
         } catch (\Exception $e) {

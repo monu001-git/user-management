@@ -28,7 +28,7 @@ class appointmentController extends Controller
     public function index(Request $request)
     {
         try {
-            $appointment = appoinment_book::orderBy('id', 'asc')->get();
+            $appointment = appoinment_book::orderBy('id', 'desc')->get();
             return view('admin.common-page.appointment.index', compact('appointment'))->with('i', ($request->input('page', 1) - 1) * 5);
       
         } catch (\Exception $e) {

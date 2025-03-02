@@ -28,7 +28,7 @@ class specialitiesController extends Controller
     {
         try {
 
-            $specialitie = specialitie::orderBy('id','asc')->get();
+            $specialitie = specialitie::orderBy('id','desc')->get();
             return view('admin.common-page.specialities.index', compact('specialitie'))->with('i', ($request->input('page', 1) - 1) * 5);
 
         } catch (\Exception $e) {

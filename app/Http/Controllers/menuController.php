@@ -32,7 +32,7 @@ class menuController extends Controller
     public function index(Request $request)
     {
         try {
-            $menu = menu::orderBy('id', 'asc')->get();
+            $menu = menu::orderBy('id', 'desc')->get();
             return view('admin.common-page.menus.index', compact('menu'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {

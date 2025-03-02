@@ -31,7 +31,7 @@ class departmentController extends Controller
     {
         try {
       
-            $department = department::orderBy('id', 'asc')->get();
+            $department = department::orderBy('id', 'desc')->get();
             return view('admin.common-page.departments.index', compact('department'))->with('i', ($request->input('page', 1) - 1) * 5);
       
         } catch (\Exception $e) {

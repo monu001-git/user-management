@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\faq;
+use App\Models\blog;
+use DB;
+use Hash;
+use Illuminate\Support\Arr;
+use Illuminate\View\View;
 use Illuminate\Support\Facades\Validator;
-use App\Models\content;
 
-class faqController extends Controller
+class blogController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:faq-list|faq-create|faq-edit|faq-delete');
-        $this->middleware('permission:faq-list', ['only' => ['index']]);
-        $this->middleware('permission:faq-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:faq-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:faq-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:blog-list|banner-create|blog-edit|blog-delete');
+        $this->middleware('permission:blog-list', ['only' => ['index']]);
+        $this->middleware('permission:blog-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:blog-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -27,10 +30,10 @@ class faqController extends Controller
     public function index(Request $request)
     {
         try {
-
-            $faq = faq::orderBy('id', 'desc')->get();
-            return view('admin.common-page.faqs.index', compact('faq'))->with('i', ($request->input('page', 1) - 1) * 5);
-
+          
+            $blog = blog::orderBy('id', 'desc')->get();
+            return view('admin.common-page.blogs.index', compact('blog'))->with('i', ($request->input('page', 1) - 1) * 5);
+      
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -51,10 +54,8 @@ class faqController extends Controller
     public function create()
     {
         try {
-
-            $faq = faq::pluck('question', 'question')->all();
-            $contentId = content::get();
-            return view('admin.common-page.faqs.create', compact('faq','contentId'));
+            $blog = blog::pluck('title', 'title')->all();
+            return view('admin.common-page.blogs.create', compact('blog'));
 
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
@@ -78,27 +79,37 @@ class faqController extends Controller
     {
         try {
 
-      //  dd($request->all());
             $validator = Validator::make($request->all(), [
-                'question' => 'required',
-                'answer' => 'required',
+                'title' => 'required|unique:banners,title',
                 'order' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = new faq;
-            $data->question = $request->question;
-            $data->answer  = $request->answer;
+            $data = new banner;
+            $data->title = ucwords($request->title);
+            $data->description  = $request->description;
+            $data->url  = $request->url;
+            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
-            $data->content_id  = $request->content_id;
+
+            $path = public_path('uploads/banner');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->image = $newname;
+            }
+
             $data->save();
 
+            return redirect()->route('banners.index')
+                ->with('success', 'banner created successfully');
 
-            return redirect()->route('faqs.index')->with('success', 'faq created successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -120,10 +131,8 @@ class faqController extends Controller
     public function show($id)
     {
         try {
-
-            $faq = faq::find(dDecrypt($id));
-            return view('admin.common-page.faqs.show', compact('faq'));
-
+            $banner = banner::find(dDecrypt($id));
+            return view('admin.common-page.banners.show', compact('banner'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -145,11 +154,8 @@ class faqController extends Controller
     public function edit($id)
     {
         try {
-
-            $faq = faq::find(dDecrypt($id));
-            $contentId = content::get();
-            return view('admin.common-page.faqs.edit', compact('faq','contentId'));
-
+            $banner = banner::find(dDecrypt($id));
+            return view('admin.common-page.banners.edit', compact('banner'));
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -174,24 +180,37 @@ class faqController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'question' => 'required',
-                'answer' => 'required',
+                'title' => 'required',
                 'order' => 'required',
+                'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            $data = faq::find(dDecrypt($id));
-            $data->question = $request->question;
-            $data->answer  = $request->answer;
+            $data = banner::find(dDecrypt($id));
+            $data->title = ucwords($request->title);
+            $data->description  = $request->description;
+            $data->url  = $request->url;
+            $data->link_type  = $request->link_type;
             $data->order  = $request->order;
             $data->status  = $request->status;
-            $data->content_id  = $request->content_id;
+
+            // dd($request->hasFile('image'));
+
+            $path = public_path('uploads/banner');
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->image = $newname;
+            }
+
             $data->save();
 
-            return redirect()->route('faqs.index')->with('success', 'faq updated successfully');
+            return redirect()->route('banners.index')
+                ->with('success', 'banner updated successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('error', ['error' => 'An error occurred: ' . $e->getMessage()]);
@@ -213,10 +232,9 @@ class faqController extends Controller
     public function destroy($id)
     {
         try {
-
-            faq::find(dDecrypt($id))->delete();
-            return redirect()->route('faqs.index')->with('success', 'faq deleted successfully');
-
+            banner::find(dDecrypt($id))->delete();
+            return redirect()->route('banners.index')
+                ->with('success', 'banner deleted successfully');
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());
             return view('admin.common-page.error', ['error' => 'An error occurred: ' . $e->getMessage()]);

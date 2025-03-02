@@ -28,7 +28,7 @@ class contentController extends Controller
     {
         try {
 
-            $content = content::orderBy('id', 'asc')->get();
+            $content = content::orderBy('id', 'desc')->get();
             return view('admin.common-page.contents.index', compact('content'))->with('i', ($request->input('page', 1) - 1) * 5);
 
         } catch (\Exception $e) {

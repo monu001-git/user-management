@@ -31,7 +31,7 @@ class galleryController extends Controller
     {
         try {
 
-            $gallery = gallery::orderBy('id', 'asc')->get();
+            $gallery = gallery::orderBy('id', 'desc')->get();
             return view('admin.common-page.gallery.index', compact('gallery'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             \Log::error('An exception occurred: ' . $e->getMessage());

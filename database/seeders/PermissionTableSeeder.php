@@ -77,6 +77,11 @@ class PermissionTableSeeder extends Seeder
            'testimonial-create',
            'testimonial-edit',
            'testimonial-delete',
+
+           'blog-list',
+           'blog-create',
+           'blog-edit',
+           'blog-delete',
         ];
         
         foreach ($permissions as $permission) {

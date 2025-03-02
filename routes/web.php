@@ -20,6 +20,7 @@ use App\Http\Controllers\testimonialController;
 use App\Http\Controllers\departmentController;
 use Mews\Captcha\Facades\Captcha;
 use App\Http\Middleware\logMiddleware;
+use App\Http\Controllers\blogcontroller;
 
 Auth::routes();
 
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('orgs', orgController::class);
     Route::resource('contents', contentController::class);
     Route::resource('gallery', galleryController::class);
+    Route::resource('blogs', blogcontroller::class);
     Route::resource('teams', teamController::class);
     Route::get('log',[HomeController::class,'logIndex']);
     Route::resource('departments', departmentController::class);

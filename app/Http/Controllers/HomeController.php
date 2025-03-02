@@ -43,7 +43,7 @@ class HomeController extends Controller
 
         try{
  
-           $log = log::orderBy('id', 'asc')->get();  
+           $log = log::orderBy('id', 'desc')->get();  
            return view('admin.common-page.logs.index',['log'=>$log]);
      
      

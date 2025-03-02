@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         try {
          
-            $data = User::orderBy('id', 'asc')->get();
+            $data = User::orderBy('id', 'desc')->get();
             return view('admin.common-page.users.index', compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
      
         } catch (\Exception $e) {

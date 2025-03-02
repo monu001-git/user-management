@@ -107,7 +107,19 @@
                          </li>
                      @endcan
 
+                     @can('blog-list')
+                     <li class="nav-item {{ request()->routeIs('blogs.index') ? 'active' : '' }}">
 
+                         <a href="{{ route('blogs.index') }}">
+
+                             <i class="fas fa-image"></i>
+
+                             <p>Manage Blog </p>
+
+                         </a>
+
+                     </li>
+                 @endcan
 
 
 
