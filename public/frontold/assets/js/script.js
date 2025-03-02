@@ -552,7 +552,7 @@
 			smartSpeed: 1000,
 			autoplay: 4000,
 			autoplayHoverPause: true,
-			navText: [ '<span><img src="assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="assets/images/icon/arrow-right-green.svg" /></span>' ],
+			navText: [ '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-right-green.svg" /></span>' ],
 			responsive:{
                 0: {
                     items: 1.4,
@@ -598,7 +598,7 @@
 			smartSpeed: 1000,
 			autoplay: 4000,
 			autoplayHoverPause: true,
-			navText: [ '<span><img src="assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="assets/images/icon/arrow-right-green.svg" /></span>' ],
+			navText: [ '<span><img src="http://localhost:8000/"   /></span>', '<span><img src="http://localhost:8000/assets/images/icon/arrow-right-green.svg" /></span>' ],
 			responsive:{
                 0: {
                     items: 1.3,
@@ -644,7 +644,7 @@
 			smartSpeed: 1000,
 			autoplay: 4000,
 			autoplayHoverPause: true,
-			navText: [ '<span><img src="assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="assets/images/icon/arrow-right-green.svg" /></span>' ],
+			navText: [ '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-right-green.svg" /></span>' ],
 			responsive:{
                 0: {
                     items: 1.3,
@@ -705,7 +705,7 @@
 			smartSpeed: 300,
 			autoplay: 4000,
 			autoplayHoverPause: true,
-			navText: [ '<span><img src="assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="assets/images/icon/arrow-right-green.svg" /></span>' ],
+			navText: [ '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-left-green.svg"   /></span>', '<span><img src="http://localhost:8000/front/assets/images/icon/arrow-right-green.svg" /></span>' ],
 			responsive:{
                 0: {
                     items: 1,

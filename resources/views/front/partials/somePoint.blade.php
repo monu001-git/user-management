@@ -19,8 +19,10 @@
 
     <!-- INFO-6 IMAGE -->
     @if (!empty($orgData->middle_image))
-        <div class="text-center" style="background: url( {{ asset('uploads/middleimage/' . $orgData->middle_image) }});">
-        </div>
+    <div class="info-6-img text-center" style="background: url( {{ asset('uploads/middleimage/'.$orgData->middle_image) }}) no-repeat center top/cover;">
+    </div>
+
+        
     @else
         <div> Image not available</div>
     @endif

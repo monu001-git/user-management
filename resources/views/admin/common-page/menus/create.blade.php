@@ -42,7 +42,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Name:</strong>
-                                            <input type="text" name="name" minlength="1" maxlength="30"
+                                            <input type="text" name="name" minlength="1" maxlength="70"
                                                 placeholder="Enter your menu name" value="{{ old('name') }}"
                                                 class="form-control preventnumeric">
 

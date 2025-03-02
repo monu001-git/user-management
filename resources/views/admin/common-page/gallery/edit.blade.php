@@ -155,7 +155,7 @@
                                                         @endif
                                                     </span>
 
-                                                    <input type="file" name="image1[]" class="form-control image1"
+                                                    <input type="file" name="image1[]" class="form-control image4"
                                                         @if ($gallerydetails->image) value="{{ $gallerydetails->image }}" @endif>
                                                 </div>
                                             @else
@@ -167,7 +167,7 @@
                                                         @endif
                                                     </span>
 
-                                                    <input type="file" name="image2[]" class="form-control image2"
+                                                    <input type="file" name="image2[]" class="form-control image3"
                                                         @if ($gallerydetails->image) value="{{ $gallerydetails->image  ??''}}" @endif>
                                                 </div>
 
@@ -239,11 +239,11 @@
             <input type="hidden" class="form-control" name="id[]" value="" />
 
             <div class="col-3 fileInputContainer" style="display: none;">
-                <input type="file" class="form-control image" name="image1[]" id="fileInput" />
+                <input type="file" class="form-control image1" name="image1[]" id="fileInput" />
             </div>
 
             <div class="col-3 urlInputContainer" style="display: none;">
-                <input type="file" class="form-control image" name="image2[]" id="imageInput" />
+                <input type="file" class="form-control image2" name="image2[]" id="imageInput" />
             </div>
 
             <div class="col-3 urlInputContainer" style="display: none;">
