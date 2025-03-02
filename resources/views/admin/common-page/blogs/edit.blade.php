@@ -82,6 +82,26 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
+                                        <strong>banner *:</strong>
+                                        <span style="color:green;font-size:12px;">
+                                            @if ($blog->banner)
+                                                [{{ $blog->banner }}]
+                                            @endif
+                                        </span>
+
+                                        <input type="file" name="banner" class="form-control image2"
+                                            @if ($blog->banner) value="{{ $blog->banner ?? '' }}" @endif>
+                                    </div>
+                                    @error('banner')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+
+
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
                                         <strong>Image *:</strong>
                                         <span style="color:green;font-size:12px;">
                                             @if ($blog->image)

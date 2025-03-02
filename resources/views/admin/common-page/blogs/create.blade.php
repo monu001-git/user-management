@@ -75,6 +75,19 @@
                             </div>
 
 
+
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <strong>banner *:</strong>
+                                    <input type="file" name="banner" class="form-control image2">
+                                    
+                                    @error('banner')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <strong>Image *:</strong>

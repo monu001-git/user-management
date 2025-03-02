@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title', 150);
             $table->text('description')->nullable();
             $table->string('image', 255);
+            $table->string('banner', 255);
+            $table->string('user_name', 255);
             $table->integer('order')->nullable()->default(0);
             $table->boolean('status')->default(0);
             $table->softDeletes();

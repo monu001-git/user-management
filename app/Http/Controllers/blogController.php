@@ -94,13 +94,22 @@ class blogController extends Controller
             $data->description  = $request->description;
             $data->order  = $request->order;
             $data->status  = $request->status;
-
+            $data->user_name  = Auth::user()->name;
+            
             $path = public_path('uploads/blog');
             if ($request->hasFile('image')) {
                 $file = $request->file('image');
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $newname);
                 $data->image = $newname;
+            }
+
+            $path = public_path('uploads/blog');
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->banner = $newname;
             }
 
             $data->save();
@@ -195,6 +204,7 @@ class blogController extends Controller
             $data->description  = $request->description;
             $data->order  = $request->order;
             $data->status  = $request->status;
+            $data->user_name  = Auth::user()->name;
 
             $path = public_path('uploads/blog');
             if ($request->hasFile('image')) {
@@ -202,6 +212,14 @@ class blogController extends Controller
                 $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
                 $file->move($path, $newname);
                 $data->image = $newname;
+            }
+
+            $path = public_path('uploads/blog');
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
+                $newname = time() . rand(10, 99) . '.' . $file->getClientOriginalExtension();
+                $file->move($path, $newname);
+                $data->banner = $newname;
             }
 
             $data->save();

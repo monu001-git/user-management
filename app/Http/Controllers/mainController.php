@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\appoinment_book;
 use App\Models\countact;
+use App\Models\blog;
 use Illuminate\Support\Facades\Validator;
 use Mail;
 use App\Mail\appointmentDoctorMail;
@@ -200,6 +201,13 @@ class mainController extends Controller
                 'galleryDataNews' => $galleryDataNews
             ]);
         
+      
+        }else if($slug== 'blog'){
+
+            $blog=blog::orderBy('order', 'desc')->get();
+        
+            return view('front.common-page.blog', compact('blog'));
+        
         }else {
             return view('error', [
                 'message' => 'not Found'
@@ -357,7 +365,7 @@ class mainController extends Controller
         return response()->json(['captcha' => captcha_src()]);
     }
     
-     
+
 
 }
 
